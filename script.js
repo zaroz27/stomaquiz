@@ -165,22 +165,54 @@ const bancoDeLesoes = [
         dicas: ["Malignidade de glândula salivar mais comum em adultos e crianças.", "Pode apresentar aspecto azulado (lembrando mucocele).", "Geralmente ocorre no palato ou parótida."] 
     }
 ];
-// --- CONFIGURAÇÕES DO JOGO ---
+// --- BANCO DE DADOS (Exemplo - Mantenha o seu original abaixo deste) ---
+const bancoDeLesoes = [
+    {
+        nome: "Liquen Plano",
+        url: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Lichen_planus_6.jpg", // Exemplo online
+        dicas: ["Linhas esbranquiçadas (Estrias de Wickham)", "Pode ser reticular ou erosivo", "Comum em mucosa jugal bilateral"],
+        revisao: "O Líquen Plano é uma doença inflamatória crônica mediada por células T. O padrão reticular é o mais comum e apresenta as clássicas Estrias de Wickham."
+    },
+    {
+        nome: "Leucoplasia",
+        url: "https://upload.wikimedia.org/wikipedia/commons/5/52/Leukoplakia01.jpg",
+        dicas: ["Placa branca que não sai à raspagem", "Termo clínico, não histopatológico", "Potencial de transformação maligna"],
+        revisao: "A Leucoplasia é a lesão cancerizável mais comum da boca. O diagnóstico é feito por exclusão de outras placas brancas."
+    }
+];
+
+// --- BANCO DE DADOS (Exemplo - Mantenha o seu original abaixo deste) ---
+const bancoDeLesoes = [
+    {
+        nome: "Liquen Plano",
+        url: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Lichen_planus_6.jpg", // Exemplo online
+        dicas: ["Linhas esbranquiçadas (Estrias de Wickham)", "Pode ser reticular ou erosivo", "Comum em mucosa jugal bilateral"],
+        revisao: "O Líquen Plano é uma doença inflamatória crônica mediada por células T. O padrão reticular é o mais comum e apresenta as clássicas Estrias de Wickham."
+    },
+    {
+        nome: "Leucoplasia",
+        url: "https://upload.wikimedia.org/wikipedia/commons/5/52/Leukoplakia01.jpg",
+        dicas: ["Placa branca que não sai à raspagem", "Termo clínico, não histopatológico", "Potencial de transformação maligna"],
+        revisao: "A Leucoplasia é a lesão cancerizável mais comum da boca. O diagnóstico é feito por exclusão de outras placas brancas."
+    }
+];
+
+// --- VARIÁVEIS DE CONTROLE ---
 let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
-let blurValue = 12;
+let blurValue = 15;
 let totalScore = 0;
 let timer;
 let timeLeft = 45;
 let lives = 3;
 const MAX_LIVES = 3;
-let hintRevealed = false;
 
+// Inicialização
 window.onload = prepararNovoJogo;
 
 function prepararNovoJogo() {
-    // Certifique-se que o bancoDeLesoes está disponível globalmente
+    // Embaralha e seleciona 30 casos
     filaDeJogo = [...bancoDeLesoes]
         .sort(() => Math.random() - 0.5)
         .slice(0, 30);
@@ -191,38 +223,40 @@ function prepararNovoJogo() {
     
     document.getElementById('pts').innerText = totalScore;
     updateLivesDisplay();
-    updateRank();
     loadCase();
 }
 
 function loadCase() {
-    if (filaDeJogo.length === 0) return;
+    if (currentCaseIndex >= filaDeJogo.length) {
+        alert("🎉 Parabéns! Você concluiu o Atlas!");
+        prepararNovoJogo();
+        return;
+    }
 
     const caso = filaDeJogo[currentCaseIndex];
     const imgElement = document.getElementById('lesion-image');
     
-    // Reset de Estado
+    // IMPORTANTE: Reset de visual para a foto aparecer
     imgElement.style.opacity = "0"; 
-    blurValue = 12; 
+    blurValue = 15; 
     imgElement.style.filter = `blur(${blurValue}px)`;
-    attempts = 0;
-    hintRevealed = false;
-
-    // Interface
-    imgElement.src = caso.url;
-    imgElement.onload = () => imgElement.style.opacity = "1";
     
+    // Troca a fonte da imagem
+    imgElement.src = caso.url;
+    
+    // Só mostra a imagem quando ela terminar de carregar
+    imgElement.onload = () => {
+        imgElement.style.opacity = "1";
+    };
+
+    // Reset de Interface
+    attempts = 0;
     document.getElementById('case-number').innerText = currentCaseIndex + 1;
     document.getElementById('total-cases').innerText = filaDeJogo.length;
-    document.getElementById('feedback').style.display = "none";
+    document.getElementById('guess-input').value = "";
+    document.getElementById('guess-input').disabled = false;
+    document.getElementById('current-hints-list').innerHTML = '<span style="color: #999; font-size:0.8rem;">Analise a imagem...</span>';
     
-    const inputField = document.getElementById('guess-input');
-    inputField.value = "";
-    inputField.disabled = false;
-    inputField.focus();
-
-    document.getElementById('current-hints-list').innerHTML = '<span style="color: #999; font-size:0.75rem;">Aguardando submissão...</span>';
-
     startTimer();
 }
 
@@ -231,70 +265,61 @@ function startTimer() {
     timeLeft = 45;
     const display = document.getElementById('timer-display');
     display.innerText = timeLeft;
-    display.style.color = "#fff";
 
     timer = setInterval(() => {
         timeLeft--;
         display.innerText = timeLeft;
-        if (timeLeft <= 10) display.style.color = "#ff4d4d";
         if (timeLeft <= 0) {
             clearInterval(timer);
-            timeout();
+            perderVida("O tempo esgotou!");
         }
     }, 1000);
 }
 
-function updateLivesDisplay() {
-    const container = document.getElementById('lives-container');
-    container.innerHTML = "❤️".repeat(lives) + "🖤".repeat(MAX_LIVES - lives);
-}
-
 function checkGuess() {
-    const inputField = document.getElementById('guess-input');
-    const guess = inputField.value.toLowerCase().trim();
-    const casoAtual = filaDeJogo[currentCaseIndex];
-    
-    if (guess === casoAtual.nome.toLowerCase()) {
-        vitoria();
+    const input = document.getElementById('guess-input');
+    const guess = input.value.toLowerCase().trim();
+    const correto = filaDeJogo[currentCaseIndex].nome.toLowerCase();
+
+    if (guess === correto) {
+        ganharPontos();
     } else {
-        erro();
+        tratarErro();
     }
 }
 
-function vitoria() {
+function ganharPontos() {
     clearInterval(timer);
-    const caso = filaDeJogo[currentCaseIndex];
-    document.getElementById('lesion-image').style.filter = "blur(0px)";
-    
-    let pontos = Math.max(10, 50 - (attempts * 10));
-    if (hintRevealed) pontos = Math.floor(pontos / 2);
-    totalScore += pontos;
+    const pontosGanhos = Math.max(10, 50 - (attempts * 10));
+    totalScore += pontosGanhos;
     document.getElementById('pts').innerText = totalScore;
     
-    showReview(`✅ Excelente Diagnóstico!`, `Você identificou corretamente: <strong>${caso.nome.toUpperCase()}</strong>. <br><br>${caso.revisao || "Continue assim para dominar o Neville!"}`);
+    showReview("✅ ACERTOU!", filaDeJogo[currentCaseIndex].revisao);
 }
 
-function erro() {
+function tratarErro() {
     attempts++;
     const caso = filaDeJogo[currentCaseIndex];
 
     if (attempts >= 4) {
-        perderVida("Muitos erros no mesmo caso.");
+        perderVida("Muitas tentativas incorretas.");
         return;
     }
 
-    blurValue = Math.max(0, blurValue - 3);
+    // Melhora a nitidez da foto a cada erro
+    blurValue = Math.max(0, blurValue - 4);
     document.getElementById('lesion-image').style.filter = `blur(${blurValue}px)`;
     
+    // Adiciona dica na lista
     const hintsList = document.getElementById('current-hints-list');
-    if (attempts === 1) hintsList.innerHTML = ""; 
-
-    if (caso.dicas && caso.dicas[attempts - 1]) {
-        const div = document.createElement('div');
-        div.className = 'hint-item';
-        div.innerHTML = `<strong>Pista ${attempts}:</strong> ${caso.dicas[attempts - 1]}`;
-        hintsList.appendChild(div);
-    }
+    if (attempts === 1) hintsList.innerHTML = "";
+    
+    const dica = caso.dicas[attempts - 1] || "Sem mais dicas para este caso.";
+    const div = document.createElement('div');
+    div.className = 'hint-item';
+    div.innerHTML = `<strong>Dica ${attempts}:</strong> ${dica}`;
+    hintsList.appendChild(div);
+    
     document.getElementById('guess-input').value = "";
 }
 
@@ -304,69 +329,44 @@ function perderVida(motivo) {
     updateLivesDisplay();
     
     if (lives <= 0) {
-        alert(`🚨 GAME OVER: ${motivo}\nSua pontuação final: ${totalScore}`);
+        alert(`🚨 GAME OVER! ${motivo}\nPontuação: ${totalScore}`);
         prepararNovoJogo();
     } else {
-        alert(`${motivo} Você perdeu uma vida!`);
-        showReview("❌ Caso Perdido", `O diagnóstico correto era: <strong>${filaDeJogo[currentCaseIndex].nome.toUpperCase()}</strong>.<br><br>${filaDeJogo[currentCaseIndex].revisao || ""}`);
+        showReview("❌ VIDA PERDIDA", `Motivo: ${motivo}<br><br>O correto era: <strong>${filaDeJogo[currentCaseIndex].nome}</strong>.<br>${filaDeJogo[currentCaseIndex].revisao}`);
     }
 }
 
-function timeout() {
-    perderVida("O tempo esgotou!");
+function updateLivesDisplay() {
+    document.getElementById('lives-display').innerHTML = "❤️".repeat(lives) + "🖤".repeat(MAX_LIVES - lives);
 }
 
-function fazerBiopsia() {
-    if (confirm("Realizar biópsia? Ganhará apenas 5 pontos.")) {
-        clearInterval(timer);
-        totalScore += 5;
-        document.getElementById('pts').innerText = totalScore;
-        showReview("🔬 Laudo Histopatológico", `A biópsia confirmou: <strong>${filaDeJogo[currentCaseIndex].nome.toUpperCase()}</strong>.<br><br>${filaDeJogo[currentCaseIndex].revisao || ""}`);
-    }
-}
-
-function revealExtraHint() {
-    if (hintRevealed) return;
-    hintRevealed = true;
-    const caso = filaDeJogo[currentCaseIndex];
-    const div = document.createElement('div');
-    div.className = 'hint-item';
-    div.style.color = "#8e44ad";
-    div.innerHTML = `<strong>💡 Especialista:</strong> ${caso.dicas[caso.dicas.length - 1]}`;
-    document.getElementById('current-hints-list').appendChild(div);
-}
-
-// --- CONTROLE DA MODAL DE REVISÃO ---
-function showReview(title, text) {
-    document.getElementById('review-title').innerHTML = title;
-    document.getElementById('review-text').innerHTML = text;
+function showReview(titulo, texto) {
+    document.getElementById('review-title').innerHTML = titulo;
+    document.getElementById('review-text').innerHTML = texto;
     document.getElementById('review-modal').style.display = "flex";
     document.getElementById('lesion-image').style.filter = "blur(0px)";
 }
 
 function closeReview() {
     document.getElementById('review-modal').style.display = "none";
-    nextLevel();
-}
-
-function updateRank() {
-    let rank = "Acadêmico";
-    if (totalScore > 300) rank = "Monitor";
-    if (totalScore > 700) rank = "Residente";
-    if (totalScore > 1200) rank = "Estomatologista";
-    document.getElementById('rank').innerText = rank;
-}
-
-function nextLevel() {
     currentCaseIndex++;
-    if (currentCaseIndex < filaDeJogo.length) {
-        loadCase();
-    } else {
-        alert("Atlas concluído com sucesso!");
-        prepararNovoJogo();
+    loadCase();
+}
+
+function fazerBiopsia() {
+    if (confirm("A biópsia revelará o diagnóstico, mas você ganhará apenas 5 pontos. Confirmar?")) {
+        clearInterval(timer);
+        totalScore += 5;
+        document.getElementById('pts').innerText = totalScore;
+        showReview("🔬 LAUDO HISTOPATOLÓGICO", `Diagnóstico: <strong>${filaDeJogo[currentCaseIndex].nome}</strong>.<br><br>${filaDeJogo[currentCaseIndex].revisao}`);
     }
 }
 
+function revealExtraHint() {
+    alert("Dica de Especialista: " + filaDeJogo[currentCaseIndex].dicas[0]);
+}
+
+// Atalho Enter
 document.getElementById('guess-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') checkGuess();
 });
