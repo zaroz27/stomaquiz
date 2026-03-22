@@ -1,177 +1,165 @@
 const bancoDeLesoes = [
     { 
         nome: "língua pilosa", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/0/03/Hairy_tongue.jpg",
-        dicas: ["Alongamento das papilas filiformes.", "Acúmulo de queratina no dorso lingual.", "Pode ter pigmentação variada."] 
+        url: "https://uploads.folhavitoria.com.br/2024/10/42Er4Fnm-d570dc10-78d4-0138-49c9-0a58a9feac2a-minified.jpg",
     },
     { 
         nome: "morsicatio buccarum", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Morsicatio_buccarum.JPG",
+        url: "https://www.dermatologyadvisor.com/wp-content/uploads/sites/20/2019/03/ch1223.fig1_-768x636.jpg",
         dicas: ["Hábito de mordiscamento da mucosa bucal.", "Aspecto macerado e descamativo.", "Localizada na linha de oclusão."] 
     },
     { 
         nome: "linha alba", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Linea_alba_buccalis.jpg",
+        url: "https://blog.dentalcremer.com.br/wp-content/uploads/2018/08/dtm-pt.-1-maria-paula-300x225.jpg",
         dicas: ["Linha branca horizontal na mucosa bucal.", "Resultante da pressão dos dentes.", "Variação da normalidade bilateral."] 
     },
     { 
         nome: "leucoedema", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Leukoedema.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmyFEuMGIvn2l_GX6ykZ0Eyhd3aZhdjmq1og&s",
         dicas: ["Opalescência difusa, cinza-esbranquiçada.", "Desaparece ao esticar a mucosa.", "Comum em pacientes negros."] 
     },
     { 
         nome: "leucoplasia", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Leukoplakia01.jpg",
+        url: "https://opmdcare.com/wp-content/uploads//leukoplakia-image3-1024x683.jpeg",
         dicas: ["Placa branca não removível.", "Associação direta com tabagismo.", "Potencial de transformação maligna."] 
     },
     { 
         nome: "candidíase pseudomembranosa", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/1/10/Oral_candidiasis_01.jpg",
+        url: "https://www.mdsaude.com/wp-content/uploads/candidiase-lingua4.jpg",
         dicas: ["Placas brancas removíveis (leite coalhado).", "Sintomatologia de queimação.", "Comum pós-uso de antibióticos."] 
     },
     { 
         nome: "carcinoma espinocelular oral", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/2/25/Squamous_Cell_Carcinoma_1.jpg",
+        url: "https://curaprox.pt/modules/advancedcms/uploads/AdvancedCmsBlockTeaser/212/oral-cancer-detail.webp",
         dicas: ["Neoplasia maligna mais comum da boca.", "Úlcera com bordas endurecidas que não cicatriza.", "Pode se apresentar como exofítica ou infiltrativa."] 
     },
     { 
         nome: "granuloma piogênico", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/1/1f/Pyogenic_Granuloma.jpg",
+        url: "https://patologiabucal.com.br/wp-content/uploads/GranulomaPiogenico-1.jpg",
         dicas: ["Nódulo vermelho, friável e que sangra facilmente.", "Crescimento rápido e reacional.", "Comum em gengiva e em gestantes."] },
     { 
         nome: "mucocele", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Mucocele_lip.jpg",
+        url: "https://image.tuasaude.com/media/article/n9/0c/mucocele_653.jpg?width=686&height=487",
         dicas: ["Ruptura de ducto salivar com extravasamento de mucina.", "Nódulo flutuante e azulado.", "Localização mais comum: lábio inferior."] 
     },
     { 
         nome: "eritoplasia", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Erythroplakia.jpg",
+        url: "https://opmdcare.com/wp-content/uploads/oral-erythroplakia-image2.jpeg",
         dicas: ["Mancha vermelha aveludada não diagnosticável como outra condição.", "Altíssimo potencial de malignidade.", "Bordas bem definidas."] 
     },
     { 
         nome: "queilite angular", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Angular_Cheilitis.jpg",
+        url: "https://i0.wp.com/wilsoncorreia.com.br/storage/2018/10/boqueira.jpg?resize=1140%2C640&ssl=1",
         dicas: ["Eritema e fissuras nas comissuras labiais.", "Associada à perda de dimensão vertical.", "Infecção mista: Candida e Staphylococcus."] 
     },
     { 
         nome: "hemangioma", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/2/22/Hemangioma_tongue.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTShIvgwZrLMEfuyrf81NH0Vsg4n4xDFCeL-w&s",
         dicas: ["Proliferação benigna de vasos sanguíneos.", "Teste de vitropressão (diascopia) positivo.", "Pode ser congênito."] 
     },
     { 
         nome: "sarcoma de kaposi", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Kaposi%27s_Sarcoma_Palate.jpg",
+        url: "https://www.oncologynurseadvisor.com/wp-content/uploads/sites/13/2019/01/607261_301876.jpg",
         dicas: ["Neoplasia vascular associada ao HHV-8.", "Comum no palato de pacientes com AIDS.", "Máculas ou nódulos arroxeados."] 
     },
     { 
         nome: "melanoma", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Malignant_melanoma_of_hard_palate.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoYxClR7beYiMxRVQ384hhCWrUFVunYtSuIw&s",
         dicas: ["Neoplasia maligna de melanócitos.", "Assimetria, bordas irregulares e cores variadas.", "Pior prognóstico em mucosa oral."] 
     },
     {
         nome: "estomatite nicotínica", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/1/12/Nicotine_stomatitis_hard_palate.jpg",
+        url: "https://quizizz.com/media/resource/gs/quizizz-media/quizzes/49a90bc3-9451-4b08-9972-5ccb14eded5e",
         dicas: ["Palato esbranquiçado com pontos vermelhos centrais.", "Inflamação dos ductos de glândulas salivares menores.", "Comum em fumantes de cachimbo."] 
     },
     { 
-        nome: "necrose química", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/3/33/Aspirin_burn.jpg",
-        dicas: ["Membrana branca superficial por coagulação proteica.", "Causada por contato com substâncias cáusticas.", "Removível, deixando base eritematosa."] 
-    },
-    { 
         nome: "leucoplasia verrucosa proliferativa", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Proliferative_verrucous_leukoplakia.jpg",
+        url: "https://www.scielo.cl/fbpe/img/ijodontos/v7n3/art07_f2.jpg",
         dicas: ["Múltiplas placas brancas que se espalham progressivamente.", "Altíssima taxa de transformação maligna.", "Resistente a tratamentos convencionais."] 
     },
     { 
         nome: "carcinoma verrucoso", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Verrucous_carcinoma.jpg",
+        url: "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/15a3/10039467/e9e81ef15298/raon-57-001-g001.jpg",
         dicas: ["Variante de baixo grau do CEC.", "Crescimento exofítico, lento e verruciforme.", "Raramente sofre metástase."] 
     },
-
     { 
         nome: "eritroleucoplasia", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Speckled_leukoplakia.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu5IbZ99ISTy1uhPbXk8TIoT9oBNsq5IX4Bg&s",
         dicas: ["Lesão mista com componentes brancos e vermelhos.", "Também chamada de leucoplasia pintalgada.", "Risco de câncer superior à leucoplasia pura."] 
     },
     { 
         nome: "malformação vascular", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Vascular_malformation_tongue.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8kyslyXC2FxuxlpEdVpWzO7NnPPXhXewM1Q&s",
         dicas: ["Anomalia estrutural presente ao nascimento.", "Não regride espontaneamente.", "Pode apresentar pulsação ou ruído."] 
     },
     { 
         nome: "osteorradionecrose", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Osteoradionecrosis.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKNAFOv_RPIaXpzhL5egC0wK0vTn_3e5UWrA&s",
         dicas: ["Exposição óssea após radioterapia em cabeça e pescoço.", "Hipovascularização e hipóxia tecidual.", "Dor e sequestro ósseo."] 
     },
     { 
         nome: "lesão periférica de células gigantes", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/9/90/Peripheral_giant_cell_granuloma.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_a0dhnfSfWxYgio8ARbqAZf4UvNnrcQgpYQ&s",
         dicas: ["Nódulo gengival arroxeado ou azul-cianótico.", "Surge do ligamento periodontal ou periósteo.", "Pode causar erosão óssea superficial."] 
     },
     { 
         nome: "fibroma ossificante periférico", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Peripheral_ossifying_fibroma.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdPhkuVq_v9XEo2BXmnbEcQNQrE204fGzZCA&s",
         dicas: ["Nódulo gengival firme, séssil ou pediculado.", "Contém calcificações internas.", "Exclusivo da gengiva."] 
     },
     { 
         nome: "hiperplasia gengival medicamentosa", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/3/31/Gingival_hyperplasia_phenytoin.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB7GDqYe3TtLLSl2H5MbLSEhlnlD46tv557g&s",
         dicas: ["Aumento gengival associado a fármacos (ex: Fenitoína).", "Inicia-se nas papilas interdentais.", "Pode recobrir a coroa dos dentes."] 
     },
     { 
         nome: "rânula", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Ranula_floor_of_mouth.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOUzirzVAOHKcWrL5MRq723XZDb07-rOGVPA&s",
         dicas: ["Mucocele no assoalho da boca.", "Proveniente da glândula sublingual.", "Pode elevar a língua."] 
     },
     { 
         nome: "sialometaplasia necrosante", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/a/a2/Necrotizing_sialometaplasia.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQkokqlO376ViYl2IsfdQnkPEx9OAtG-TmQ&s",
         dicas: ["Úlcera crateriforme profunda no palato.", "Simula clinicamente um câncer.", "Autolimitada (cura em 6-10 semanas)."] 
     },
     { 
         nome: "mácula melanótica", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Oral_melanotic_macule.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ4GRNyFG278Sh-DMZA9mLSfSkUJswU8QHew&s",
         dicas: ["Lesão plana e pigmentada única.", "Aumento focal de melanina.", "Local comum: vermelhão do lábio inferior."] 
     },
     { 
-        nome: "melanose do fumante", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Smoker%27s_melanosis.jpg",
-        dicas: ["Pigmentação acastanhada difusa.", "Mais comum na gengiva anterior vestibular.", "Reação protetora ao calor do tabaco."] 
-    },
-    { 
         nome: "líquen plano erosivo", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/0/07/Erosive_lichen_planus.jpg",
+        url: "https://assets.ohi-s.com/fit-in/768x576/blog-service/media/default/6N8uG_64cbba14551bb.jpg",
         dicas: ["Áreas vermelhas ulceradas com estrias brancas periféricas.", "Forma muito dolorosa.", "Frequentemente bilateral."] 
     },
     { 
         nome: "condiloma acuminado", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/1/1d/Condyloma_acuminatum_tongue.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPc84jRrePLzmYitarYis3WKzdWuf6XeftJQ&s",
         dicas: ["Lesão verrucosa transmitida sexualmente (HPV).", "Geralmente múltipla e de base séssil.", "Superfície romba (menos pontiaguda que papiloma)."] 
     },
     { 
         nome: "papiloma escamoso", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/8/85/Oral_papilloma.jpg",
+        url: "https://static.wixstatic.com/media/beed06_463309eada454b6cbfdb0e3e050fc1fb~mv2.jpg/v1/fill/w_280,h_187,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/papiloma%20escamoso.jpg",
         dicas: ["Projeções papilares digitiformes ('couve-flor').", "Induzida pelo HPV 6 ou 11.", "Geralmente única e pediculada."] 
     },
     { 
         nome: "estomatite urêmica", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Uremic_stomatitis.jpg",
+        url: "https://static.elsevier.es/multimedia/26662752/0000009700000003/v1_202206050551/S2666275222000455/v1_202206050551/pt/main.assets/gr1.jpeg",
         dicas: ["Ocorre em pacientes com falência renal aguda.", "Placas brancas difusas e hálito amoniacal.", "Melhora após diálise."] 
     },
     { 
         nome: "lipoma", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/a/af/Oral_lipoma.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6E1Nvyxd4MXFDrRdJESglqKlpWcSZwXKpkw&s",
         dicas: ["Nódulo amarelado de consistência macia.", "Tumor benigno de tecido adiposo.", "Frequentemente apresenta vasos superficiais evidentes."] 
     },
     { 
         nome: "adenoma pleomórfico", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Pleomorphic_adenoma_palate.jpg",
+        url: "https://static.elsevier.es/multimedia/16462890/0000005700000001/v1_201603200107/S1646289016000066/v1_201603200107/pt/main.assets/gr9.jpeg",
         dicas: ["Tumor de glândula salivar mais comum.", "Massa firme de crescimento lento.", "Localização comum: palato ou parótida."] 
     },
     { 
         nome: "carcinoma mucoepidermoide", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Mucoepidermoid_carcinoma.jpg",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSPh-K3HMpbZkEhbP7ybW-olAJrjgmFeiA4A&s",
         dicas: ["Malignidade de glândula salivar mais comum.", "Pode apresentar aspecto azulado (lembrando mucocele).", "Geralmente no palato."] 
     },
 
