@@ -262,27 +262,43 @@ let attempts = 0;
 let blurValue = 30;
 
 window.onload = prepararNovoJogo;
-
 function prepararNovoJogo() {
-    filaDeJogo = [...bancoDeLesoes].sort(() => Math.random() - 0.5);
+
+    filaDeJogo = [...bancoDeLesoes]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 30);
+    
     currentCaseIndex = 0;
     loadCase();
 }
 
 function loadCase() {
     const caso = filaDeJogo[currentCaseIndex];
-    
     const imgElement = document.getElementById('lesion-image');
-    imgElement.src = caso.url;
-    imgElement.style.filter = "blur(30px)";
     
+    imgElement.style.opacity = "0.3"; 
+    
+    const loader = new Image();
+    loader.src = caso.url;
+    
+    loader.onload = function() {
+
+        imgElement.src = caso.url;
+        imgElement.style.opacity = "1";
+        imgElement.style.filter = "blur(30px)";
+    };
+    loader.onerror = function() {
+        imgElement.src = "https://via.placeholder.com/500?text=Erro+ao+Carregar+Imagem";
+        imgElement.style.opacity = "1";
+    };
+
     document.getElementById('case-number').innerText = currentCaseIndex + 1;
     document.getElementById('total-cases').innerText = filaDeJogo.length;
     document.getElementById('feedback').style.display = "none";
     document.getElementById('next-btn').style.display = "none";
     document.getElementById('guess-input').value = "";
     document.getElementById('guess-input').disabled = false;
-    document.getElementById('current-hints-list').innerHTML = '<span style="color: #999;">Aguardando submissão inicial...</span>';
+    document.getElementById('current-hints-list').innerHTML = '<span>Aguardando análise...</span>';
     
     blurValue = 30;
     attempts = 0;
