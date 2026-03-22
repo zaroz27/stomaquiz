@@ -172,29 +172,33 @@ const bancoDeLesoes = [
         dicas: ["Malignidade de glândula salivar mais comum em adultos e crianças.", "aspecto azulado (lembrando mucocele).", "ocorre no palato ou parótida."],
     }
 ];
-// --- VARIÁVEIS DE CONTROLE ---
+// --- VARIÁVEIS DE AMBIENTE ---
 let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
 let blurValue = 12;
 let totalScore = 0;
+let lives = 3;
 let timer;
 let timeLeft = 45;
 
 window.onload = prepararNovoJogo;
 
 function prepararNovoJogo() {
+    // Embaralha e reinicia tudo
     filaDeJogo = [...bancoDeLesoes].sort(() => Math.random() - 0.5).slice(0, 30);
     totalScore = 0;
     currentCaseIndex = 0;
+    lives = 3;
     document.getElementById('pts').innerText = totalScore;
+    updateLivesDisplay();
+    updateRank();
     loadCase();
 }
 
 function loadCase() {
     if (currentCaseIndex >= filaDeJogo.length) {
-        alert("Fim do Quiz! Pontuação: " + totalScore);
-        prepararNovoJogo();
+        mostrarNotificacao("FINALIZADO", "Você concluiu todos os casos!", "#c5a059", true);
         return;
     }
 
@@ -209,11 +213,12 @@ function loadCase() {
     imgElement.src = caso.url;
     imgElement.onload = () => imgElement.style.opacity = "1";
 
+    // UI Updates
     document.getElementById('case-number').innerText = currentCaseIndex + 1;
     document.getElementById('total-cases').innerText = filaDeJogo.length;
-    
-    // Esconde o modal e limpa input
     document.getElementById('review-modal').style.display = "none";
+    document.getElementById('feedback').style.display = "none";
+    
     const inputField = document.getElementById('guess-input');
     inputField.value = "";
     inputField.disabled = false;
@@ -233,7 +238,7 @@ function startTimer() {
         atualizarTimerVisual();
         if (timeLeft <= 0) {
             clearInterval(timer);
-            mostrarNotificacao("FALHA", "O tempo esgotou!", "#5e111d");
+            processarMorte("TEMPO ESGOTADO");
         }
     }, 1000);
 }
@@ -241,7 +246,7 @@ function startTimer() {
 function atualizarTimerVisual() {
     const display = document.getElementById('timer-display');
     display.innerText = timeLeft;
-    display.style.color = timeLeft < 10 ? "red" : "white";
+    display.style.color = timeLeft < 10 ? "#e74c3c" : "white";
 }
 
 function checkGuess() {
@@ -251,11 +256,11 @@ function checkGuess() {
 
     if (guess === correto) {
         clearInterval(timer);
-        let pontos = Math.max(10, 50 - (attempts * 10));
+        let pontos = Math.max(10, 50 - (attempts * 5));
         totalScore += pontos;
         document.getElementById('pts').innerText = totalScore;
         updateRank();
-        mostrarNotificacao("CORRETO", "Você identificou a lesão!", "#27ae60");
+        mostrarNotificacao("ACERTOU!", "Diagnóstico preciso realizado.", "#27ae60");
     } else {
         registrarErro();
     }
@@ -270,61 +275,91 @@ function registrarErro() {
     if (caso.dicas && caso.dicas[attempts - 1]) {
         const div = document.createElement('div');
         div.className = 'hint-item';
-        div.innerHTML = `<strong>Pista ${attempts}:</strong> ${caso.dicas[attempts - 1]}`;
+        div.innerHTML = `<strong>Evidência ${attempts}:</strong> ${caso.dicas[attempts - 1]}`;
         document.getElementById('current-hints-list').appendChild(div);
     }
-    
-    document.getElementById('guess-input').value = "";
-    if (attempts >= 5) mostrarNotificacao("FALHA", "Limite de tentativas excedido.", "#5e111d");
+
+    if (attempts >= 5) {
+        processarMorte("LIMITE DE TENTATIVAS");
+    }
 }
 
-// FUNÇÃO DE NOTIFICAÇÃO (MODAL CENTRAL)
-function mostrarNotificacao(titulo, sub, cor) {
+function processarMorte(motivo) {
     clearInterval(timer);
+    lives--;
+    updateLivesDisplay();
+    
+    if (lives <= 0) {
+        mostrarNotificacao("GAME OVER", "Você perdeu todos os corações.", "#5e111d", true);
+    } else {
+        mostrarNotificacao(motivo, "Você perdeu uma vida clínica.", "#5e111d");
+    }
+}
+
+function updateLivesDisplay() {
+    const display = document.getElementById('lives-display');
+    if(display) display.innerText = "❤️".repeat(lives);
+}
+
+function mostrarNotificacao(titulo, sub, cor, reiniciar = false) {
     const modal = document.getElementById('review-modal');
     const t = document.getElementById('review-title');
     const txt = document.getElementById('review-text');
+    const btn = modal.querySelector('button');
     
     t.innerText = titulo;
     t.style.color = cor;
-    txt.innerHTML = `${sub}<br><br>Diagnóstico: <strong>${filaDeJogo[currentCaseIndex].nome.toUpperCase()}</strong>`;
     
+    let info = sub;
+    if (!reiniciar) {
+        info += `<br><br>Laudo Correto: <strong>${filaDeJogo[currentCaseIndex].nome.toUpperCase()}</strong>`;
+        btn.onclick = closeReview;
+        btn.innerText = "PRÓXIMO CASO";
+    } else {
+        btn.onclick = prepararNovoJogo;
+        btn.innerText = "REINICIAR ATLAS";
+    }
+    
+    txt.innerHTML = info;
     document.getElementById('lesion-image').style.filter = "blur(0px)";
     modal.style.display = "flex";
 }
 
-// Botão "Continuar" do Modal
 function closeReview() {
     currentCaseIndex++;
     loadCase();
 }
 
-function fazerBiopsia() {
-    if (totalScore >= 5) {
-        totalScore -= 5;
-        document.getElementById('pts').innerText = totalScore;
-        mostrarNotificacao("BIÓPSIA", "Laudo histopatológico liberado.", "#c5a059");
-    } else {
-        alert("Pontos insuficientes para biópsia!");
-    }
-}
-
 function revealExtraHint() {
-    // Reduz 15 segundos do tempo como penalidade
+    // Penalidade de Tempo: -15 segundos
     timeLeft = Math.max(0, timeLeft - 15);
     atualizarTimerVisual();
     registrarErro();
 }
 
+function fazerBiopsia() {
+    if (confirm("Gastar 10 pontos para laudo imediato?")) {
+        if (totalScore >= 10) {
+            totalScore -= 10;
+            document.getElementById('pts').innerText = totalScore;
+            clearInterval(timer);
+            mostrarNotificacao("BIÓPSIA", "Diagnóstico revelado via histopatológico.", "#c5a059");
+        } else {
+            alert("Pontos insuficientes!");
+        }
+    }
+}
+
 function updateRank() {
     const r = document.getElementById('rank');
-    if (totalScore >= 1000) r.innerText = "Neville (Mestre)";
-    else if (totalScore >= 600) r.innerText = "Especialista";
-    else if (totalScore >= 250) r.innerText = "Residente";
+    if (totalScore >= 1500) r.innerText = "Neville (Lenda)";
+    else if (totalScore >= 1000) r.innerText = "Patologista Sênior";
+    else if (totalScore >= 500) r.innerText = "Especialista";
+    else if (totalScore >= 200) r.innerText = "Residente";
     else r.innerText = "Acadêmico";
 }
 
-// Atalho Enter
+// Enter para enviar
 document.getElementById('guess-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') checkGuess();
 });
