@@ -1,10 +1,5 @@
 const bancoDeLesoes = [
     { 
-        nome: "língua saburrosa", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Tongue_coated.jpg",
-        dicas: ["Acúmulo de debris epiteliais e restos alimentares.", "Removível com higienização lingual.", "Associada à hipossalivação."] 
-    },
-    { 
         nome: "língua pilosa", 
         url: "https://upload.wikimedia.org/wikipedia/commons/0/03/Hairy_tongue.jpg",
         dicas: ["Alongamento das papilas filiformes.", "Acúmulo de queratina no dorso lingual.", "Pode ter pigmentação variada."] 
@@ -35,11 +30,6 @@ const bancoDeLesoes = [
         dicas: ["Placas brancas removíveis (leite coalhado).", "Sintomatologia de queimação.", "Comum pós-uso de antibióticos."] 
     },
     { 
-        nome: "líquen plano reticular", 
-        url: "ttps://upload.wikimedia.org/wikipedia/commons/e/e2/Lichen_planus_high_mag.jpg",
-        dicas: ["Presença de estrias de Wickham brancas.", "Geralmente assintomático e bilateral.", "Infiltrado linfocitário em banda."] 
-    },
-    { 
         nome: "carcinoma espinocelular oral", 
         url: "https://upload.wikimedia.org/wikipedia/commons/2/25/Squamous_Cell_Carcinoma_1.jpg",
         dicas: ["Neoplasia maligna mais comum da boca.", "Úlcera com bordas endurecidas que não cicatriza.", "Pode se apresentar como exofítica ou infiltrativa."] 
@@ -54,19 +44,9 @@ const bancoDeLesoes = [
         dicas: ["Ruptura de ducto salivar com extravasamento de mucina.", "Nódulo flutuante e azulado.", "Localização mais comum: lábio inferior."] 
     },
     { 
-        nome: "tatuagem por amálgama", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Amalgam_tattoo.JPG",
-        dicas: ["Mácula cinza, azulada ou preta.", "Fragmentos de metal implantados na mucosa.", "Pode ser visível no exame radiográfico."] 
-    },
-    { 
         nome: "eritoplasia", 
         url: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Erythroplakia.jpg",
         dicas: ["Mancha vermelha aveludada não diagnosticável como outra condição.", "Altíssimo potencial de malignidade.", "Bordas bem definidas."] 
-    },
-    { 
-        nome: "língua geográfica", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Geographic_tongue.jpg",
-        dicas: ["Zonas de eritema circundadas por bordas brancas sinuosas.", "Padrão migratório.", "Também chamada de eritema migratório."] 
     },
     { 
         nome: "queilite angular", 
@@ -82,11 +62,6 @@ const bancoDeLesoes = [
         nome: "sarcoma de kaposi", 
         url: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Kaposi%27s_Sarcoma_Palate.jpg",
         dicas: ["Neoplasia vascular associada ao HHV-8.", "Comum no palato de pacientes com AIDS.", "Máculas ou nódulos arroxeados."] 
-    },
-    { 
-        nome: "hiperplasia fibrosa", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/8/87/Epulis_fissuratum_01.jpg",
-        dicas: ["Lesão reacional comum por trauma de prótese.", "Aumento de tecido conjuntivo fibroso.", "Também chamada de epúlide fissurada."] 
     },
     { 
         nome: "melanoma", 
@@ -113,16 +88,7 @@ const bancoDeLesoes = [
         url: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Verrucous_carcinoma.jpg",
         dicas: ["Variante de baixo grau do CEC.", "Crescimento exofítico, lento e verruciforme.", "Raramente sofre metástase."] 
     },
-    { 
-        nome: "estomatite protética", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/0/06/Denture_stomatitis.JPG",
-        dicas: ["Eritema restrito à área de suporte da prótese.", "Geralmente assintomática.", "Associada à higiene precária da dentadura."] 
-    },
-    { 
-        nome: "glossite romboidal mediana", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/1/18/Median_rhomboid_glossitis.jpg",
-        dicas: ["Zona de atrofia papilar no centro do dorso da língua.", "Forma de losango ou oval.", "Considerada uma forma de candidíase."] 
-    },
+
     { 
         nome: "eritroleucoplasia", 
         url: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Speckled_leukoplakia.jpg",
@@ -132,11 +98,6 @@ const bancoDeLesoes = [
         nome: "malformação vascular", 
         url: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Vascular_malformation_tongue.jpg",
         dicas: ["Anomalia estrutural presente ao nascimento.", "Não regride espontaneamente.", "Pode apresentar pulsação ou ruído."] 
-    },
-    { 
-        nome: "angiomatose encefalotrigeminal", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/2/23/Sturge-Weber_Syndrome.jpg",
-        dicas: ["Mancha vinho do porto na face (trajeto do trigêmeo).", "Síndrome de Sturge-Weber.", "Envolvimento vascular intracraniano."] 
     },
     { 
         nome: "osteorradionecrose", 
@@ -179,16 +140,6 @@ const bancoDeLesoes = [
         dicas: ["Pigmentação acastanhada difusa.", "Mais comum na gengiva anterior vestibular.", "Reação protetora ao calor do tabaco."] 
     },
     { 
-        nome: "doença de addison", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/7/70/Hyperpigmentation_Addison.jpg",
-        dicas: ["Hiperpigmentação difusa (cor de bronze).", "Insuficiência da glândula suprarrenal.", "Aumento do ACTH estimula melanócitos."] 
-    },
-    { 
-        nome: "síndrome de peutz-jeghers", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/3/30/Peutz-Jeghers_Syndrome_Lips.jpg",
-        dicas: ["Máculas pigmentadas (efélides) nos lábios.", "Pólipos intestinais benignos.", "Condição hereditária autossômica dominante."] 
-    },
-    { 
         nome: "líquen plano erosivo", 
         url: "https://upload.wikimedia.org/wikipedia/commons/0/07/Erosive_lichen_planus.jpg",
         dicas: ["Áreas vermelhas ulceradas com estrias brancas periféricas.", "Forma muito dolorosa.", "Frequentemente bilateral."] 
@@ -204,29 +155,9 @@ const bancoDeLesoes = [
         dicas: ["Projeções papilares digitiformes ('couve-flor').", "Induzida pelo HPV 6 ou 11.", "Geralmente única e pediculada."] 
     },
     { 
-        nome: "líquen plano atrófico em gengiva", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Desquamative_gingivitis_lichen_planus.jpg",
-        dicas: ["Manifesta-se como gengivite descamativa.", "Epitélio gengival fino e friável.", "Pode apresentar estrias de Wickham discretas."] 
-    },
-    { 
-        nome: "líquen plano em placa", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Plaque-type_lichen_planus.jpg",
-        dicas: ["Área branca sólida que simula leucoplasia.", "Localização comum: dorso da língua.", "Histórico de outras formas de líquen plano."] 
-    },
-    { 
-        nome: "queilite por canela", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Cinnamon_stomatitis.jpg",
-        dicas: ["Reação ao cinamaldeído (gomas de mascar/balas).", "Mucosa bucal esbranquiçada e descamativa.", "Pode causar dor e queimação."] 
-    },
-    { 
         nome: "estomatite urêmica", 
         url: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Uremic_stomatitis.jpg",
         dicas: ["Ocorre em pacientes com falência renal aguda.", "Placas brancas difusas e hálito amoniacal.", "Melhora após diálise."] 
-    },
-    { 
-        nome: "nevo melanocítico", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Intramucosal_nevus.jpg",
-        dicas: ["Pápula pigmentada bem circunscrita.", "Equivalente à 'pinta' na mucosa.", "Local mais comum: palato duro."] 
     },
     { 
         nome: "lipoma", 
@@ -243,11 +174,7 @@ const bancoDeLesoes = [
         url: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Mucoepidermoid_carcinoma.jpg",
         dicas: ["Malignidade de glândula salivar mais comum.", "Pode apresentar aspecto azulado (lembrando mucocele).", "Geralmente no palato."] 
     },
-    { 
-        nome: "síndrome de sjogren", 
-        url: "https://upload.wikimedia.org/wikipedia/commons/3/36/Sjogrens_Tongue.jpg",
-        dicas: ["Língua fissurada e seca (xerostomia).", "Doença autoimune que afeta glândulas lacrimais e salivares.", "Aumento bilateral de parótidas."] 
-    }
+
 ];
 
 let filaDeJogo = [];
