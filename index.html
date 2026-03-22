@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StomaQuiz | Atlas de Patologia Oral</title>
+    <style>
+        :root {
+            --neville-burgundy: #5e111d; /* Capa de livro médico */
+            --neville-cream: #f9f7f2;    /* Papel envelhecido */
+            --neville-gold: #c5a059;     /* Dourado acadêmico */
+            --text-color: #2c2c2c;
+            --border-style: 2px solid var(--neville-gold);
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--neville-cream);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--neville-burgundy);
+            color: var(--neville-gold);
+            width: 100%;
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 4px double var(--neville-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        header h1 { 
+            margin: 0; 
+            font-variant: small-caps; 
+            letter-spacing: 2px;
+            font-size: 2.5rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 90%;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+        }
+
+        .image-frame {
+            border: 15px solid #333;
+            border-image: linear-gradient(45deg, #1a1a1a, var(--neville-gold), #1a1a1a) 1;
+            background: #000;
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lesion-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.8s ease;
+            filter: blur(30px);
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border: var(--border-style);
+            box-shadow: 5px 5px 0px var(--neville-gold);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stats {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: var(--neville-burgundy);
+            text-transform: uppercase;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .input-group {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input {
+            padding: 15px;
+            border: 1px solid #ccc;
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            outline-color: var(--neville-burgundy);
+        }
+
+        .btn-analisar {
+            background: var(--neville-burgundy);
+            color: var(--neville-gold);
+            border: 1px solid var(--neville-gold);
+            padding: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-analisar:hover {
+            background: #450c15;
+            letter-spacing: 1px;
+        }
+
+        #feedback {
+            color: #27ae60;
+            font-weight: bold;
+            display: none;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #eafaf1;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .hint-box {
+            margin-top: auto; /* Empurra para o final do card */
+            font-style: italic;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            min-height: 100px;
+        }
+
+        .hint-item {
+            margin-bottom: 8px;
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        #next-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            display: none;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            .image-frame { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Compêndio de Patologia Oral</h1>
+    <p>Treinamento Diagnóstico Baseado em Neville & Damm</p>
+</header>
+
+<div class="container">
+    <div class="image-frame">
+<img id="lesion-image" 
+         src="" 
+         onerror="this.src='https://via.placeholder.com/500?text=Imagem+Nao+Encontrada'" 
+         alt="Caso Clínico em análise">    </div>
+
+    <div class="panel">
+        <div class="stats">
+            CASO <span id="case-number">1</span> DE <span id="total-cases">--</span>
+        </div>
+        
+        <h2 style="margin:0 0 10px 0; font-variant: small-caps;">Diagnóstico Clínico</h2>
+        <p style="font-size: 0.9rem; line-height: 1.4;">Analise os sinais. Cada erro revelará mais nitidez e uma nova pista do Neville.</p>
+        
+        <div class="input-group">
+            <input type="text" id="guess-input" placeholder="Digite o diagnóstico exato..." autocomplete="off">
+            <button class="btn-analisar" onclick="checkGuess()">Analisar Amostra</button>
+        </div>
+
+        <div id="feedback">✨ Diagnóstico Confirmado!</div>
+        
+        <button id="next-btn" onclick="nextLevel()">Próximo Caso do Atlas →</button>
+
+        <div class="hint-box" id="hints-container">
+            <strong>Sinais Semiológicos:</strong><br>
+            <div id="current-hints-list" style="margin-top: 10px;">
+                <span style="color: #999;">Aguardando submissão inicial...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
