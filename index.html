@@ -133,9 +133,7 @@
         .hint-box { margin-top: 15px; font-style: italic; color: #444; border-top: 1px solid #dcd7ca; padding-top: 15px; min-height: 100px; }
         .hint-item { border-left: 3px solid var(--neville-gold); padding-left: 10px; margin-bottom: 6px; font-size: 0.85rem; color: #3e3e3e; }
 
-        #next-btn { background: #27ae60; color: white; border: none; padding: 14px; cursor: pointer; font-weight: bold; display: none; margin-top: 10px; text-transform: uppercase; }
-
-        /* --- ESTILOS DO MODAL DE REVISÃO --- */
+        /* --- ESTILOS DOS MODAIS --- */
         .modal { 
             display: none; 
             position: fixed; 
@@ -155,8 +153,9 @@
             text-align: center; 
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
-        #review-title { font-size: 1.8rem; color: var(--neville-burgundy); margin-bottom: 15px; font-variant: small-caps; }
-        #review-text { color: var(--text-color); line-height: 1.6; margin-bottom: 25px; font-size: 1.1rem; }
+        #review-title, #rules-modal h2 { font-size: 1.8rem; color: var(--neville-burgundy); margin-bottom: 15px; font-variant: small-caps; }
+        #review-text, .rules-body { color: var(--text-color); line-height: 1.6; margin-bottom: 25px; font-size: 1.1rem; }
+        
         .btn-next-modal { 
             background: var(--neville-burgundy); 
             color: var(--neville-gold); 
@@ -165,12 +164,26 @@
             font-weight: bold;
             width: 100%; 
             cursor: pointer;
+            text-transform: uppercase;
         }
 
         @media (max-width: 768px) { .container { grid-template-columns: 1fr; } .image-frame { height: 320px; } }
     </style>
 </head>
 <body>
+
+<div id="rules-modal" class="modal" style="display: flex;">
+    <div class="modal-content">
+        <h2>Manual de Conduta Clínica</h2>
+        <div class="rules-body" style="text-align: left; font-size: 0.9rem;">
+            <p>1. <strong>Anamnese:</strong> Leia o prontuário antes de analisar a imagem.</p>
+            <p>2. <strong>Vidas:</strong> Você tem 3 corações. Erros ou tempo esgotado custam 1 vida.</p>
+            <p>3. <strong>Penalidade:</strong> A Dica de Especialista reduz 15s do seu tempo.</p>
+            <p>4. <strong>Biópsia:</strong> Revela o laudo imediatamente por 10 pontos.</p>
+        </div>
+        <button class="btn-next-modal" onclick="fecharRegras()">Iniciar Plantão</button>
+    </div>
+</div>
     
 <header>
     <h1>StomaQuiz Pro</h1>
@@ -206,10 +219,9 @@
         </div>
 
         <div id="feedback"></div>
-        <button id="next-btn" onclick="nextLevel()">Próximo Caso →</button>
 
         <div class="hint-box">
-            <strong style="color: var(--neville-burgundy); font-size: 0.9rem;">Pistas Semiológicas:</strong>
+            <strong style="color: var(--neville-burgundy); font-size: 0.9rem;">Prontuário e Evidências:</strong>
             <div id="current-hints-list" style="margin-top: 10px;"></div>
         </div>
     </div>
@@ -218,8 +230,8 @@
 <div id="review-modal" class="modal">
     <div class="modal-content">
         <div id="review-title">CONCORDÂNCIA DIAGNÓSTICA</div>
-        <div id="review-text">Detalhes clínicos da patologia serão exibidos aqui para revisão pós-caso.</div>
-        <button class="btn-next-modal" onclick="closeReview()">Continuar para Próximo Caso</button>
+        <div id="review-text">Detalhes clínicos da patologia serão exibidos aqui.</div>
+        <button class="btn-next-modal">Próximo Caso</button>
     </div>
 </div>
 
