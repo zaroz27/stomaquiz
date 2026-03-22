@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
     <title>StomaQuiz | Atlas de Patologia Oral</title>
     <style>
         :root {
@@ -29,7 +28,7 @@
             background-color: var(--neville-burgundy);
             color: var(--neville-gold);
             width: 100%;
-            padding: 2rem 0;
+            padding: 1.5rem 0;
             text-align: center;
             border-bottom: 4px double var(--neville-gold);
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -39,22 +38,22 @@
             margin: 0; 
             font-variant: small-caps; 
             letter-spacing: 2px;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
         }
 
         .container {
             max-width: 1000px;
-            width: 90%;
-            margin: 40px auto;
+            width: 95%;
+            margin: 30px auto;
             display: grid;
             grid-template-columns: 1.2fr 1fr;
-            gap: 30px;
+            gap: 25px;
         }
 
         .image-frame {
-            border: 15px solid #333;
+            border: 12px solid #333;
             border-image: linear-gradient(45deg, #1a1a1a, var(--neville-gold), #1a1a1a) 1;
-            background: #000;
+            background: #111;
             height: 450px;
             position: relative;
             overflow: hidden;
@@ -67,9 +66,10 @@
         #lesion-image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: filter 0.8s ease, opacity 0.5s ease;
+            object-fit: contain; /* Ajustado para não cortar a imagem */
+            transition: filter 0.6s ease, opacity 0.5s ease;
             filter: blur(30px);
+            opacity: 0;
         }
 
         .panel {
@@ -82,24 +82,24 @@
         }
 
         .stats {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-bottom: 15px;
             font-weight: bold;
             color: var(--neville-burgundy);
             text-transform: uppercase;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
             padding-bottom: 5px;
         }
 
         .input-group {
-            margin: 20px 0;
+            margin: 15px 0;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
         input {
-            padding: 15px;
+            padding: 12px;
             border: 1px solid #ccc;
             font-family: 'Georgia', serif;
             font-size: 1rem;
@@ -123,42 +123,51 @@
         }
 
         #feedback {
-            color: #27ae60;
             font-weight: bold;
             display: none;
-            margin: 15px 0;
-            padding: 10px;
-            background-color: #eafaf1;
+            margin: 10px 0;
+            padding: 12px;
             border-radius: 4px;
             text-align: center;
+            animation: fadeIn 0.4s ease;
         }
 
         .hint-box {
-            margin-top: auto; 
+            margin-top: 20px; 
             font-style: italic;
-            color: #555;
-            border-top: 1px solid #ddd;
+            color: #444;
+            border-top: 1px solid #eee;
             padding-top: 15px;
-            min-height: 100px;
+            min-height: 120px;
         }
 
         .hint-item {
             margin-bottom: 8px;
+            font-size: 0.95rem;
             display: block;
-            animation: fadeIn 0.5s ease;
+            animation: slideIn 0.3s ease;
+            color: #555;
         }
 
+        @keyframes slideIn { from { transform: translateX(-10px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         #next-btn {
             background: #27ae60;
             color: white;
             border: none;
-            padding: 15px;
+            padding: 14px;
             cursor: pointer;
             font-weight: bold;
             display: none;
-            margin-top: 15px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 0 #1e8449;
+        }
+
+        #next-btn:active {
+            box-shadow: none;
+            transform: translateY(2px);
         }
 
         @media (max-width: 768px) {
@@ -176,39 +185,42 @@
 
 <div class="container">
     <div class="image-frame">
-        <img id="lesion-image" 
-             src="" 
-             onerror="this.src='https://via.placeholder.com/500?text=Imagem+Nao+Encontrada'" 
-             alt="Caso Clínico em análise">
+        <img id="lesion-image" src="" alt="Caso Clínico">
     </div>
 
     <div class="panel">
         <div class="stats">
-            CASO <span id="case-number">1</span> DE <span id="total-cases">--</span>
+            CASO <span id="case-number">1</span> DE <span id="total-cases">33</span>
         </div>
         
-        <h2 style="margin:0 0 10px 0; font-variant: small-caps;">Diagnóstico Clínico</h2>
-        <p style="font-size: 0.9rem; line-height: 1.4;">Analise os sinais. Cada erro revelará mais nitidez e uma nova pista do Neville.</p>
+        <h2 style="margin:0 0 5px 0; font-variant: small-caps;">Diagnóstico Clínico</h2>
+        <p id="instruction-text" style="font-size: 0.85rem; line-height: 1.4; color: #666;">
+            Analise a imagem borrada. Erros dão nitidez e revelam pistas do Neville.
+        </p>
         
         <div class="input-group">
-            <input type="text" id="guess-input" placeholder="Digite o diagnóstico exato..." autocomplete="off">
-            <button class="btn-analisar" onclick="checkGuess()">Analisar Amostra</button>
+            <input type="text" id="guess-input" placeholder="Digite o diagnóstico..." autocomplete="off">
+            <button class="btn-analisar" id="btn-check">Analisar Amostra</button>
         </div>
 
-        <div id="feedback">✨ Diagnóstico Confirmado!</div>
+        <div id="feedback"></div>
         
         <button id="next-btn" onclick="nextLevel()">Próximo Caso do Atlas →</button>
 
         <div class="hint-box" id="hints-container">
             <strong>Sinais Semiológicos:</strong><br>
             <div id="current-hints-list" style="margin-top: 10px;">
-                <span style="color: #999;">Aguardando submissão inicial...</span>
+                <span style="color: #999;">Aguardando primeira tentativa...</span>
             </div>
         </div>
     </div>
 </div>
 
 <script src="script.js"></script>
+
+<script>
+    document.getElementById('btn-check').addEventListener('click', checkGuess);
+</script>
 
 </body>
 </html>
