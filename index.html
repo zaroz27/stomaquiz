@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StomaQuiz | Atlas de Patologia Oral</title>
+    <title>StomaQuiz Pro | Atlas de Patologia Oral</title>
     <style>
         :root {
             --neville-burgundy: #5e111d; 
@@ -12,12 +12,17 @@
             --text-color: #2c2c2c;
             --panel-bg: #fffcf5;      
         }
+
+        /* RESET E FUNDO */
+        * { box-sizing: border-box; }
+        
         html, body {
             background-color: var(--neville-cream) !important;
             margin: 0;
             padding: 0;
             min-height: 100vh;
         }
+
         body {
             font-family: 'Georgia', serif;
             color: var(--text-color);
@@ -28,34 +33,41 @@
             background-image: radial-gradient(#dcd7ca 0.8px, transparent 0.8px);
             background-size: 25px 25px;
         }
+
+        /* CABEÇALHO */
         header {
             background-color: var(--neville-burgundy);
             color: var(--neville-gold);
             width: 100%;
-            padding: 1.5rem 0;
+            padding: 1.2rem 0;
             text-align: center;
             border-bottom: 4px double var(--neville-gold);
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
+
         header h1 { 
             margin: 0; 
             font-variant: small-caps; 
             letter-spacing: 2px;
-            font-size: 2.2rem;
+            font-size: 2rem;
         }
+
+        /* LAYOUT PRINCIPAL */
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             width: 95%;
-            margin: 30px auto;
+            margin: 25px auto;
             display: grid;
             grid-template-columns: 1.2fr 1fr;
             gap: 25px;
         }
+
+        /* MOLDURA DA IMAGEM */
         .image-frame {
             border: 12px solid #333;
             border-image: linear-gradient(45deg, #1a1a1a, var(--neville-gold), #1a1a1a) 1;
             background: #000;
-            height: 450px;
+            height: 480px;
             position: relative;
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
@@ -63,14 +75,32 @@
             align-items: center;
             justify-content: center;
         }
+
+        #timer-display {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            padding: 8px 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.4rem;
+            font-weight: bold;
+            border-radius: 4px;
+            border: 1px solid var(--neville-gold);
+            z-index: 5;
+        }
+
         #lesion-image {
             width: 100%;
             height: 100%;
             object-fit: contain;
             transition: filter 0.6s ease, opacity 0.5s ease;
-            filter: blur(30px);
+            filter: blur(20px); /* Reduzido conforme pedido */
             opacity: 0;
         }
+
+        /* PAINEL LATERAL */
         .panel {
             background-color: var(--panel-bg);
             padding: 25px;
@@ -79,29 +109,46 @@
             display: flex;
             flex-direction: column;
         }
-        .stats {
-            font-size: 0.85rem;
+
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            background: #fdfaf0;
+            padding: 10px;
             margin-bottom: 15px;
+            border: 1px solid #dcd7ca;
+            font-size: 0.9rem;
             font-weight: bold;
             color: var(--neville-burgundy);
-            text-transform: uppercase;
-            border-bottom: 1px solid #dcd7ca;
-            padding-bottom: 5px;
         }
+
+        .stats {
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        /* INPUTS E BOTÕES */
         .input-group {
             margin: 15px 0;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
+
         input {
             padding: 12px;
             border: 1px solid var(--neville-gold);
             background-color: #fff;
             font-family: 'Georgia', serif;
             font-size: 1rem;
-            outline-color: var(--neville-burgundy);
+            outline: none;
         }
+
+        input:focus { border-color: var(--neville-burgundy); box-shadow: 0 0 5px rgba(94,17,29,0.2); }
+
         .btn-analisar {
             background: var(--neville-burgundy);
             color: var(--neville-gold);
@@ -112,10 +159,38 @@
             font-weight: bold;
             transition: 0.3s;
         }
-        .btn-analisar:hover {
-            background: #450c15;
-            letter-spacing: 1px;
+
+        .btn-analisar:hover { background: #450c15; }
+
+        .action-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 5px;
         }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 8px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid #ccc;
+            background: #fff;
+            transition: 0.2s;
+        }
+
+        .btn-secondary:hover { background: #f0f0f0; }
+
+        .btn-biopsia {
+            background: #e67e22;
+            color: white;
+            border: none;
+        }
+
+        .btn-biopsia:hover { background: #d35400; }
+
+        /* FEEDBACK E PISTAS */
         #feedback {
             font-weight: bold;
             display: none;
@@ -124,22 +199,28 @@
             border-radius: 4px;
             text-align: center;
         }
+
         .hint-box {
-            margin-top: 20px; 
+            margin-top: 15px; 
             font-style: italic;
             color: #444;
             border-top: 1px solid #dcd7ca;
             padding-top: 15px;
-            min-height: 120px;
+            min-height: 100px;
         }
+
         .hint-item {
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
             display: block;
             border-left: 3px solid var(--neville-gold);
             padding-left: 10px;
             color: #3e3e3e;
+            animation: slideIn 0.3s ease;
         }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-5px); } to { opacity: 1; transform: translateX(0); } }
+
         #next-btn {
             background: #27ae60;
             color: white;
@@ -151,9 +232,10 @@
             margin-top: 10px;
             text-transform: uppercase;
         }
+
         @media (max-width: 768px) {
             .container { grid-template-columns: 1fr; }
-            .image-frame { height: 300px; }
+            .image-frame { height: 320px; }
         }
     </style>
 </head>
@@ -161,27 +243,38 @@
     
 <header>
     <h1>Compêndio de Patologia Oral</h1>
-    <p>Treinamento Diagnóstico Baseado em Neville & Damm</p>
+    <p>Simulador Diagnóstico Baseado em Neville & Damm</p>
 </header>
 
 <div class="container">
     <div class="image-frame">
+        <div id="timer-display">45</div>
         <img id="lesion-image" src="" alt="Caso Clínico">
     </div>
 
     <div class="panel">
+        <div class="score-board">
+            <span>PONTOS: <span id="pts">0</span></span>
+            <span>TÍTULO: <span id="rank">Acadêmico</span></span>
+        </div>
+
         <div class="stats">
-            CASO <span id="case-number">1</span> DE <span id="total-cases">--</span>
+            CASO <span id="case-number">1</span> DE <span id="total-cases">30</span>
         </div>
         
-        <h2 style="margin:0 0 5px 0; font-variant: small-caps; color: var(--neville-burgundy);">Diagnóstico Clínico</h2>
-        <p style="font-size: 0.85rem; line-height: 1.4; color: #555;">
-            Analise a amostra. O erro revela a nitidez e as notas de rodapé do Neville.
+        <h2 style="margin:0 0 5px 0; font-variant: small-caps; color: var(--neville-burgundy);">Exame Clínico</h2>
+        <p style="font-size: 0.8rem; line-height: 1.4; color: #555; margin-bottom: 10px;">
+            Analise a imagem. Utilize as pistas ou realize biópsias se necessário. O tempo é fator crucial.
         </p>
         
         <div class="input-group">
             <input type="text" id="guess-input" placeholder="Digite o diagnóstico..." autocomplete="off">
-            <button class="btn-analisar" id="btn-check">Analisar Amostra</button>
+            <button class="btn-analisar" onclick="checkGuess()">Analisar Amostra</button>
+            
+            <div class="action-row">
+                <button onclick="revealExtraHint()" class="btn-secondary">Dica Extra (-50%)</button>
+                <button onclick="fazerBiopsia()" class="btn-secondary btn-biopsia">Fazer Biópsia (5 pts)</button>
+            </div>
         </div>
 
         <div id="feedback"></div>
@@ -189,18 +282,15 @@
         <button id="next-btn" onclick="nextLevel()">Próximo Caso do Atlas →</button>
 
         <div class="hint-box">
-            <strong style="color: var(--neville-burgundy);">Sinais Semiológicos:</strong><br>
+            <strong style="color: var(--neville-burgundy); font-size: 0.9rem;">Sinais Semiológicos:</strong><br>
             <div id="current-hints-list" style="margin-top: 10px;">
-                <span style="color: #999;">Aguardando primeira tentativa...</span>
+                <span style="color: #999; font-size: 0.8rem;">Aguardando submissão inicial...</span>
             </div>
         </div>
     </div>
 </div>
 
 <script src="script.js"></script>
-<script>
-    document.getElementById('btn-check').addEventListener('click', checkGuess);
-</script>
 
 </body>
 </html>
