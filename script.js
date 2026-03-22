@@ -1,340 +1,300 @@
+// --- BANCO DE DADOS CORRIGIDO ---
 const bancoDeLesoes = [
     { 
         nome: "língua pilosa", 
         url: "img/lingua_pilosa.jpg",
         dicas: ["Acúmulo de queratina nas papilas filiformes.", "Aspecto de 'tapete' ou pelos no dorso da língua.", "Pode estar associada ao tabagismo ou má higiene."],
-        revisao: "A língua pilosa é uma condição benigna caracterizada pelo acúmulo de queratina nas papilas filiformes do dorso da língua, resultando em uma aparência peluda e, frequentemente, escura."
+        revisao: "A língua pilosa é uma condição benigna caracterizada pelo acúmulo de queratina nas papilas filiformes do dorso da língua."
     },
     { 
         nome: "morsicatio buccarum", 
         url: "img/morsicatio.jpg",
         dicas: ["Hábito de mordiscamento da mucosa bucal.", "Aspecto macerado e descamativo.", "Localizada na linha de oclusão."],
-        revisao: "O Morsicatio Buccarum é causado por traumatismo crônico (morder as bochechas), resultando em placas brancas descamativas e irregulares."
+        revisao: "Causado por traumatismo crônico (hábito de morder as bochechas), resultando em placas brancas descamativas."
     },
     { 
         nome: "linha alba", 
         url: "img/linha_alba.jpg",
         dicas: ["Linha branca horizontal na mucosa bucal.", "Resultante da pressão dos dentes.", "Variação da normalidade bilateral."],
-        revisao: "A linha alba é uma alteração comum da mucosa bucal, causada por pressão ou fricção dos dentes na linha de oclusão."
+        revisao: "Alteração comum causada por pressão ou fricção dos dentes na linha de oclusão."
     },
     { 
         nome: "leucoedema", 
         url: "img/leucoedema.jpg",
         dicas: ["Opalescência difusa, cinza-esbranquiçada.", "Desaparece ao esticar a mucosa.", "Comum em pacientes negros."],
-        revisao: "O leucoedema é uma variação da normalidade. O diagnóstico clínico é confirmado quando a opacidade desaparece ao esticar a bochecha."
+        revisao: "Variação da normalidade que desaparece ao esticar a mucosa, diferenciando-se de lesões leucoplásicas."
     },
     { 
         nome: "leucoplasia", 
         url: "img/leucoplasia.jpg",
         dicas: ["Placa branca não removível à raspagem.", "Associação direta com tabagismo.", "Potencial de transformação maligna."],
-        revisao: "A leucoplasia é uma lesão cancerizável. É uma placa branca que não sai com raspagem e não pode ser diagnosticada como outra doença específica."
+        revisao: "Placa branca que não sai com raspagem. É uma lesão cancerizável que exige biópsia se persistir."
     },
     { 
         nome: "candidíase pseudomembranosa", 
         url: "img/candidiase.jpg",
         dicas: ["Placas brancas removíveis (leite coalhado).", "Sintomatologia de queimação.", "Comum após uso de antibióticos ou imunossupressão."],
-        revisao: "Infecção fúngica por Candida albicans. Caracteriza-se por placas brancas que, ao serem removidas, revelam uma base eritematosa."
+        revisao: "Infecção fúngica onde as placas brancas podem ser removidas, revelando base eritematosa."
     },
     { 
         nome: "carcinoma espinocelular oral", 
         url: "img/cec.jpg",
         dicas: ["Neoplasia maligna mais comum da boca.", "Úlcera com bordas endurecidas que não cicatriza.", "Pode se apresentar como exofítica ou infiltrativa."],
-        revisao: "O CEC representa 95% dos cânceres bucais. Fatores de risco principais: fumo e álcool."
+        revisao: "O tipo mais comum de câncer de boca, fortemente associado ao tabaco e álcool."
     },
     { 
         nome: "granuloma piogênico", 
         url: "img/granuloma_piogenico.jpg",
         dicas: ["Nódulo vermelho, friável e que sangra facilmente.", "Crescimento rápido e reacional.", "Comum em gengiva e em gestantes."],
-        revisao: "Lesão reacional a irritantes locais. Apesar do nome, não é um granuloma verdadeiro, mas um hemangioma capilar lobular."
+        revisao: "Lesão reacional comum. Frequentemente chamado de 'tumor da gravidez' quando ocorre em gestantes."
     },
     { 
         nome: "mucocele", 
         url: "img/mucocele.jpg",
         dicas: ["Ruptura de ducto salivar com extravasamento de mucina.", "Nódulo flutuante e frequentemente azulado.", "Localização mais comum: lábio inferior."],
-        revisao: "Fenômeno de extravasamento de muco comum em lábio inferior por trauma em glândulas salivares menores."
+        revisao: "Acúmulo de saliva nos tecidos moles devido ao trauma em glândulas salivares menores."
     },
     { 
         nome: "eritoplasia", 
         url: "img/eritoplasia.jpg",
         dicas: ["Mancha vermelha aveludada não diagnosticável.", "Altíssimo potencial de malignidade.", "Bordas geralmente bem definidas."],
-        revisao: "Lesão vermelha com alto índice de displasia ou carcinoma in situ no momento do diagnóstico."
+        revisao: "Lesão vermelha com taxa de transformação maligna muito superior à da leucoplasia."
     },
     { 
         nome: "queilite angular", 
         url: "img/queilite_angular.jpg",
         dicas: ["Eritema e fissuras nas comissuras labiais.", "Associada à perda de dimensão vertical (DVO).", "Infecção mista: Candida e Staphylococcus."],
-        revisao: "Inflamação no ângulo da boca, comum em usuários de próteses mal adaptadas."
+        revisao: "Inflamação nos ângulos da boca, comum em pacientes com próteses antigas ou desadaptadas."
     },
     { 
         nome: "hemangioma", 
         url: "img/hemangioma.jpg",
         dicas: ["Proliferação benigna de vasos sanguíneos.", "Teste de vitropressão positivo.", "Pode ser congênito."],
-        revisao: "Tumor vascular benigno comum na infância. A vitropressão ajuda a diferenciar de lesões pigmentadas."
+        revisao: "Tumor vascular benigno. A vitropressão (diascopia) confirma a presença de sangue no interior dos vasos."
     },
     { 
         nome: "sarcoma de kaposi", 
         url: "img/sarcoma_kaposi.jpg",
         dicas: ["Neoplasia vascular associada ao HHV-8.", "Comum em pacientes com HIV/AIDS.", "Máculas ou nódulos arroxeados."],
-        revisao: "Tumor maligno de origem endotelial, marcador comum da fase avançada da AIDS."
+        revisao: "Tumor maligno comum em pacientes imunossuprimidos, manifestando-se como manchas roxas no palato."
     },
     { 
         nome: "melanoma", 
         url: "img/melanoma.jpg",
         dicas: ["Neoplasia maligna de melanócitos.", "Regra do ABCDE.", "Pior prognóstico em boca que na pele."],
-        revisao: "Câncer agressivo de células produtoras de pigmento. Raro na boca, mas muito letal."
+        revisao: "Câncer de células pigmentadas. Na boca é extremamente agressivo e silencioso no início."
     },
     {
         nome: "estomatite nicotínica", 
         url: "img/estomatite_nicotinica.jpg",
         dicas: ["Palato esbranquiçado com pontos vermelhos.", "Inflamação dos ductos glandulares.", "Comum em fumantes de cachimbo."],
-        revisao: "Alteração no palato duro em resposta ao calor do fumo. Os pontos vermelhos são os óstios das glândulas menores."
+        revisao: "O calor do fumo inflama os óstios das glândulas salivares menores do palato."
     },
     { 
         nome: "leucoplasia verrucosa proliferativa", 
         url: "img/lvp.jpg",
         dicas: ["Múltiplas placas brancas progressivas.", "Altíssima taxa de transformação maligna.", "Resistente a tratamentos."],
-        revisao: "Uma forma agressiva de leucoplasia que evolui para carcinoma em quase todos os casos."
+        revisao: "Uma variante agressiva da leucoplasia que se espalha e quase sempre vira câncer."
     },
     { 
         nome: "carcinoma verrucoso", 
         url: "img/carcinoma_verrucoso.jpg",
         dicas: ["Variante de baixo grau do CEC.", "Crescimento lento e verruciforme.", "Raramente sofre metástase."],
-        revisao: "Variante de baixo grau do câncer de boca, associado ao uso de tabaco mascado."
+        revisao: "Um câncer de baixo grau com aspecto de couve-flor, associado ao uso de fumo mascado."
     },
     { 
         nome: "eritroleucoplasia", 
         url: "img/eritroleucoplasia.jpg",
         dicas: ["Lesão mista branca e vermelha.", "Chamada de leucoplasia pintalgada.", "Risco de câncer superior à leucoplasia."],
-        revisao: "Lesão mista com áreas vermelhas (atróficas) e brancas (queratóticas)."
+        revisao: "Lesão mista que apresenta alto risco de displasia severa na biópsia."
     },
     { 
         nome: "malformação vascular", 
         url: "img/malformacao_vascular.jpg",
         dicas: ["Anomalia estrutural congênita.", "Não regride espontaneamente.", "Pode apresentar pulsação."],
-        revisao: "Defeito na morfogênese dos vasos. Cresce com o paciente."
+        revisao: "Defeito na formação dos vasos presente desde o nascimento."
     },
     { 
         nome: "osteorradionecrose", 
         url: "img/osteorradionecrose.jpg",
         dicas: ["Exposição óssea pós-radioterapia.", "Hipovascularização e hipocelularidade.", "Dor e sequestro ósseo."],
-        revisao: "Morte do tecido ósseo por falta de sangue após radiação para tratamento de câncer."
+        revisao: "Morte óssea causada pela radiação, que compromete a capacidade de cicatrização do osso."
     },
     { 
         nome: "lesão periférica de células gigantes", 
         url: "img/lpcg.jpg",
         dicas: ["Nódulo gengival arroxeado.", "Surge do ligamento periodontal.", "Erosão óssea 'em taça'."],
-        revisao: "Lesão reacional gengival rica em células gigantes multinucleadas."
+        revisao: "Lesão reacional da gengiva que pode causar uma leve escavação no osso subjacente."
     },
     { 
         nome: "fibroma ossificante periférico", 
         url: "img/fop.jpg",
         dicas: ["Nódulo gengival firme.", "Contém calcificações internas.", "Exclusivo da gengiva."],
-        revisao: "Crescimento tumoral benigno e reacional exclusivo do tecido gengival."
+        revisao: "Crescimento benigno gengival que apresenta pontos de calcificação no exame histopatológico."
     },
     { 
         nome: "hiperplasia gengival medicamentosa", 
         url: "img/hiperplasia_medicamentosa.jpg",
         dicas: ["Aumento gengival por fármacos.", "Inicia nas papilas.", "Associada à higiene precária."],
-        revisao: "Aumento do volume gengival causado por anticonvulsivantes, imunossupressores ou bloqueadores de cálcio."
+        revisao: "Aumento gengival causado por remédios como Fenitoína ou Nifedipina."
     },
     { 
         nome: "rânula", 
         url: "img/ranula.jpg",
         dicas: ["Mucocele no assoalho da boca.", "Glândula sublingual.", "Aspecto de 'ventre de rã'."],
-        revisao: "Extravasamento de muco no assoalho bucal por obstrução ou trauma da glândula sublingual."
+        revisao: "Extravasamento de muco no assoalho da boca, geralmente da glândula sublingual."
     },
     { 
         nome: "sialometaplasia necrosante", 
         url: "img/sialometaplasia.jpg",
         dicas: ["Úlcera crateriforme no palato.", "Simula carcinoma.", "Autolimitada."],
-        revisao: "Isquemia das glândulas salivares palatinas. Cura-se sozinha em 6 a 10 semanas."
+        revisao: "Condição inflamatória que causa uma úlcera profunda mas que se cura sozinha."
     },
     { 
         nome: "mácula melanótica", 
         url: "img/macula_melanotica.jpg",
         dicas: ["Lesão plana pigmentada única.", "Aumento de melanina.", "Comum em lábio inferior."],
-        revisao: "Pequena mancha marrom benigna causada pelo aumento focal na produção de melanina."
+        revisao: "Mancha marrom benigna comum no lábio, sem potencial de malignidade."
     },
     { 
         nome: "líquen plano erosivo", 
         url: "img/liquen_plano.jpg",
         dicas: ["Áreas vermelhas com estrias brancas.", "Forma clínica dolorosa.", "Bilateral e simétrico."],
-        revisao: "Doença autoimune crônica. A variante erosiva causa dor e sensibilidade."
+        revisao: "Doença autoimune crônica que causa descamação e dor na mucosa."
     },
     { 
         nome: "condiloma acuminado", 
         url: "img/condiloma.jpg",
         dicas: ["Lesão verrucosa sexual (HPV).", "Geralmente múltipla.", "Superfície em couve-flor."],
-        revisao: "Verruga genital que pode se manifestar na boca via contato orogenital."
+        revisao: "Verruga viral causada pelo HPV, transmitida por contato direto."
     },
     { 
         nome: "papiloma escamoso", 
         url: "img/papiloma.jpg",
         dicas: ["Projeções papilares digitiformes.", "HPV 6 ou 11.", "Única e pediculada."],
-        revisao: "Tumor epitelial benigno induzido pelo papilomavírus humano."
+        revisao: "Crescimento benigno em forma de 'verruga' causado por subtipos não agressivos do HPV."
     },
     { 
         nome: "estomatite urêmica", 
         url: "img/estomatite_uremica.jpg",
         dicas: ["Insuficiência renal avançada.", "Hálito com cheiro de amônia.", "Melhora após diálise."],
-        revisao: "Manifestação bucal rara de uremia grave em pacientes renais."
+        revisao: "Manifestação bucal rara em pacientes com problemas renais graves."
     },
     { 
         nome: "lipoma", 
         url: "img/lipoma.jpg",
         dicas: ["Nódulo amarelado macio.", "Tumor de gordura.", "Telangiectasias superficiais."],
-        revisao: "Tumor benigno de tecido adiposo maduro."
+        revisao: "Tumor benigno de gordura, muito macio e amarelado sob a mucosa."
     },
     { 
         nome: "adenoma pleomórfico", 
         url: "img/adenoma_pleomorfico.jpg",
         dicas: ["Tumor de glândula salivar comum.", "Crescimento lento e indolor.", "Cúpula da parótida."],
-        revisao: "O tumor misto benigno é a neoplasia salivar mais frequente."
+        revisao: "O tumor de glândula salivar mais comum, geralmente na parótida ou palato."
     },
     { 
         nome: "carcinoma mucoepidermoide", 
         url: "img/carcinoma_mucoepidermoide.jpg",
         dicas: ["Malignidade salivar mais comum.", "Pode ser azulado.", "Palato ou parótida."],
-        revisao: "Neoplasia maligna de glândula salivar com graus variados de agressividade."
+        revisao: "Câncer de glândula salivar mais frequente em adultos."
     }
 ];
 
+// --- LÓGICA DO JOGO ---
 let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
-let blurValue = 15;
 let totalScore = 0;
 let timer;
 let timeLeft = 45;
 let lives = 3;
-const MAX_LIVES = 3;
 
 window.onload = () => {
-    if (typeof bancoDeLesoes !== 'undefined' && bancoDeLesoes.length > 0) {
-        prepararNovoJogo();
-    }
+    prepararNovoJogo();
 };
 
 function prepararNovoJogo() {
     filaDeJogo = [...bancoDeLesoes].sort(() => Math.random() - 0.5).slice(0, 30);
     totalScore = 0;
     currentCaseIndex = 0;
-    lives = MAX_LIVES;
+    lives = 3;
     document.getElementById('pts').innerText = totalScore;
     updateLivesDisplay();
-    updateRank();
-    setTimeout(loadCase, 200);
+    loadCase();
 }
 
 function loadCase() {
-    if (currentCaseIndex >= filaDeJogo.length) {
-        alert("🎉 Atlas Concluído!");
-        prepararNovoJogo();
-        return;
-    }
-
     const caso = filaDeJogo[currentCaseIndex];
     const imgElement = document.getElementById('lesion-image');
     
     imgElement.style.opacity = "0"; 
-    blurValue = 15; 
-    imgElement.style.filter = `blur(${blurValue}px)`;
-    
-    // Caminho da imagem: use apenas o nome se estiver na pasta img
+    imgElement.style.filter = "blur(15px)";
     imgElement.src = caso.url + "?v=" + new Date().getTime();
     
     imgElement.onload = () => { imgElement.style.opacity = "1"; };
-    imgElement.onerror = () => {
-        console.error("Erro ao carregar:", caso.url);
-        imgElement.src = "https://via.placeholder.com/500x400?text=Imagem+Nao+Encontrada";
-        imgElement.style.opacity = "1";
-    };
+    imgElement.onerror = () => { imgElement.src = "https://via.placeholder.com/500x400?text=Erro+na+Foto"; imgElement.style.opacity = "1"; };
 
     attempts = 0;
     document.getElementById('case-number').innerText = currentCaseIndex + 1;
     document.getElementById('total-cases').innerText = filaDeJogo.length;
     document.getElementById('guess-input').value = "";
-    document.getElementById('guess-input').disabled = false;
     document.getElementById('guess-input').focus();
-    document.getElementById('current-hints-list').innerHTML = '<span style="color: #999;">Analise a amostra...</span>';
-
+    document.getElementById('current-hints-list').innerHTML = "Analise a amostra...";
+    
     startTimer();
 }
 
 function startTimer() {
     clearInterval(timer);
     timeLeft = 45;
-    const display = document.getElementById('timer-display');
-    display.innerText = timeLeft;
+    document.getElementById('timer-display').innerText = timeLeft;
     timer = setInterval(() => {
         timeLeft--;
-        display.innerText = timeLeft;
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            perderVida("Tempo esgotado!");
-        }
+        document.getElementById('timer-display').innerText = timeLeft;
+        if (timeLeft <= 0) { clearInterval(timer); perderVida("Tempo esgotado!"); }
     }, 1000);
 }
 
 function checkGuess() {
-    const input = document.getElementById('guess-input');
-    const guess = input.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    const guess = document.getElementById('guess-input').value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     const correto = filaDeJogo[currentCaseIndex].nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     if (guess === correto) {
-        vitoria();
+        clearInterval(timer);
+        totalScore += Math.max(10, 50 - (attempts * 10));
+        document.getElementById('pts').innerText = totalScore;
+        showReview("✅ ACERTOU!", filaDeJogo[currentCaseIndex].revisao);
     } else {
         tratarErro();
     }
 }
 
-function vitoria() {
-    clearInterval(timer);
-    totalScore += Math.max(10, 50 - (attempts * 10));
-    document.getElementById('pts').innerText = totalScore;
-    updateRank();
-    showReview("✅ ACERTOU!", filaDeJogo[currentCaseIndex].revisao);
-}
-
 function tratarErro() {
     attempts++;
-    if (attempts >= 4) {
-        perderVida("Limite de erros atingido.");
-        return;
-    }
-    blurValue = Math.max(0, blurValue - 5);
-    document.getElementById('lesion-image').style.filter = `blur(${blurValue}px)`;
+    if (attempts >= 4) { perderVida("Limite de erros atingido."); return; }
+    document.getElementById('lesion-image').style.filter = `blur(${15 - (attempts * 4)}px)`;
     
-    const hintsList = document.getElementById('current-hints-list');
-    if (attempts === 1) hintsList.innerHTML = "";
     const div = document.createElement('div');
     div.className = 'hint-item';
     div.innerHTML = `<strong>Dica ${attempts}:</strong> ${filaDeJogo[currentCaseIndex].dicas[attempts-1]}`;
-    hintsList.appendChild(div);
-    document.getElementById('guess-input').value = "";
+    if (attempts === 1) document.getElementById('current-hints-list').innerHTML = "";
+    document.getElementById('current-hints-list').appendChild(div);
 }
 
 function perderVida(motivo) {
     clearInterval(timer);
     lives--;
     updateLivesDisplay();
-    if (lives <= 0) {
-        alert("GAME OVER! Estude mais o Neville.");
-        prepararNovoJogo();
-    } else {
-        showReview("❌ ERRO CLÍNICO", `${motivo}<br><br>Diagnóstico: <strong>${filaDeJogo[currentCaseIndex].nome}</strong>`);
-    }
+    if (lives <= 0) { alert("Fim de jogo!"); prepararNovoJogo(); }
+    else { showReview("❌ ERRO", `${motivo}<br>Era: ${filaDeJogo[currentCaseIndex].nome}`); }
 }
 
-function updateLivesDisplay() {
-    document.getElementById('lives-display').innerHTML = "❤️".repeat(lives) + "🖤".repeat(MAX_LIVES - lives);
-}
+function updateLivesDisplay() { document.getElementById('lives-display').innerHTML = "❤️".repeat(lives); }
 
 function showReview(title, text) {
     document.getElementById('review-title').innerHTML = title;
     document.getElementById('review-text').innerHTML = text;
     document.getElementById('review-modal').style.display = "flex";
-    document.getElementById('lesion-image').style.filter = "blur(0px)";
 }
 
 function closeReview() {
@@ -344,24 +304,9 @@ function closeReview() {
 }
 
 function fazerBiopsia() {
-    if (confirm("Gastar 5 pontos para ver o laudo histopatológico?")) {
-        clearInterval(timer);
-        totalScore += 5;
-        document.getElementById('pts').innerText = totalScore;
-        showReview("🔬 BIÓPSIA", `O laudo confirmou: <strong>${filaDeJogo[currentCaseIndex].nome}</strong>`);
-    }
-}
-
-function revealExtraHint() {
-    alert("DICA EXTRA: " + filaDeJogo[currentCaseIndex].dicas[0]);
-}
-
-function updateRank() {
-    let r = "Acadêmico";
-    if (totalScore > 300) r = "Monitor";
-    if (totalScore > 700) r = "Residente";
-    if (totalScore > 1200) r = "Estomatologista";
-    document.getElementById('rank').innerText = r;
+    totalScore -= 10;
+    document.getElementById('pts').innerText = totalScore;
+    showReview("🔬 BIÓPSIA", `Laudo: ${filaDeJogo[currentCaseIndex].nome}`);
 }
 
 document.getElementById('guess-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkGuess(); });
