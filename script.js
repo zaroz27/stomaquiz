@@ -172,7 +172,7 @@ const bancoDeLesoes = [
         dicas: ["Malignidade de glândula salivar mais comum em adultos e crianças.", "aspecto azulado (lembrando mucocele).", "ocorre no palato ou parótida."],
     }
 ];
-// --- VARIÁVEIS DE CONTROLE ---
+// --- LÓGICA DO JOGO (Sincronizada com seu HTML) ---
 let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
@@ -180,12 +180,11 @@ let blurValue = 12;
 let totalScore = 0;
 let timer;
 let timeLeft = 45;
-let hintRevealed = false;
 
 window.onload = prepararNovoJogo;
 
 function prepararNovoJogo() {
-    // Embaralha o banco que já existe no seu script
+    // Embaralha o banco de dados que já existe no seu arquivo
     filaDeJogo = [...bancoDeLesoes].sort(() => Math.random() - 0.5).slice(0, 30);
     totalScore = 0;
     currentCaseIndex = 0;
@@ -195,7 +194,7 @@ function prepararNovoJogo() {
 
 function loadCase() {
     if (currentCaseIndex >= filaDeJogo.length) {
-        alert("Fim do Quiz!");
+        alert("Fim do Quiz! Pontuação final: " + totalScore);
         prepararNovoJogo();
         return;
     }
@@ -203,29 +202,33 @@ function loadCase() {
     const caso = filaDeJogo[currentCaseIndex];
     const imgElement = document.getElementById('lesion-image');
     
-    // Reset visual
+    // Reset da imagem e blur
     imgElement.style.opacity = "0";
     blurValue = 12;
     imgElement.style.filter = `blur(${blurValue}px)`;
     attempts = 0;
-    hintRevealed = false;
 
-    // Carrega imagem
+    // Carrega a foto
     imgElement.src = caso.url;
     imgElement.onload = () => imgElement.style.opacity = "1";
 
-    // Interface
+    // Atualiza os contadores do seu HTML
     document.getElementById('case-number').innerText = currentCaseIndex + 1;
     document.getElementById('total-cases').innerText = filaDeJogo.length;
+    
+    // Esconde feedback e botão de próximo
     document.getElementById('feedback').style.display = "none";
     document.getElementById('next-btn').style.display = "none";
     
+    // Limpa o campo de texto
     const inputField = document.getElementById('guess-input');
     inputField.value = "";
     inputField.disabled = false;
     inputField.focus();
 
+    // Limpa a lista de dicas
     document.getElementById('current-hints-list').innerHTML = "";
+    
     startTimer();
 }
 
@@ -240,87 +243,89 @@ function startTimer() {
         display.innerText = timeLeft;
         if (timeLeft <= 0) {
             clearInterval(timer);
-            revelarCaso("TEMPO ESGOTADO!");
+            finalizarTentativa("TEMPO ESGOTADO!");
         }
     }, 1000);
 }
 
 function checkGuess() {
     const inputField = document.getElementById('guess-input');
-    const guess = inputField.value.toLowerCase().trim();
-    const correto = filaDeJogo[currentCaseIndex].nome.toLowerCase();
+    // Normaliza texto (tira acentos e espaços)
+    const guess = inputField.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    const correto = filaDeJogo[currentCaseIndex].nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     if (guess === correto) {
         clearInterval(timer);
         let pontos = Math.max(10, 50 - (attempts * 10));
-        if (hintRevealed) pontos = Math.floor(pontos / 2);
         totalScore += pontos;
         document.getElementById('pts').innerText = totalScore;
-        revelarCaso("✅ CORRETO!");
+        finalizarTentativa("✅ DIAGNÓSTICO CORRETO!");
     } else {
-        erro();
+        registrarErro();
     }
 }
 
-function erro() {
+function registrarErro() {
     attempts++;
     const caso = filaDeJogo[currentCaseIndex];
     
-    // Diminui o blur
+    // Melhora a visibilidade da foto
     blurValue = Math.max(0, blurValue - 3);
     document.getElementById('lesion-image').style.filter = `blur(${blurValue}px)`;
     
-    // Adiciona dica
+    // Adiciona a dica na div 'current-hints-list' do seu HTML
     if (caso.dicas && caso.dicas[attempts - 1]) {
         const div = document.createElement('div');
         div.className = 'hint-item';
-        div.innerHTML = `<strong>Dica ${attempts}:</strong> ${caso.dicas[attempts - 1]}`;
+        div.innerHTML = `<strong>Pista ${attempts}:</strong> ${caso.dicas[attempts - 1]}`;
         document.getElementById('current-hints-list').appendChild(div);
     }
     
     document.getElementById('guess-input').value = "";
     document.getElementById('guess-input').focus();
+
+    if (attempts >= 5) finalizarTentativa("LIMITE DE TENTATIVAS!");
 }
 
-function revelarCaso(mensagem) {
+function finalizarTentativa(mensagem) {
     clearInterval(timer);
     const feedback = document.getElementById('feedback');
-    feedback.innerHTML = `${mensagem}<br>Diagnóstico: ${filaDeJogo[currentCaseIndex].nome.toUpperCase()}`;
+    feedback.innerHTML = `<strong>${mensagem}</strong><br>Laudo: ${filaDeJogo[currentCaseIndex].nome.toUpperCase()}`;
     feedback.style.display = "block";
-    feedback.style.color = mensagem.includes("CORRETO") ? "#27ae60" : "#e74c3c";
+    feedback.style.color = mensagem.includes("CORRETO") ? "#27ae60" : "#5e111d";
     
     document.getElementById('lesion-image').style.filter = "blur(0px)";
-    document.getElementById('next-btn').style.display = "block";
+    document.getElementById('next-btn').style.display = "block"; // Mostra o botão que você criou
     document.getElementById('guess-input').disabled = true;
     updateRank();
 }
 
-function fazerBiopsia() {
-    if (confirm("Revelar diagnóstico por 5 pontos?")) {
-        totalScore += 5;
-        document.getElementById('pts').innerText = totalScore;
-        revelarCaso("BIÓPSIA REALIZADA");
-    }
-}
-
-function revealExtraHint() {
-    hintRevealed = true;
-    erro(); // Usa a lógica de erro para mostrar a próxima dica disponível
-}
-
+// Essa é a função que o seu botão de próximo no HTML chama
 function nextLevel() {
     currentCaseIndex++;
     loadCase();
 }
 
-function updateRank() {
-    let rank = "Acadêmico";
-    if (totalScore > 300) rank = "Monitor";
-    if (totalScore > 700) rank = "Residente";
-    if (totalScore > 1200) rank = "Estomatologista";
-    document.getElementById('rank').innerText = rank;
+function fazerBiopsia() {
+    if (confirm("Gastar 5 pontos para ver o diagnóstico?")) {
+        totalScore += 5;
+        document.getElementById('pts').innerText = totalScore;
+        finalizarTentativa("BIÓPSIA REALIZADA");
+    }
 }
 
+function revealExtraHint() {
+    registrarErro();
+}
+
+function updateRank() {
+    const r = document.getElementById('rank');
+    if (totalScore > 1000) r.innerText = "Neville";
+    else if (totalScore > 600) r.innerText = "Especialista";
+    else r.innerText = "Acadêmico";
+}
+
+// Atalho Enter no input
 document.getElementById('guess-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') checkGuess();
 });
