@@ -5,23 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StomaQuiz | Atlas de Patologia Oral</title>
     <style>
+        /* CONFIGURAÇÃO DE CORES - TEMA NEVILLE */
         :root {
             --neville-burgundy: #5e111d; 
-            --neville-cream: #f9f7f2;    
+            --neville-cream: #f4f1ea;    /* Cor de papel antigo/creme */
             --neville-gold: #c5a059;     
             --text-color: #2c2c2c;
-            --border-style: 2px solid var(--neville-gold);
+            --panel-bg: #fffcf5;         /* Marfim para o painel de perguntas */
+        }
+
+        /* Forçando o fundo em todo o documento */
+        html, body {
+            background-color: var(--neville-cream) !important;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
         }
 
         body {
             font-family: 'Georgia', serif;
-            background-color: var(--neville-cream);
             color: var(--text-color);
-            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            /* Textura de papel granulado */
+            background-image: radial-gradient(#dcd7ca 0.8px, transparent 0.8px);
+            background-size: 25px 25px;
         }
 
         header {
@@ -31,7 +40,7 @@
             padding: 1.5rem 0;
             text-align: center;
             border-bottom: 4px double var(--neville-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         header h1 { 
@@ -53,11 +62,11 @@
         .image-frame {
             border: 12px solid #333;
             border-image: linear-gradient(45deg, #1a1a1a, var(--neville-gold), #1a1a1a) 1;
-            background: #111;
+            background: #000;
             height: 450px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -66,17 +75,17 @@
         #lesion-image {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Ajustado para não cortar a imagem */
+            object-fit: contain;
             transition: filter 0.6s ease, opacity 0.5s ease;
             filter: blur(30px);
             opacity: 0;
         }
 
         .panel {
-            background: white;
+            background-color: var(--panel-bg);
             padding: 25px;
-            border: var(--border-style);
-            box-shadow: 5px 5px 0px var(--neville-gold);
+            border: 2px solid var(--neville-gold);
+            box-shadow: 8px 8px 0px rgba(94, 17, 29, 0.1), 5px 5px 0px var(--neville-gold);
             display: flex;
             flex-direction: column;
         }
@@ -87,7 +96,7 @@
             font-weight: bold;
             color: var(--neville-burgundy);
             text-transform: uppercase;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #dcd7ca;
             padding-bottom: 5px;
         }
 
@@ -100,7 +109,8 @@
 
         input {
             padding: 12px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--neville-gold);
+            background-color: #fff;
             font-family: 'Georgia', serif;
             font-size: 1rem;
             outline-color: var(--neville-burgundy);
@@ -129,14 +139,13 @@
             padding: 12px;
             border-radius: 4px;
             text-align: center;
-            animation: fadeIn 0.4s ease;
         }
 
         .hint-box {
             margin-top: 20px; 
             font-style: italic;
             color: #444;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #dcd7ca;
             padding-top: 15px;
             min-height: 120px;
         }
@@ -145,12 +154,10 @@
             margin-bottom: 8px;
             font-size: 0.95rem;
             display: block;
-            animation: slideIn 0.3s ease;
-            color: #555;
+            border-left: 3px solid var(--neville-gold);
+            padding-left: 10px;
+            color: #3e3e3e;
         }
-
-        @keyframes slideIn { from { transform: translateX(-10px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         #next-btn {
             background: #27ae60;
@@ -162,12 +169,6 @@
             display: none;
             margin-top: 10px;
             text-transform: uppercase;
-            box-shadow: 0 4px 0 #1e8449;
-        }
-
-        #next-btn:active {
-            box-shadow: none;
-            transform: translateY(2px);
         }
 
         @media (max-width: 768px) {
@@ -190,12 +191,12 @@
 
     <div class="panel">
         <div class="stats">
-            CASO <span id="case-number">1</span> DE <span id="total-cases">33</span>
+            CASO <span id="case-number">1</span> DE <span id="total-cases">--</span>
         </div>
         
-        <h2 style="margin:0 0 5px 0; font-variant: small-caps;">Diagnóstico Clínico</h2>
-        <p id="instruction-text" style="font-size: 0.85rem; line-height: 1.4; color: #666;">
-            Analise a imagem borrada. Erros dão nitidez e revelam pistas do Neville.
+        <h2 style="margin:0 0 5px 0; font-variant: small-caps; color: var(--neville-burgundy);">Diagnóstico Clínico</h2>
+        <p style="font-size: 0.85rem; line-height: 1.4; color: #555;">
+            Analise a amostra. O erro revela a nitidez e as notas de rodapé do Neville.
         </p>
         
         <div class="input-group">
@@ -207,8 +208,8 @@
         
         <button id="next-btn" onclick="nextLevel()">Próximo Caso do Atlas →</button>
 
-        <div class="hint-box" id="hints-container">
-            <strong>Sinais Semiológicos:</strong><br>
+        <div class="hint-box">
+            <strong style="color: var(--neville-burgundy);">Sinais Semiológicos:</strong><br>
             <div id="current-hints-list" style="margin-top: 10px;">
                 <span style="color: #999;">Aguardando primeira tentativa...</span>
             </div>
@@ -217,7 +218,6 @@
 </div>
 
 <script src="script.js"></script>
-
 <script>
     document.getElementById('btn-check').addEventListener('click', checkGuess);
 </script>
