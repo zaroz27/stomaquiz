@@ -165,24 +165,32 @@ const bancoDeLesoes = [
         dicas: ["Malignidade de glândula salivar mais comum em adultos e crianças.", "Pode apresentar aspecto azulado (lembrando mucocele).", "Geralmente ocorre no palato ou parótida."] 
     }
 ];
-
+// --- CONFIGURAÇÕES INICIAIS ---
 let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
-let blurValue = 30;
+let blurValue = 20; // Reduzido conforme solicitado
+let totalScore = 0;
+let timer;
+let timeLeft = 45;
+let hintRevealed = false;
 
+// --- INICIALIZAÇÃO ---
 window.onload = prepararNovoJogo;
 
 function prepararNovoJogo() {
-  
+
     filaDeJogo = [...bancoDeLesoes]
         .sort(() => Math.random() - 0.5)
         .slice(0, 30);
     
+    totalScore = 0;
     currentCaseIndex = 0;
+    updateRank();
     loadCase();
 }
 
+// --- LÓGICA DO CASO ---
 function loadCase() {
     if (filaDeJogo.length === 0) return;
 
@@ -190,34 +198,53 @@ function loadCase() {
     const imgElement = document.getElementById('lesion-image');
     const hintsList = document.getElementById('current-hints-list');
 
+    // Reset de Estado
     imgElement.style.opacity = "0"; 
-    imgElement.style.filter = "blur(30px)";
-    blurValue = 30;
+    blurValue = 20; 
+    imgElement.style.filter = `blur(${blurValue}px)`;
     attempts = 0;
+    hintRevealed = false;
 
+    // Reset de Interface
     imgElement.src = caso.url;
-    imgElement.onload = () => {
-        imgElement.style.opacity = "1";
-    };
-
-    imgElement.onerror = () => {
-        imgElement.src = "https://via.placeholder.com/500?text=Imagem+Nao+Encontrada+na+Pasta+img";
-        imgElement.style.opacity = "1";
-    };
-
+    imgElement.onload = () => imgElement.style.opacity = "1";
+    
     document.getElementById('case-number').innerText = currentCaseIndex + 1;
     document.getElementById('total-cases').innerText = filaDeJogo.length;
     document.getElementById('feedback').style.display = "none";
     document.getElementById('next-btn').style.display = "none";
+    document.getElementById('guess-input').value = "";
+    document.getElementById('guess-input').disabled = false;
+    document.getElementById('guess-input').focus();
     
-    const inputField = document.getElementById('guess-input');
-    inputField.value = "";
-    inputField.disabled = false;
-    inputField.focus();
-
     hintsList.innerHTML = '<span style="color: #999;">Aguardando submissão inicial...</span>';
+
+    // Iniciar Cronômetro
+    startTimer();
 }
 
+// --- CRONÔMETRO ---
+function startTimer() {
+    clearInterval(timer);
+    timeLeft = 45;
+    const timerDisplay = document.getElementById('timer-display');
+    timerDisplay.innerText = timeLeft;
+    timerDisplay.style.background = "rgba(0,0,0,0.5)";
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.innerText = timeLeft;
+        
+        if (timeLeft <= 10) timerDisplay.style.background = "red";
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            timeout();
+        }
+    }, 1000);
+}
+
+// --- SISTEMA DE ANÁLISE (PALPITE) ---
 function checkGuess() {
     const inputField = document.getElementById('guess-input');
     const guess = inputField.value.toLowerCase().trim();
@@ -230,25 +257,33 @@ function checkGuess() {
     }
 }
 
-function vitoria(caso) {
+function vitoria() {
+    clearInterval(timer);
+    const caso = filaDeJogo[currentCaseIndex];
     const imgElement = document.getElementById('lesion-image');
-    const inputField = document.getElementById('guess-input');
     const feedback = document.getElementById('feedback');
 
     imgElement.style.filter = "blur(0px)";
-    feedback.innerText = "✨ Diagnóstico Confirmado: " + caso.nome.toUpperCase();
+    
+    // Cálculo de Pontos: Acertar de primeira com tempo sobrando dá mais pontos
+    let pontos = Math.max(10, 50 - (attempts * 10));
+    if (hintRevealed) pontos = Math.floor(pontos / 2);
+    totalScore += pontos;
+
+    feedback.innerHTML = `✅ <strong>DIAGNÓSTICO:</strong> ${caso.nome.toUpperCase()}<br>+${pontos} pts | Total: ${totalScore}`;
     feedback.style.display = "block";
     feedback.style.backgroundColor = "#eafaf1";
     feedback.style.color = "#27ae60";
     
+    document.getElementById('pts').innerText = totalScore;
+    updateRank();
     document.getElementById('next-btn').style.display = "block";
-    inputField.disabled = true;
+    document.getElementById('guess-input').disabled = true;
 }
 
 function erro(caso) {
     attempts++;
-
-    blurValue = Math.max(0, blurValue - 7);
+    blurValue = Math.max(0, blurValue - 5);
     document.getElementById('lesion-image').style.filter = `blur(${blurValue}px)`;
     
     const hintsList = document.getElementById('current-hints-list');
@@ -259,17 +294,71 @@ function erro(caso) {
         hintDiv.className = 'hint-item';
         hintDiv.innerHTML = `<strong>Pista ${attempts}:</strong> ${caso.dicas[attempts - 1]}`;
         hintsList.appendChild(hintDiv);
-    } else {
-        const aviso = document.createElement('div');
-        aviso.style.fontSize = "0.8rem";
-        aviso.style.marginTop = "5px";
-        aviso.innerHTML = "<em>Sem mais pistas disponíveis para este caso.</em>";
-        if (attempts === caso.dicas.length + 1) hintsList.appendChild(aviso);
     }
     
-    const inputField = document.getElementById('guess-input');
-    inputField.value = "";
-    inputField.focus();
+    document.getElementById('guess-input').value = "";
+    document.getElementById('guess-input').focus();
+}
+
+// --- FUNÇÕES ESPECIAIS (BOTÕES) ---
+
+function revealExtraHint() {
+    if (hintRevealed || attempts >= 3) return;
+    hintRevealed = true;
+    const caso = filaDeJogo[currentCaseIndex];
+    const hintsList = document.getElementById('current-hints-list');
+    
+    if (attempts === 0) hintsList.innerHTML = "";
+    
+    const hintDiv = document.createElement('div');
+    hintDiv.style.color = "#8e44ad";
+    hintDiv.className = 'hint-item';
+    hintDiv.innerHTML = `<strong>💡 Especialista:</strong> ${caso.dicas[caso.dicas.length - 1]}`;
+    hintsList.appendChild(hintDiv);
+    
+    alert("Dica revelada! Os pontos deste caso foram reduzidos pela metade.");
+}
+
+function fazerBiopsia() {
+    if (confirm("Deseja realizar a biópsia? Isso revelará a imagem totalmente, mas você ganhará apenas 5 pontos.")) {
+        clearInterval(timer);
+        const imgElement = document.getElementById('lesion-image');
+        imgElement.style.filter = "blur(0px)";
+        totalScore += 5;
+        document.getElementById('pts').innerText = totalScore;
+        
+        const feedback = document.getElementById('feedback');
+        feedback.innerHTML = `🔬 Biópsia Concluída: ${filaDeJogo[currentCaseIndex].nome.toUpperCase()}`;
+        feedback.style.display = "block";
+        feedback.style.backgroundColor = "#fef9e7";
+        feedback.style.color = "#f39c12";
+        
+        document.getElementById('next-btn').style.display = "block";
+        document.getElementById('guess-input').disabled = true;
+    }
+}
+
+// --- UTILITÁRIOS ---
+
+function timeout() {
+    document.getElementById('feedback').innerHTML = "⏳ TEMPO ESGOTADO!<br>O diagnóstico era: " + filaDeJogo[currentCaseIndex].nome.toUpperCase();
+    document.getElementById('feedback').style.display = "block";
+    document.getElementById('feedback').style.backgroundColor = "#fceae9";
+    document.getElementById('feedback').style.color = "#c0392b";
+    document.getElementById('lesion-image').style.filter = "blur(0px)";
+    document.getElementById('next-btn').style.display = "block";
+    document.getElementById('guess-input').disabled = true;
+}
+
+function updateRank() {
+    let rank = "Acadêmico Iniciante";
+    if (totalScore > 300) rank = "Monitor de Patologia";
+    if (totalScore > 700) rank = "Residente em Estomatologia";
+    if (totalScore > 1200) rank = "Patologista Sênior";
+    if (totalScore > 1800) rank = "Herdeiro do Neville";
+    
+    const rankElement = document.getElementById('rank');
+    if (rankElement) rankElement.innerText = rank;
 }
 
 function nextLevel() {
@@ -277,7 +366,7 @@ function nextLevel() {
     if (currentCaseIndex < filaDeJogo.length) {
         loadCase();
     } else {
-        alert("📚 Você concluiu o Atlas de Patologia Oral! Excelente estudo.");
+        alert(`📚 FIM DO EXAME!\nPontuação Final: ${totalScore}\nTítulo: ${document.getElementById('rank').innerText}`);
         prepararNovoJogo();
     }
 }
