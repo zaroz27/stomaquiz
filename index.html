@@ -3,54 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StomaQuiz - Atlas de Patologia</title>
+    <title>StomaQuiz Pro | Atlas de Patologia Oral</title>
     <style>
-        body { font-family: sans-serif; background: #1a1a1a; color: white; text-align: center; margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: #2a2a2a; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        #lives-display { font-size: 24px; margin-bottom: 10px; }
-        .stats { display: flex; justify-content: space-around; margin-bottom: 20px; font-weight: bold; color: #00ff88; }
-        
-        .image-container { position: relative; width: 100%; height: 350px; background: #000; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
-        #lesion-image { width: 100%; height: 100%; object-fit: contain; transition: 0.3s; }
-        
-        #timer-display { font-size: 30px; font-weight: bold; color: #ff4d4d; margin-bottom: 10px; }
-        
-        #guess-input { width: 80%; padding: 12px; border-radius: 5px; border: none; font-size: 16px; margin-bottom: 10px; }
-        button { padding: 12px 25px; background: #00ff88; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: #1a1a1a; }
-        button:hover { background: #00cc6e; }
+        :root {
+            --neville-burgundy: #5e111d; 
+            --neville-cream: #f4f1ea;   
+            --neville-gold: #c5a059;     
+            --text-color: #2c2c2c;
+            --panel-bg: #fffcf5;      
+        }
 
-        #current-hints-list { text-align: left; background: #333; padding: 10px; border-radius: 5px; min-height: 50px; font-size: 14px; margin-top: 15px; }
-        .hint-item { border-bottom: 1px solid #444; padding: 5px 0; color: #ddd; }
+        * { box-sizing: border-box; }
+        
+        html, body {
+            background-color: var(--neville-cream) !important;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: radial-gradient(#dcd7ca 0.8px, transparent 0.8px);
+            background-size: 25px 25px;
+        }
+
+        header {
+            background-color: var(--neville-burgundy);
+            color: var(--neville-gold);
+            width: 100%;
+            padding: 1.2rem 0;
+            text-align: center;
+            border-bottom: 4px double var(--neville-gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        header h1 { margin: 0; font-variant: small-caps; letter-spacing: 2px; font-size: 2rem; }
+
+        .container {
+            max-width: 1100px;
+            width: 95%;
+            margin: 25px auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 25px;
+        }
+
+        .image-frame {
+            border: 12px solid #333;
+            border-image: linear-gradient(45deg, #1a1a1a, var(--neville-gold), #1a1a1a) 1;
+            background: #000;
+            height: 480px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #timer-display {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            padding: 8px 15px;
+            font-family: monospace;
+            font-size: 1.4rem;
+            border: 1px solid var(--neville-gold);
+            z-index: 5;
+        }
+
+        #lesion-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: filter 0.6s ease, opacity 0.5s ease;
+            filter: blur(12px); 
+            opacity: 0;
+        }
+
+        .panel {
+            background-color: var(--panel-bg);
+            padding: 25px;
+            border: 2px solid var(--neville-gold);
+            box-shadow: 8px 8px 0px rgba(94, 17, 29, 0.1), 5px 5px 0px var(--neville-gold);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            background: #fdfaf0;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #dcd7ca;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--neville-burgundy);
+        }
+
+        .stats { font-size: 0.8rem; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; color: #666; }
+
+        .input-group { margin: 15px 0; display: flex; flex-direction: column; gap: 8px; }
+        input { padding: 12px; border: 1px solid var(--neville-gold); font-family: 'Georgia', serif; font-size: 1rem; outline: none; }
+        input:focus { border-color: var(--neville-burgundy); }
+
+        .btn-analisar {
+            background: var(--neville-burgundy);
+            color: var(--neville-gold);
+            border: 1px solid var(--neville-gold);
+            padding: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .action-row { display: flex; gap: 8px; margin-top: 5px; }
+        .btn-secondary { flex: 1; padding: 8px; font-size: 0.7rem; cursor: pointer; font-weight: bold; text-transform: uppercase; border: 1px solid #ccc; background: #fff; }
+        .btn-biopsia { background: #e67e22; color: white; border: none; }
+
+        #feedback { font-weight: bold; display: none; margin: 10px 0; padding: 12px; border-radius: 4px; text-align: center; }
+        .hint-box { margin-top: 15px; font-style: italic; color: #444; border-top: 1px solid #dcd7ca; padding-top: 15px; min-height: 100px; }
+        .hint-item { border-left: 3px solid var(--neville-gold); padding-left: 10px; margin-bottom: 6px; font-size: 0.85rem; color: #3e3e3e; }
+
+        #next-btn { background: #27ae60; color: white; border: none; padding: 14px; cursor: pointer; font-weight: bold; display: none; margin-top: 10px; text-transform: uppercase; }
+
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } .image-frame { height: 320px; } }
     </style>
 </head>
 <body>
+    
+<header>
+    <h1>StomaQuiz Pro</h1>
+    <p>Simulador Diagnóstico | Patologia Oral</p>
+</header>
 
-    <div class="container">
-        <h1>StomaQuiz 🦷</h1>
-        
-        <div id="lives-display">❤️❤️❤️</div>
-
-        <div class="stats">
-            <div>Caso: <span id="case-number">1</span>/30</div>
-            <div>Pontos: <span id="pts">0</span></div>
-        </div>
-
+<div class="container">
+    <div class="image-frame">
         <div id="timer-display">45</div>
-
-        <div class="image-container">
-            <img id="lesion-image" src="" alt="Carregando imagem...">
-        </div>
-
-        <input type="text" id="guess-input" placeholder="Digite o diagnóstico aqui..." autocomplete="off">
-        <br>
-        <button onclick="checkGuess()">Enviar Diagnóstico</button>
-
-        <div id="current-hints-list">
-            Analise a imagem...
-        </div>
+        <img id="lesion-image" src="" alt="Caso Clínico">
     </div>
 
-    <script src="script.js"></script>
+    <div class="panel">
+        <div class="score-board">
+            <span>PONTOS: <span id="pts">0</span></span>
+            <span>RANK: <span id="rank">Acadêmico</span></span>
+        </div>
+
+        <div class="stats">CASO <span id="case-number">1</span> DE <span id="total-cases">30</span></div>
+        
+        <div class="input-group">
+            <input type="text" id="guess-input" placeholder="Seu diagnóstico..." autocomplete="off">
+            <button class="btn-analisar" onclick="checkGuess()">Analisar</button>
+            <div class="action-row">
+                <button onclick="revealExtraHint()" class="btn-secondary">Dica (-50% pts)</button>
+                <button onclick="fazerBiopsia()" class="btn-secondary btn-biopsia">Biópsia (5 pts)</button>
+            </div>
+        </div>
+
+        <div id="feedback"></div>
+        <button id="next-btn" onclick="nextLevel()">Próximo Caso →</button>
+
+        <div class="hint-box">
+            <strong style="color: var(--neville-burgundy); font-size: 0.9rem;">Pistas Semiológicas:</strong>
+            <div id="current-hints-list" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
