@@ -172,7 +172,7 @@ const bancoDeLesoes = [
         dicas: ["Malignidade de glândula salivar mais comum em adultos e crianças.", "aspecto azulado (lembrando mucocele).", "ocorre no palato ou parótida."],
     }
 ];
-// --- LÓGICA DO JOGO (Sincronizada com seu HTML) ---
+// --- VARIÁVEIS DE CONTROLE ---
 let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
@@ -184,7 +184,6 @@ let timeLeft = 45;
 window.onload = prepararNovoJogo;
 
 function prepararNovoJogo() {
-    // Embaralha o banco de dados que já existe no seu arquivo
     filaDeJogo = [...bancoDeLesoes].sort(() => Math.random() - 0.5).slice(0, 30);
     totalScore = 0;
     currentCaseIndex = 0;
@@ -194,7 +193,7 @@ function prepararNovoJogo() {
 
 function loadCase() {
     if (currentCaseIndex >= filaDeJogo.length) {
-        alert("Fim do Quiz! Pontuação final: " + totalScore);
+        alert("Fim do Quiz! Pontuação: " + totalScore);
         prepararNovoJogo();
         return;
     }
@@ -202,55 +201,51 @@ function loadCase() {
     const caso = filaDeJogo[currentCaseIndex];
     const imgElement = document.getElementById('lesion-image');
     
-    // Reset da imagem e blur
     imgElement.style.opacity = "0";
     blurValue = 12;
     imgElement.style.filter = `blur(${blurValue}px)`;
     attempts = 0;
 
-    // Carrega a foto
     imgElement.src = caso.url;
     imgElement.onload = () => imgElement.style.opacity = "1";
 
-    // Atualiza os contadores do seu HTML
     document.getElementById('case-number').innerText = currentCaseIndex + 1;
     document.getElementById('total-cases').innerText = filaDeJogo.length;
     
-    // Esconde feedback e botão de próximo
-    document.getElementById('feedback').style.display = "none";
-    document.getElementById('next-btn').style.display = "none";
-    
-    // Limpa o campo de texto
+    // Esconde o modal e limpa input
+    document.getElementById('review-modal').style.display = "none";
     const inputField = document.getElementById('guess-input');
     inputField.value = "";
     inputField.disabled = false;
     inputField.focus();
 
-    // Limpa a lista de dicas
     document.getElementById('current-hints-list').innerHTML = "";
-    
     startTimer();
 }
 
 function startTimer() {
     clearInterval(timer);
     timeLeft = 45;
-    const display = document.getElementById('timer-display');
-    display.innerText = timeLeft;
+    atualizarTimerVisual();
 
     timer = setInterval(() => {
         timeLeft--;
-        display.innerText = timeLeft;
+        atualizarTimerVisual();
         if (timeLeft <= 0) {
             clearInterval(timer);
-            finalizarTentativa("TEMPO ESGOTADO!");
+            mostrarNotificacao("FALHA", "O tempo esgotou!", "#5e111d");
         }
     }, 1000);
 }
 
+function atualizarTimerVisual() {
+    const display = document.getElementById('timer-display');
+    display.innerText = timeLeft;
+    display.style.color = timeLeft < 10 ? "red" : "white";
+}
+
 function checkGuess() {
     const inputField = document.getElementById('guess-input');
-    // Normaliza texto (tira acentos e espaços)
     const guess = inputField.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
     const correto = filaDeJogo[currentCaseIndex].nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
@@ -259,7 +254,8 @@ function checkGuess() {
         let pontos = Math.max(10, 50 - (attempts * 10));
         totalScore += pontos;
         document.getElementById('pts').innerText = totalScore;
-        finalizarTentativa("✅ DIAGNÓSTICO CORRETO!");
+        updateRank();
+        mostrarNotificacao("CORRETO", "Você identificou a lesão!", "#27ae60");
     } else {
         registrarErro();
     }
@@ -268,12 +264,9 @@ function checkGuess() {
 function registrarErro() {
     attempts++;
     const caso = filaDeJogo[currentCaseIndex];
-    
-    // Melhora a visibilidade da foto
     blurValue = Math.max(0, blurValue - 3);
     document.getElementById('lesion-image').style.filter = `blur(${blurValue}px)`;
     
-    // Adiciona a dica na div 'current-hints-list' do seu HTML
     if (caso.dicas && caso.dicas[attempts - 1]) {
         const div = document.createElement('div');
         div.className = 'hint-item';
@@ -282,50 +275,56 @@ function registrarErro() {
     }
     
     document.getElementById('guess-input').value = "";
-    document.getElementById('guess-input').focus();
-
-    if (attempts >= 5) finalizarTentativa("LIMITE DE TENTATIVAS!");
+    if (attempts >= 5) mostrarNotificacao("FALHA", "Limite de tentativas excedido.", "#5e111d");
 }
 
-function finalizarTentativa(mensagem) {
+// FUNÇÃO DE NOTIFICAÇÃO (MODAL CENTRAL)
+function mostrarNotificacao(titulo, sub, cor) {
     clearInterval(timer);
-    const feedback = document.getElementById('feedback');
-    feedback.innerHTML = `<strong>${mensagem}</strong><br>Laudo: ${filaDeJogo[currentCaseIndex].nome.toUpperCase()}`;
-    feedback.style.display = "block";
-    feedback.style.color = mensagem.includes("CORRETO") ? "#27ae60" : "#5e111d";
+    const modal = document.getElementById('review-modal');
+    const t = document.getElementById('review-title');
+    const txt = document.getElementById('review-text');
+    
+    t.innerText = titulo;
+    t.style.color = cor;
+    txt.innerHTML = `${sub}<br><br>Diagnóstico: <strong>${filaDeJogo[currentCaseIndex].nome.toUpperCase()}</strong>`;
     
     document.getElementById('lesion-image').style.filter = "blur(0px)";
-    document.getElementById('next-btn').style.display = "block"; // Mostra o botão que você criou
-    document.getElementById('guess-input').disabled = true;
-    updateRank();
+    modal.style.display = "flex";
 }
 
-// Essa é a função que o seu botão de próximo no HTML chama
-function nextLevel() {
+// Botão "Continuar" do Modal
+function closeReview() {
     currentCaseIndex++;
     loadCase();
 }
 
 function fazerBiopsia() {
-    if (confirm("Gastar 5 pontos para ver o diagnóstico?")) {
-        totalScore += 5;
+    if (totalScore >= 5) {
+        totalScore -= 5;
         document.getElementById('pts').innerText = totalScore;
-        finalizarTentativa("BIÓPSIA REALIZADA");
+        mostrarNotificacao("BIÓPSIA", "Laudo histopatológico liberado.", "#c5a059");
+    } else {
+        alert("Pontos insuficientes para biópsia!");
     }
 }
 
 function revealExtraHint() {
+    // Reduz 15 segundos do tempo como penalidade
+    timeLeft = Math.max(0, timeLeft - 15);
+    atualizarTimerVisual();
     registrarErro();
 }
 
 function updateRank() {
     const r = document.getElementById('rank');
-    if (totalScore > 1000) r.innerText = "Neville";
-    else if (totalScore > 600) r.innerText = "Especialista";
+    if (totalScore >= 1000) r.innerText = "Neville (Mestre)";
+    else if (totalScore >= 600) r.innerText = "Especialista";
+    else if (totalScore >= 250) r.innerText = "Residente";
     else r.innerText = "Acadêmico";
 }
 
-// Atalho Enter no input
+// Atalho Enter
 document.getElementById('guess-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') checkGuess();
 });
