@@ -181,23 +181,7 @@ const bancoDeLesoes = [
     }
 ];
 
-// --- BANCO DE DADOS (Exemplo - Mantenha o seu original abaixo deste) ---
-const bancoDeLesoes = [
-    {
-        nome: "Liquen Plano",
-        url: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Lichen_planus_6.jpg", // Exemplo online
-        dicas: ["Linhas esbranquiçadas (Estrias de Wickham)", "Pode ser reticular ou erosivo", "Comum em mucosa jugal bilateral"],
-        revisao: "O Líquen Plano é uma doença inflamatória crônica mediada por células T. O padrão reticular é o mais comum e apresenta as clássicas Estrias de Wickham."
-    },
-    {
-        nome: "Leucoplasia",
-        url: "https://upload.wikimedia.org/wikipedia/commons/5/52/Leukoplakia01.jpg",
-        dicas: ["Placa branca que não sai à raspagem", "Termo clínico, não histopatológico", "Potencial de transformação maligna"],
-        revisao: "A Leucoplasia é a lesão cancerizável mais comum da boca. O diagnóstico é feito por exclusão de outras placas brancas."
-    }
-];
-
-// --- VARIÁVEIS DE CONTROLE ---
+// --- CONFIGURAÇÕES INICIAIS ---
 let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
@@ -208,11 +192,19 @@ let timeLeft = 45;
 let lives = 3;
 const MAX_LIVES = 3;
 
-// Inicialização
-window.onload = prepararNovoJogo;
+// --- INICIALIZAÇÃO ---
+window.onload = () => {
+    // Verifica se o banco de dados existe (deve estar no seu outro arquivo ou no topo deste)
+    if (typeof bancoDeLesoes !== 'undefined' && bancoDeLesoes.length > 0) {
+        prepararNovoJogo();
+    } else {
+        console.error("Banco de dados 'bancoDeLesoes' não encontrado.");
+        alert("Erro: O banco de imagens não foi carregado corretamente.");
+    }
+};
 
 function prepararNovoJogo() {
-    // Embaralha e seleciona 30 casos
+    // Embaralha o banco e seleciona 30 casos
     filaDeJogo = [...bancoDeLesoes]
         .sort(() => Math.random() - 0.5)
         .slice(0, 30);
@@ -223,12 +215,16 @@ function prepararNovoJogo() {
     
     document.getElementById('pts').innerText = totalScore;
     updateLivesDisplay();
-    loadCase();
+    updateRank();
+    
+    // Pequeno delay para garantir que o HTML carregou totalmente antes da 1ª imagem
+    setTimeout(loadCase, 200);
 }
 
+// --- LÓGICA DE CARREGAMENTO DE CASO ---
 function loadCase() {
     if (currentCaseIndex >= filaDeJogo.length) {
-        alert("🎉 Parabéns! Você concluiu o Atlas!");
+        alert("🎉 Parabéns! Você concluiu o Atlas de Patologia!");
         prepararNovoJogo();
         return;
     }
@@ -236,39 +232,54 @@ function loadCase() {
     const caso = filaDeJogo[currentCaseIndex];
     const imgElement = document.getElementById('lesion-image');
     
-    // IMPORTANTE: Reset de visual para a foto aparecer
+    // Reset visual para a nova imagem
     imgElement.style.opacity = "0"; 
     blurValue = 15; 
     imgElement.style.filter = `blur(${blurValue}px)`;
     
-    // Troca a fonte da imagem
-    imgElement.src = caso.url;
+    // Anti-cache: força o navegador a baixar a imagem novamente para evitar erros de exibição
+    const antiCache = "?t=" + new Date().getTime();
+    imgElement.src = caso.url + antiCache;
     
-    // Só mostra a imagem quando ela terminar de carregar
     imgElement.onload = () => {
         imgElement.style.opacity = "1";
+    };
+
+    imgElement.onerror = () => {
+        imgElement.src = "https://via.placeholder.com/500x400?text=Erro+ao+Carregar+Imagem";
+        imgElement.style.opacity = "1";
+        imgElement.style.filter = "blur(0px)";
     };
 
     // Reset de Interface
     attempts = 0;
     document.getElementById('case-number').innerText = currentCaseIndex + 1;
     document.getElementById('total-cases').innerText = filaDeJogo.length;
-    document.getElementById('guess-input').value = "";
-    document.getElementById('guess-input').disabled = false;
-    document.getElementById('current-hints-list').innerHTML = '<span style="color: #999; font-size:0.8rem;">Analise a imagem...</span>';
+    document.getElementById('feedback').style.display = "none";
     
+    const inputField = document.getElementById('guess-input');
+    inputField.value = "";
+    inputField.disabled = false;
+    inputField.focus();
+
+    document.getElementById('current-hints-list').innerHTML = 
+        '<span style="color: #999; font-size:0.8rem;">Analise os sinais clínicos...</span>';
+
     startTimer();
 }
 
+// --- SISTEMA DE TEMPO ---
 function startTimer() {
     clearInterval(timer);
     timeLeft = 45;
     const display = document.getElementById('timer-display');
     display.innerText = timeLeft;
+    display.style.color = "#fff";
 
     timer = setInterval(() => {
         timeLeft--;
         display.innerText = timeLeft;
+        if (timeLeft <= 10) display.style.color = "#ff4d4d";
         if (timeLeft <= 0) {
             clearInterval(timer);
             perderVida("O tempo esgotou!");
@@ -276,25 +287,28 @@ function startTimer() {
     }, 1000);
 }
 
+// --- VERIFICAÇÃO DE RESPOSTA ---
 function checkGuess() {
-    const input = document.getElementById('guess-input');
-    const guess = input.value.toLowerCase().trim();
-    const correto = filaDeJogo[currentCaseIndex].nome.toLowerCase();
-
-    if (guess === correto) {
-        ganharPontos();
+    const inputField = document.getElementById('guess-input');
+    const guess = inputField.value.toLowerCase().trim();
+    const casoAtual = filaDeJogo[currentCaseIndex];
+    
+    // Verificação simples de texto (deve ser exato ao nome no banco)
+    if (guess === casoAtual.nome.toLowerCase()) {
+        vitoria();
     } else {
         tratarErro();
     }
 }
 
-function ganharPontos() {
+function vitoria() {
     clearInterval(timer);
-    const pontosGanhos = Math.max(10, 50 - (attempts * 10));
-    totalScore += pontosGanhos;
+    const pontos = Math.max(10, 50 - (attempts * 10));
+    totalScore += pontos;
     document.getElementById('pts').innerText = totalScore;
+    updateRank();
     
-    showReview("✅ ACERTOU!", filaDeJogo[currentCaseIndex].revisao);
+    showReview(`✅ DIAGNÓSTICO CORRETO!`, filaDeJogo[currentCaseIndex].revisao);
 }
 
 function tratarErro() {
@@ -302,47 +316,51 @@ function tratarErro() {
     const caso = filaDeJogo[currentCaseIndex];
 
     if (attempts >= 4) {
-        perderVida("Muitas tentativas incorretas.");
+        perderVida("Limite de erros clínicos atingido.");
         return;
     }
 
-    // Melhora a nitidez da foto a cada erro
+    // Melhora a nitidez conforme erra
     blurValue = Math.max(0, blurValue - 4);
     document.getElementById('lesion-image').style.filter = `blur(${blurValue}px)`;
     
-    // Adiciona dica na lista
+    // Mostra as dicas progressivamente
     const hintsList = document.getElementById('current-hints-list');
-    if (attempts === 1) hintsList.innerHTML = "";
-    
-    const dica = caso.dicas[attempts - 1] || "Sem mais dicas para este caso.";
+    if (attempts === 1) hintsList.innerHTML = ""; 
+
+    const dicaTexto = caso.dicas[attempts - 1] || "Consulte o Neville para mais detalhes.";
     const div = document.createElement('div');
     div.className = 'hint-item';
-    div.innerHTML = `<strong>Dica ${attempts}:</strong> ${dica}`;
+    div.innerHTML = `<strong>Pista ${attempts}:</strong> ${dicaTexto}`;
     hintsList.appendChild(div);
     
     document.getElementById('guess-input').value = "";
+    document.getElementById('guess-input').focus();
 }
 
+// --- SISTEMA DE VIDAS ---
 function perderVida(motivo) {
     clearInterval(timer);
     lives--;
     updateLivesDisplay();
     
     if (lives <= 0) {
-        alert(`🚨 GAME OVER! ${motivo}\nPontuação: ${totalScore}`);
+        alert(`🚨 REPROVADO! ${motivo}\nSua pontuação final: ${totalScore}`);
         prepararNovoJogo();
     } else {
-        showReview("❌ VIDA PERDIDA", `Motivo: ${motivo}<br><br>O correto era: <strong>${filaDeJogo[currentCaseIndex].nome}</strong>.<br>${filaDeJogo[currentCaseIndex].revisao}`);
+        showReview(`❌ VIDA PERDIDA`, `<strong>Motivo:</strong> ${motivo}<br><br>O diagnóstico era: <strong>${filaDeJogo[currentCaseIndex].nome}</strong>.<br><br>${filaDeJogo[currentCaseIndex].revisao}`);
     }
 }
 
 function updateLivesDisplay() {
-    document.getElementById('lives-display').innerHTML = "❤️".repeat(lives) + "🖤".repeat(MAX_LIVES - lives);
+    const container = document.getElementById('lives-display');
+    container.innerHTML = "❤️".repeat(lives) + "🖤".repeat(MAX_LIVES - lives);
 }
 
-function showReview(titulo, texto) {
-    document.getElementById('review-title').innerHTML = titulo;
-    document.getElementById('review-text').innerHTML = texto;
+// --- MODAL DE REVISÃO E AUXÍLIOS ---
+function showReview(title, text) {
+    document.getElementById('review-title').innerHTML = title;
+    document.getElementById('review-text').innerHTML = text;
     document.getElementById('review-modal').style.display = "flex";
     document.getElementById('lesion-image').style.filter = "blur(0px)";
 }
@@ -354,19 +372,28 @@ function closeReview() {
 }
 
 function fazerBiopsia() {
-    if (confirm("A biópsia revelará o diagnóstico, mas você ganhará apenas 5 pontos. Confirmar?")) {
+    if (confirm("A biópsia confirmará o caso, mas você ganhará apenas 5 pontos. Deseja prosseguir?")) {
         clearInterval(timer);
         totalScore += 5;
         document.getElementById('pts').innerText = totalScore;
-        showReview("🔬 LAUDO HISTOPATOLÓGICO", `Diagnóstico: <strong>${filaDeJogo[currentCaseIndex].nome}</strong>.<br><br>${filaDeJogo[currentCaseIndex].revisao}`);
+        showReview("🔬 LAUDO DE BIÓPSIA", `Resultado: <strong>${filaDeJogo[currentCaseIndex].nome}</strong>.<br><br>${filaDeJogo[currentCaseIndex].revisao}`);
     }
 }
 
 function revealExtraHint() {
-    alert("Dica de Especialista: " + filaDeJogo[currentCaseIndex].dicas[0]);
+    const caso = filaDeJogo[currentCaseIndex];
+    alert("DICA DE ESPECIALISTA: " + (caso.dicas[2] || caso.dicas[0]));
 }
 
-// Atalho Enter
+function updateRank() {
+    let rank = "Acadêmico";
+    if (totalScore > 300) rank = "Monitor";
+    if (totalScore > 700) rank = "Residente";
+    if (totalScore > 1200) rank = "Estomatologista";
+    document.getElementById('rank').innerText = rank;
+}
+
+// Atalho Tecla Enter
 document.getElementById('guess-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') checkGuess();
 });
