@@ -3,6 +3,7 @@ const bancoDeLesoes = [
         nome: "língua pilosa", 
         url: "img/lingua_pilosa.jpg",
         dicas: ["Acúmulo de queratina nas papilas filiformes.", "Aspecto de 'tapete' ou pelos no dorso da língua.", "Pode estar associada ao tabagismo ou má higiene."]
+        revisao: "A lingua pilosa é uma condição benigna caracterizada pelo acúmulo de queratina nas papilas filiformes do dorso da língua, resultando em uma aparência peluda e, frequentemente, escura."
     },
     { 
         nome: "morsicatio buccarum", 
@@ -163,21 +164,6 @@ const bancoDeLesoes = [
         nome: "carcinoma mucoepidermoide", 
         url: "img/carcinoma_mucoepidermoide.jpg",
         dicas: ["Malignidade de glândula salivar mais comum em adultos e crianças.", "Pode apresentar aspecto azulado (lembrando mucocele).", "Geralmente ocorre no palato ou parótida."] 
-    }
-];
-// --- BANCO DE DADOS (Exemplo - Mantenha o seu original abaixo deste) ---
-const bancoDeLesoes = [
-    {
-        nome: "Liquen Plano",
-        url: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Lichen_planus_6.jpg", // Exemplo online
-        dicas: ["Linhas esbranquiçadas (Estrias de Wickham)", "Pode ser reticular ou erosivo", "Comum em mucosa jugal bilateral"],
-        revisao: "O Líquen Plano é uma doença inflamatória crônica mediada por células T. O padrão reticular é o mais comum e apresenta as clássicas Estrias de Wickham."
-    },
-    {
-        nome: "Leucoplasia",
-        url: "https://upload.wikimedia.org/wikipedia/commons/5/52/Leukoplakia01.jpg",
-        dicas: ["Placa branca que não sai à raspagem", "Termo clínico, não histopatológico", "Potencial de transformação maligna"],
-        revisao: "A Leucoplasia é a lesão cancerizável mais comum da boca. O diagnóstico é feito por exclusão de outras placas brancas."
     }
 ];
 
