@@ -166,8 +166,7 @@ const bancoDeLesoes = [
     }
     
 // --- CONFIGURAÇÕES INICIAIS ---
-
-    let filaDeJogo = [];
+let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
 let blurValue = 12; // Valor inicial reduzido
