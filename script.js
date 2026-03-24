@@ -168,7 +168,6 @@ const bancoDeLesoes = [
         dicaExtra: "O lipoma oral é relativamente incomum comparado ao lipoma de tecidos moles cutâneos."
     }
 ];
-
 let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
@@ -177,7 +176,7 @@ let totalScore = 0;
 let lives = 3;
 let timer;
 let timeLeft = 45;
-let extraHintUsedThisCase = false; // Controle da dica do especialista
+let extraHintUsedThisCase = false; 
 
 window.onload = () => {
     document.getElementById('rules-modal').style.display = "flex";
@@ -189,7 +188,7 @@ function fecharRegras() {
 }
 
 function prepararNovoJogo() {
-    // Embaralha o banco INTEIRO e pega apenas 15
+    // Embaralha o banco completo e seleciona 15 casos aleatórios
     filaDeJogo = [...bancoDeLesoes].sort(() => Math.random() - 0.5).slice(0, 15);
     totalScore = 0;
     currentCaseIndex = 0;
@@ -210,7 +209,6 @@ function loadCase() {
     const imgElement = document.getElementById('lesion-image');
     extraHintUsedThisCase = false; 
 
-    // Anamnese na caixa de pistas (Início do Caso)
     const hintsList = document.getElementById('current-hints-list');
     hintsList.innerHTML = `<div class='hint-item' style='border-left-color: #3498db; background: #f0f7ff;'>
         <strong>📋 ANAMNESE:</strong> ${caso.anamnese}
@@ -256,20 +254,37 @@ function atualizarTimerVisual() {
     d.style.color = timeLeft < 10 ? "#e74c3c" : "white";
 }
 
+// Lógica de Verificação com Tolerância Ortográfica e Pontos Reduzidos
 function checkGuess() {
     const inputField = document.getElementById('guess-input');
-    const guess = inputField.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
-    const correto = filaDeJogo[currentCaseIndex].nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    
+    // Normaliza a entrada do usuário: minúsculo, sem acentos, sem espaços nas pontas
+    const guess = inputField.value.toLowerCase()
+                  .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                  .trim();
+    
+    // Normaliza o nome correto do banco de dados para comparação
+    const correto = filaDeJogo[currentCaseIndex].nome.toLowerCase()
+                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     if (guess === correto) {
         clearInterval(timer);
-        let pontos = Math.max(10, 50 - (attempts * 5));
-        totalScore += pontos;
+        
+        // Nova pontuação reduzida:
+        // 0 erros = 25 pts | 1 erro = 15 pts | 2+ erros = 5 pts
+        let pontosGanhos = 5;
+        if (attempts === 0) pontosGanhos = 25;
+        else if (attempts === 1) pontosGanhos = 15;
+        
+        totalScore += pontosGanhos;
         document.getElementById('pts').innerText = totalScore;
         updateRank();
         mostrarNotificacao("CORRETO!", "Excelente olhar clínico.", "#27ae60");
     } else {
         registrarErro();
+        // Feedback visual de erro no input
+        inputField.style.borderColor = "#e74c3c";
+        setTimeout(() => inputField.style.borderColor = "var(--neville-gold)", 500);
     }
 }
 
@@ -360,14 +375,16 @@ function fazerBiopsia() {
     }
 }
 
+// Ranks ajustados para a nova escala de pontos (Máximo teórico: 375 pts)
 function updateRank() {
     const r = document.getElementById('rank');
-    if (totalScore >= 600) r.innerText = "Neville";
-    else if (totalScore >= 400) r.innerText = "Especialista";
-    else if (totalScore >= 200) r.innerText = "Residente";
+    if (totalScore >= 300) r.innerText = "Neville";
+    else if (totalScore >= 180) r.innerText = "Especialista";
+    else if (totalScore >= 80) r.innerText = "Residente";
     else r.innerText = "Acadêmico";
 }
 
 document.getElementById('guess-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') checkGuess();
+});
 });
