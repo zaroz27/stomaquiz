@@ -1,37 +1,172 @@
 const bancoDeLesoes = [
-    { nome: "língua pilosa", url: "img/lingua_pilosa.jpg", anamnese: "Masc, 45 anos, tabagista. Queixa de língua 'peluda' e hálito forte.", dicas: ["Acúmulo de queratina nas papilas filiformes.", "Aspecto de 'tapete' no dorso da língua.", "Associada a má higiene."] },
-    { nome: "morsicatio buccarum", url: "img/morsicatio.jpg", anamnese: "Fem, 22 anos, ansiosa. Relata 'peles soltas' na bochecha.", dicas: ["Hábito de mordiscamento.", "Aspecto macerado e descamativo.", "Localizada na linha de oclusão."] },
-    { nome: "linha alba", url: "img/linha_alba.jpg", anamnese: "Masc, 30 anos. Exame de rotina revela linha esbranquiçada bilateral.", dicas: ["Linha branca horizontal na mucosa bucal.", "Resultante da pressão dos dentes.", "Variação da normalidade."] },
-    { nome: "leucoedema", url: "img/leucoedema.jpg", anamnese: "Masc, 40 anos, negro. Mucosa bucal com aspecto leitoso bilateral.", dicas: ["Opalescência cinza-esbranquiçada.", "Desaparece ao esticar a mucosa.", "Comum em pacientes negros."] },
-    { nome: "leucoplasia", url: "img/leucoplasia.jpg", anamnese: "Masc, 55 anos, fumante há 30 anos. Placa branca em borda de língua.", dicas: ["Placa branca não removível à raspagem.", "Associação direta com tabagismo.", "Potencial de transformação maligna."] },
-    { nome: "candidíase pseudomembranosa", url: "img/candidiase.jpg", anamnese: "Fem, 60 anos, usuária de prótese e antibióticos recentes. Ardência bucal.", dicas: ["Placas brancas removíveis (leite coalhado).", "Sintomatologia de queimação.", "Deixa base eritematosa ao raspar."] },
-    { nome: "carcinoma espinocelular oral", url: "img/cec.jpg", anamnese: "Masc, 65 anos, etilista e tabagista. Úlcera no assoalho há 2 meses.", dicas: ["Neoplasia maligna mais comum.", "Úlcera com bordas endurecidas.", "Não cicatriza em 15 dias."] },
-    { nome: "granuloma piogênico", url: "img/granuloma_piogenico.jpg", anamnese: "Fem, 25 anos, gestante. Nódulo sangrante na gengiva.", dicas: ["Nódulo vermelho e friável.", "Crescimento rápido reacional.", "Comum em gengiva."] },
-    { nome: "mucocele", url: "img/mucocele.jpg", anamnese: "Criança, 8 anos. 'Bolha' que surge e estoura no lábio inferior.", dicas: ["Ruptura de ducto salivar.", "Nódulo flutuante azulado.", "Local: lábio inferior."] },
-    { nome: "eritoplasia", url: "img/eritoplasia.jpg", anamnese: "Masc, 50 anos, fumante. Mancha vermelha persistente em palato mole.", dicas: ["Mancha vermelha aveludada.", "Altíssimo potencial de malignidade.", "Bordas bem definidas."] },
-    { nome: "queilite angular", url: "img/queilite_angular.jpg", anamnese: "Idoso, 75 anos, prótese antiga desgastada. Ferida no canto da boca.", dicas: ["Eritema e fissuras nas comissuras.", "Associada à perda de DVO.", "Infecção por Candida/Staph."] },
-    { nome: "hemangioma", url: "img/hemangioma.jpg", anamnese: "Masc, 10 anos. Mancha arroxeada na língua desde o nascimento.", dicas: ["Proliferação de vasos sanguíneos.", "Teste de vitropressão positivo.", "Pode ser congênito."] },
-    { nome: "sarcoma de kaposi", url: "img/sarcoma_kaposi.jpg", anamnese: "Masc, 35 anos, soropositivo (HIV). Manchas roxas no palato.", dicas: ["Neoplasia vascular (HHV-8).", "Comum em pacientes com AIDS.", "Máculas arroxeadas."] },
-    { nome: "melanoma", url: "img/melanoma.jpg", anamnese: "Fem, 50 anos. Mancha escura assimétrica e irregular no palato.", dicas: ["Neoplasia maligna de melanócitos.", "Regra do ABCDE.", "Altíssima agressividade."] },
-    { nome: "estomatite nicotínica", url: "img/estomatite_nicotinica.jpg", anamnese: "Masc, 60 anos, fumante de cachimbo. Palato 'calçado'.", dicas: ["Palato branco com pontos vermelhos.", "Inflamação dos ductos glandulares.", "Resposta ao calor do fumo."] },
-    { nome: "leucoplasia verrucosa proliferativa", url: "img/lvp.jpg", anamnese: "Fem, 70 anos, não fumante. Várias placas brancas espalhadas.", dicas: ["Placas que se espalham progressivamente.", "Altíssima malignização.", "Resistente a tratamento."] },
-    { nome: "carcinoma verrucoso", url: "img/carcinoma_verrucoso.jpg", anamnese: "Masc, 70 anos, usuário de fumo mascado. Lesão exofítica branca.", dicas: ["Variante de baixo grau do CEC.", "Crescimento lento e verrucoso.", "Raramente sofre metástase."] },
-    { nome: "eritroleucoplasia", url: "img/eritroleucoplasia.jpg", anamnese: "Masc, 58 anos. Mancha branca com áreas vermelhas entremeadas.", dicas: ["Lesão mista (branca e vermelha).", "Leucoplasia pintalgada.", "Risco de câncer muito alto."] },
-    { nome: "malformação vascular", url: "img/malformacao_vascular.jpg", anamnese: "Fem, 18 anos. Aumento de volume pulsátil em lábio.", dicas: ["Anomalia estrutural congênita.", "Não regride espontaneamente.", "Pode apresentar pulsação."] },
-    { nome: "osteorradionecrose", url: "img/osteorradionecrose.jpg", anamnese: "Masc, 60 anos. Histórico de Radioterapia. Osso exposto em mandíbula.", dicas: ["Exposição óssea pós-RT.", "Hipovascularização tecidual.", "Dor e sequestro ósseo."] },
-    { nome: "lesão periférica de células gigantes", url: "img/lpcg.jpg", anamnese: "Fem, 30 anos. Nódulo roxo na gengiva entre pré-molares.", dicas: ["Nódulo gengival cianótico.", "Surge do ligamento periodontal.", "Erosão óssea em taça."] },
-    { nome: "fibroma ossificante periférico", url: "img/fop.jpg", anamnese: "Fem, 20 anos. Nódulo firme e rosa na gengiva inserida.", dicas: ["Nódulo firme pediculado.", "Contém calcificações internas.", "Exclusivo da gengiva."] },
-    { nome: "hiperplasia gengival medicamentosa", url: "img/hiperplasia_medicamentosa.jpg", anamnese: "Masc, 40 anos, epilético. Gengiva recobrindo dentes.", dicas: ["Associado a Fenitoína/Nifedipina.", "Inicia nas papilas.", "Aumento gengival generalizado."] },
-    { nome: "rânula", url: "img/ranula.jpg", anamnese: "Masc, 25 anos. Aumento de volume em assoalho de boca, unilateral.", dicas: ["Mucocele no assoalho.", "Glândula sublingual.", "Aspecto de ventre de rã."] },
-    { nome: "sialometaplasia necrosante", url: "img/sialometaplasia.jpg", anamnese: "Masc, 40 anos. Úlcera profunda no palato após trauma local.", dicas: ["Úlcera crateriforme no palato.", "Simula carcinoma.", "Autolimitada."] },
-    { nome: "mácula melanótica", url: "img/macula_melanotica.jpg", anamnese: "Fem, 30 anos. Pintinha marrom única no lábio inferior.", dicas: ["Lesão plana pigmentada única.", "Aumento focal de melanina.", "Comum no vermelhão do lábio."] },
-    { nome: "líquen plano erosivo", url: "img/liquen_plano.jpg", anamnese: "Fem, 50 anos. Áreas vermelhas e brancas em bochecha, bilateral.", dicas: ["Estrias de Wickham presentes.", "Forma clínica dolorosa.", "Doença imunológica crônica."] },
-    { nome: "condiloma acuminado", url: "img/condiloma.jpg", anamnese: "Fem, 24 anos. Múltiplas 'verrugas' moles em palato.", dicas: ["Lesão verrucosa por HPV.", "Transmissão sexual.", "Aspecto de couve-flor."] },
-    { nome: "papiloma escamoso", url: "img/papiloma.jpg", anamnese: "Masc, 32 anos. Lesão única com 'dedinhos' na ponta da língua.", dicas: ["Projeções digitiformes.", "Induzida por HPV 6/11.", "Única e pediculada."] },
-    { nome: "estomatite urêmica", url: "img/estomatite_uremica.jpg", anamnese: "Masc, 60 anos, renal crônico. Placas brancas e cheiro de urina.", dicas: ["Pacientes com insuficiência renal.", "Hálito de amônia.", "Placas brancas difusas."] },
-    { nome: "lipoma", url: "img/lipoma.jpg", anamnese: "Fem, 45 anos. Nódulo amarelado mole em mucosa bucal.", dicas: ["Nódulo amarelo e macio.", "Tumor benigno de gordura.", "Vasos superficiais visíveis."] },
-    { nome: "adenoma pleomórfico", url: "img/adenoma_pleomorfico.jpg", anamnese: "Fem, 40 anos. Massa firme de crescimento lento na parótida.", dicas: ["Tumor salivar mais comum.", "Massa firme e indolor.", "Cúpula da parótida."] },
-    { nome: "carcinoma mucoepidermoide", url: "img/carcinoma_mucoepidermoide.jpg", anamnese: "Fem, 35 anos. Aumento de volume azulado em palato duro.", dicas: ["Malignidade salivar mais comum.", "Pode simular mucocele.", "Ocorre em palato/parótida."] }
+    { 
+        nome: "língua pilosa", 
+        url: "img/lingua_pilosa.jpg", 
+        anamnese: "Paciente relata alteração cromática no dorso lingual com sensação de 'espessamento'. Histórico de tabagismo pesado e higiene oral precária.", 
+        dicas: ["Alongamento das papilas filiformes por acúmulo de queratina.", "Aspecto de 'tapete' ou pelos no dorso da língua."],
+        dicaExtra: "Pode ser precipitada pelo uso de antibióticos de amplo espectro ou bochechos oxidantes."
+    },
+    { 
+        nome: "morsicatio buccarum", 
+        url: "img/morsicatio.jpg", 
+        anamnese: "Queixa de 'rugosidade' bilateral na mucosa jugal. Paciente apresenta hábito parafuncional consciente durante períodos de estresse.", 
+        dicas: ["Placas brancas de aspecto macerado ou 'esgarçado'.", "Localização estrita à linha de oclusão dentária."],
+        dicaExtra: "Histopatologia revela extensa hiperceratose com projeções superficiais em 'franjas'."
+    },
+    { 
+        nome: "linha alba", 
+        url: "img/linha_alba.jpg", 
+        anamnese: "Achado de exame clínico de rotina. Linha esbranquiçada horizontal estendendo-se do segundo molar ao canino, bilateralmente.", 
+        dicas: ["Variação da normalidade por pressão dos dentes.", "Mais pronunciada em pacientes com mordida fechada."],
+        dicaExtra: "Não requer tratamento, sendo apenas uma resposta adaptativa do epitélio ao trauma de baixa intensidade."
+    },
+    { 
+        nome: "leucoedema", 
+        url: "img/leucoedema.jpg", 
+        anamnese: "Paciente afrodescendente apresenta opalescência cinza-esbranquiçada difusa na mucosa jugal. A alteração é bilateral.", 
+        dicas: ["Aspecto leitoso ou 'veludo' da mucosa.", "A característica desaparece completamente ao esticar o tecido."],
+        dicaExtra: "Histologicamente, apresenta edema intracelular das células da camada espinhosa."
+    },
+    { 
+        nome: "leucoplasia", 
+        url: "img/leucoplasia.jpg", 
+        anamnese: "Masc, 58 anos, fumante. Placa branca solitária em borda lateral de língua, persistente e não removível à raspagem.", 
+        dicas: ["Termo clínico para placa branca que não sai por meios mecânicos.", "Diagnóstico de exclusão clínica."],
+        dicaExtra: "Cerca de 90% das leucoplasias de assoalho de boca exibem displasia epitelial ou carcinoma no diagnóstico inicial."
+    },
+    { 
+        nome: "candidíase pseudomembranosa", 
+        url: "img/candidiase.jpg", 
+        anamnese: "Paciente idosa, diabética, queixa-se de ardência e 'gosto ruim'. Apresenta placas brancas removíveis que lembram leite coalhado.", 
+        dicas: ["Infecção fúngica oportunista comum.", "Deixa base eritematosa (vermelha) ao ser removida com gaze."],
+        dicaExtra: "O diagnóstico pode ser confirmado por citologia esfoliativa demonstrando hifas de Candida albicans."
+    },
+    { 
+        nome: "carcinoma espinocelular oral", 
+        url: "img/cec.jpg", 
+        anamnese: "Etilista e tabagista crônico com úlcera em assoalho de boca há mais de 3 semanas. Bordas endurecidas (exofíticas) e infiltradas.", 
+        dicas: ["Neoplasia maligna epitelial mais comum na boca.", "Muitas vezes associada a áreas de eritroplasia prévias."],
+        dicaExtra: "A invasão através da membrana basal é o marcador histológico fundamental da malignidade."
+    },
+    { 
+        nome: "granuloma piogênico", 
+        url: "img/granuloma_piogenico.jpg", 
+        anamnese: "Nódulo gengival pediculado de cor avermelhada. Sangramento abundante ao menor toque.", 
+        dicas: ["Lesão reacional exuberante a irritantes (tártaro, trauma).", "Muito comum em gestantes ('tumor gravídico')."],
+        dicaExtra: "Apesar do nome, não é um processo granulomatoso, mas sim uma proliferação vascular hemangiomatosa."
+    },
+    { 
+        nome: "mucocele", 
+        url: "img/mucocele.jpg", 
+        anamnese: "Paciente jovem apresenta tumefação azulada e flutuante em lábio inferior. Relata que a lesão 'estoura' e volta a encher.", 
+        dicas: ["Extravasamento de muco por ruptura de ducto salivar.", "O lábio inferior é o sítio em mais de 75% dos casos."],
+        dicaExtra: "Diferencia-se do cisto de retenção salivar verdadeiro por não possuir revestimento epitelial."
+    },
+    { 
+        nome: "eritoplasia", 
+        url: "img/eritoplasia.jpg", 
+        anamnese: "Mancha vermelha, aveludada e bem demarcada em palato mole. Paciente assintomático.", 
+        dicas: ["Lesão cancerizável com altíssimo risco de transformação.", "Deve ser biopsiada imediatamente."],
+        dicaExtra: "Diferente da leucoplasia, a eritoplasia quase sempre revela displasia grave ou carcinoma in situ na biópsia."
+    },
+    { 
+        nome: "queilite angular", 
+        url: "img/queilite_angular.jpg", 
+        anamnese: "Idoso com próteses totais mal adaptadas (perda de DVO). Apresenta fissuras e eritema nos cantos da boca.", 
+        dicas: ["Frequente em usuários de próteses antigas.", "Infecção mista por fungos e bactérias."],
+        dicaExtra: "A saliva acumulada nas pregas das comissuras favorece a proliferação de Candida e Staphylococcus."
+    },
+    { 
+        nome: "hemangioma", 
+        url: "img/hemangioma.jpg", 
+        anamnese: "Criança com mancha purpúrea na língua desde o nascimento. A lesão torna-se isquêmica sob pressão.", 
+        dicas: ["Proliferação benigna de vasos sanguíneos.", "Teste de vitropressão (diascopia) positivo."],
+        dicaExtra: "Muitos hemangiomas infantis regridem espontaneamente até os 7-10 anos de idade."
+    },
+    { 
+        nome: "sarcoma de kaposi", 
+        url: "img/sarcoma_kaposi.jpg", 
+        anamnese: "Paciente HIV+ apresenta máculas arroxeadas múltiplas no palato. As lesões são assintomáticas, mas estão crescendo.", 
+        dicas: ["Neoplasia endotelial associada ao vírus HHV-8.", "Um dos marcadores clínicos da AIDS."],
+        dicaExtra: "Clinicamente pode mimetizar um hemangioma, mas o histórico de imunossupressão é a chave diagnóstica."
+    },
+    { 
+        nome: "melanoma", 
+        url: "img/melanoma.jpg", 
+        anamnese: "Mácula pigmentada assimétrica em palato duro, com bordas irregulares e variação de cores (preto/marrom).", 
+        dicas: ["Neoplasia maligna de melanócitos extremamente agressiva.", "Segue a regra do ABCDE."],
+        dicaExtra: "O melanoma oral tem prognóstico muito pior que o cutâneo, com sobrevida em 5 anos abaixo de 20%."
+    },
+    { 
+        nome: "estomatite nicotínica", 
+        url: "img/estomatite_nicotinica.jpg", 
+        anamnese: "Palato com aspecto esbranquiçado e múltiplos pontos vermelhos. Paciente relata fumar cachimbo há décadas.", 
+        dicas: ["Resposta ao calor gerado pelo fumo no palato.", "Pontos vermelhos são ductos inflamados das glândulas salivares."],
+        dicaExtra: "Raramente evolui para câncer, sendo considerada uma alteração reacional ao calor."
+    },
+    { 
+        nome: "rânula", 
+        url: "img/ranula.jpg", 
+        anamnese: "Tumefação unilateral em assoalho de boca, azulada e flutuante. Desloca a língua para o lado oposto.", 
+        dicas: ["Mucocele originada na glândula sublingual.", "Nome derivado da semelhança com o ventre de um anfíbio."],
+        dicaExtra: "Se a mucina romper o músculo milo-hioideo, torna-se uma rânula mergulhante no pescoço."
+    },
+    { 
+        nome: "adenoma pleomórfico", 
+        url: "img/adenoma_pleomorfico.jpg", 
+        anamnese: "Massa firme, móvel e de crescimento lento na região da parótida. Paciente assintomático.", 
+        dicas: ["Tumor de glândula salivar mais comum.", "Também chamado de 'Tumor Misto Benigno'."],
+        dicaExtra: "Apresenta uma mistura complexa de epitélio ductal e estroma mesenquimal (condroide ou mixoide)."
+    },
+    { 
+        nome: "carcinoma mucoepidermoide", 
+        url: "img/carcinoma_mucoepidermoide.jpg", 
+        anamnese: "Aumento de volume azulado e indolor em palato duro. Pode simular clinicamente uma mucocele.", 
+        dicas: ["Neoplasia maligna de glândula salivar mais comum.", "Ocorre frequentemente em parótida e palato."],
+        dicaExtra: "O diagnóstico histológico baseia-se na presença de células mucosas, epidermoides e intermediárias."
+    },
+    { 
+        nome: "sialometaplasia necrosante", 
+        url: "img/sialometaplasia.jpg", 
+        anamnese: "Úlcera crateriforme profunda no palato. O paciente relata dor inicial intensa seguida de anestesia.", 
+        dicas: ["Pode ser confundida com carcinoma maligno.", "Condição inflamatória autolimitada (cura em 6-10 semanas)."],
+        dicaExtra: "Resultante de isquemia tecidual e infarto das glândulas salivares menores do palato."
+    },
+    { 
+        nome: "mácula melanótica", 
+        url: "img/macula_melanotica.jpg", 
+        anamnese: "Pequena mancha marrom única em vermelhão de lábio inferior. Plana, assintomática e estável há anos.", 
+        dicas: ["Aumento focal da produção de melanina.", "Não tem potencial de transformação maligna."],
+        dicaExtra: "A biópsia é indicada para descartar melanoma inicial se houver mudanças recentes."
+    },
+    { 
+        nome: "líquen plano", 
+        url: "img/liquen_plano.jpg", 
+        anamnese: "Mulher, 50 anos, queixa-se de ardência. Mucosa jugal bilateral com estrias esbranquiçadas rendilhadas.", 
+        dicas: ["Doença imunológica crônica mediada por linfócitos T.", "Presença das famosas Estrias de Wickham."],
+        dicaExtra: "O diagnóstico histológico revela um infiltrado inflamatório em 'banda' e degeneração da camada basal."
+    },
+    { 
+        nome: "papiloma escamoso", 
+        url: "img/papiloma.jpg", 
+        anamnese: "Nódulo pediculado com projeções digitiformes (semelhante a couve-flor) na ponta da língua.", 
+        dicas: ["Lesão induzida pelos subtipos 6 e 11 do HPV.", "Crescimento verrucoso e benigno."],
+        dicaExtra: "Apresenta 'dedos' de epitélio ceratinizado com núcleos de tecido conjuntivo fibrovascular."
+    },
+    { 
+        nome: "condiloma acuminado", 
+        url: "img/condiloma.jpg", 
+        anamnese: "Múltiplas massas verrucosas sésseis que tendem a coalescer no palato e gengiva. Paciente sexualmente ativo.", 
+        dicas: ["DST causada por subtipos de HPV de baixo risco.", "Lesões maiores e mais numerosas que o papiloma comum."],
+        dicaExtra: "Presença histológica de coilócitos (células epiteliais com núcleos picnóticos e halo claro)."
+    },
+    { 
+        nome: "lipoma", 
+        url: "img/lipoma.jpg", 
+        anamnese: "Nódulo submucoso amarelado, macio e móvel em mucosa jugal. Vasos sanguíneos superficiais são visíveis.", 
+        dicas: ["Tumor benigno de tecido adiposo (gordura).", "Flutua se for colocado em formalina (devido à gordura)."],
+        dicaExtra: "O lipoma oral é relativamente incomum comparado ao lipoma de tecidos moles cutâneos."
+    }
 ];
 
 let filaDeJogo = [];
@@ -42,9 +177,9 @@ let totalScore = 0;
 let lives = 3;
 let timer;
 let timeLeft = 45;
+let extraHintUsedThisCase = false; // Controle da dica do especialista
 
 window.onload = () => {
-    // Mantém o modal de regras visível no início
     document.getElementById('rules-modal').style.display = "flex";
 };
 
@@ -54,7 +189,8 @@ function fecharRegras() {
 }
 
 function prepararNovoJogo() {
-    filaDeJogo = [...bancoDeLesoes].sort(() => Math.random() - 0.5).slice(0, 30);
+    // Embaralha o banco INTEIRO e pega apenas 15
+    filaDeJogo = [...bancoDeLesoes].sort(() => Math.random() - 0.5).slice(0, 15);
     totalScore = 0;
     currentCaseIndex = 0;
     lives = 3;
@@ -66,16 +202,17 @@ function prepararNovoJogo() {
 
 function loadCase() {
     if (currentCaseIndex >= filaDeJogo.length) {
-        mostrarNotificacao("CONCLUÍDO", "Você finalizou o Atlas!", "#c5a059", true);
+        mostrarNotificacao("CONCLUÍDO", "Você dominou o Atlas!", "#c5a059", true);
         return;
     }
 
     const caso = filaDeJogo[currentCaseIndex];
     const imgElement = document.getElementById('lesion-image');
-    
-    // Inserir Anamnese na caixa de pistas
+    extraHintUsedThisCase = false; 
+
+    // Anamnese na caixa de pistas (Início do Caso)
     const hintsList = document.getElementById('current-hints-list');
-    hintsList.innerHTML = `<div class='hint-item' style='border-left-color: #3498db; background: #f0f7ff; color: #2980b9;'>
+    hintsList.innerHTML = `<div class='hint-item' style='border-left-color: #3498db; background: #f0f7ff;'>
         <strong>📋 ANAMNESE:</strong> ${caso.anamnese}
     </div>`;
 
@@ -194,9 +331,23 @@ function closeReview() {
 }
 
 function revealExtraHint() {
+    if (extraHintUsedThisCase) {
+        alert("Dica de especialista já utilizada para este caso!");
+        return;
+    }
+    
     timeLeft = Math.max(0, timeLeft - 15);
     atualizarTimerVisual();
-    registrarErro();
+    
+    const caso = filaDeJogo[currentCaseIndex];
+    const div = document.createElement('div');
+    div.className = 'hint-item';
+    div.style.borderLeftColor = "#e67e22";
+    div.style.backgroundColor = "#fff5eb";
+    div.innerHTML = `<strong>💡 INSIGHT DO NEVILLE:</strong> ${caso.dicaExtra}`;
+    document.getElementById('current-hints-list').appendChild(div);
+    
+    extraHintUsedThisCase = true;
 }
 
 function fazerBiopsia() {
@@ -211,9 +362,9 @@ function fazerBiopsia() {
 
 function updateRank() {
     const r = document.getElementById('rank');
-    if (totalScore >= 1200) r.innerText = "Neville";
-    else if (totalScore >= 800) r.innerText = "Especialista";
-    else if (totalScore >= 400) r.innerText = "Residente";
+    if (totalScore >= 600) r.innerText = "Neville";
+    else if (totalScore >= 400) r.innerText = "Especialista";
+    else if (totalScore >= 200) r.innerText = "Residente";
     else r.innerText = "Acadêmico";
 }
 
