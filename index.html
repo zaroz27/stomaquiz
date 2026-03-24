@@ -177,8 +177,8 @@
         <div class="rules-body" style="text-align: left; font-size: 0.9rem;">
             <p>1. <strong>Anamnese:</strong> Analise o prontuário técnico antes de dar o diagnóstico.</p>
             <p>2. <strong>Plantão:</strong> Cada rodada consiste em <strong>15 casos</strong> sorteados do atlas.</p>
-            <p>3. <strong>Vidas:</strong> Você tem 3 corações. Erros persistentes ou tempo esgotado custam 1 vida.</p>
-            <p>4. <strong>Especialista:</strong> O insight técnico reduz 15s do seu tempo total.</p>
+            <p>3. <strong>Acurácia:</strong> O sistema tolera falta de acentos, mas exige o nome correto da <strong>variante</strong> da lesão.</p>
+            <p>4. <strong>Pontuação:</strong> Acertos de primeira valem 25 pts. Erros custam bônus e vidas.</p>
             <p>5. <strong>Biópsia:</strong> Revela o laudo imediatamente por um custo de 10 pontos.</p>
         </div>
         <button class="btn-next-modal" onclick="fecharRegras()">Iniciar Plantão</button>
@@ -204,13 +204,13 @@
 
         <div class="score-board" style="margin-top: -10px;">
             <span>PONTOS: <span id="pts">0</span></span>
-            <span style="font-size: 0.7rem; color: #999;">ESTÁGIO NEVILLE</span>
+            <span style="font-size: 0.7rem; color: #999;">AVALIAÇÃO DE COMPETÊNCIA</span>
         </div>
 
         <div class="stats">CASO <span id="case-number">1</span> DE <span id="total-cases">15</span></div>
         
         <div class="input-group">
-            <input type="text" id="guess-input" placeholder="Digite o diagnóstico..." autocomplete="off">
+            <input type="text" id="guess-input" placeholder="Digite o diagnóstico completo..." autocomplete="off">
             <button class="btn-analisar" onclick="checkGuess()">Analisar Amostra</button>
             <div class="action-row">
                 <button onclick="revealExtraHint()" class="btn-secondary">Dica de Especialista</button>
