@@ -387,4 +387,3 @@ function updateRank() {
 document.getElementById('guess-input').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') checkGuess();
 });
-});
