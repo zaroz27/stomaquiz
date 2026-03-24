@@ -133,7 +133,6 @@
         .hint-box { margin-top: 15px; font-style: italic; color: #444; border-top: 1px solid #dcd7ca; padding-top: 15px; min-height: 100px; }
         .hint-item { border-left: 3px solid var(--neville-gold); padding-left: 10px; margin-bottom: 6px; font-size: 0.85rem; color: #3e3e3e; }
 
-        /* --- ESTILOS DOS MODAIS --- */
         .modal { 
             display: none; 
             position: fixed; 
@@ -176,10 +175,11 @@
     <div class="modal-content">
         <h2>Manual de Conduta Clínica</h2>
         <div class="rules-body" style="text-align: left; font-size: 0.9rem;">
-            <p>1. <strong>Anamnese:</strong> Leia o prontuário antes de analisar a imagem.</p>
-            <p>2. <strong>Vidas:</strong> Você tem 3 corações. Erros ou tempo esgotado custam 1 vida.</p>
-            <p>3. <strong>Penalidade:</strong> A Dica de Especialista reduz 15s do seu tempo.</p>
-            <p>4. <strong>Biópsia:</strong> Revela o laudo imediatamente por 10 pontos.</p>
+            <p>1. <strong>Anamnese:</strong> Analise o prontuário técnico antes de dar o diagnóstico.</p>
+            <p>2. <strong>Plantão:</strong> Cada rodada consiste em <strong>15 casos</strong> sorteados do atlas.</p>
+            <p>3. <strong>Vidas:</strong> Você tem 3 corações. Erros persistentes ou tempo esgotado custam 1 vida.</p>
+            <p>4. <strong>Especialista:</strong> O insight técnico reduz 15s do seu tempo total.</p>
+            <p>5. <strong>Biópsia:</strong> Revela o laudo imediatamente por um custo de 10 pontos.</p>
         </div>
         <button class="btn-next-modal" onclick="fecharRegras()">Iniciar Plantão</button>
     </div>
@@ -207,10 +207,10 @@
             <span style="font-size: 0.7rem; color: #999;">ESTÁGIO NEVILLE</span>
         </div>
 
-        <div class="stats">CASO <span id="case-number">1</span> DE <span id="total-cases">30</span></div>
+        <div class="stats">CASO <span id="case-number">1</span> DE <span id="total-cases">15</span></div>
         
         <div class="input-group">
-            <input type="text" id="guess-input" placeholder="Seu diagnóstico..." autocomplete="off">
+            <input type="text" id="guess-input" placeholder="Digite o diagnóstico..." autocomplete="off">
             <button class="btn-analisar" onclick="checkGuess()">Analisar Amostra</button>
             <div class="action-row">
                 <button onclick="revealExtraHint()" class="btn-secondary">Dica de Especialista</button>
