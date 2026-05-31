@@ -173,6 +173,227 @@ const bancoDeLesoes = [
         dicas: ["Tumor benigno de tecido adiposo (gordura).", "Flutua se for colocado em formalina (devido à gordura)."],
         dicaExtra: "O lipoma oral é relativamente incomum comparado ao lipoma de tecidos moles cutâneos."
     }
+    // ============================================================
+//  NOVAS LESÕES — adicionar ao bancoDeLesoes existente
+//  Basta copiar os objetos abaixo para dentro do array principal
+// ============================================================
+
+// ─────────────────────────────────────────────────────────────
+//  BLOCO 1 — LESÕES DE MUCOSA FALTANTES
+// ─────────────────────────────────────────────────────────────
+
+    // --- LESÕES BRANCAS / VERMELHAS ---
+
+    { 
+        nome: "queilite actínica",
+        url: "img/queilite_actinica.jpg",
+        anamnese: "Homem, 55 anos, lavrador. Lábio inferior ressecado, com descamação e borramento da transição entre vermelhão e pele. Relata exposição solar intensa e crônica.",
+        dicas: [
+            "Lesão cancerizável causada por exposição crônica à radiação UV no lábio inferior.",
+            "Borramento da semi-mucosa (perda da nitidez do vermelhão) é sinal de alerta."
+        ],
+        dicaExtra: "A progressão para carcinoma espinocelular ocorre em até 10% dos casos; a elastose actínica no estroma é o achado histológico característico."
+    },
+    { 
+        nome: "estomatite aftosa recorrente",
+        url: "img/afta.jpg",
+        anamnese: "Paciente jovem com úlceras dolorosas recorrentes em mucosa não ceratinizada (mucosa labial e jugal). Lesões de 5-10 mm, com halo eritematoso e pseudomembrana amarelada central.",
+        dicas: [
+            "Úlceras dolorosas em mucosa não ceratinizada, com halo eritematoso.",
+            "Etiologia multifatorial: estresse, deficiências nutricionais (B12, ferro, folato), trauma."
+        ],
+        dicaExtra: "Diferencia-se do herpes intraoral por acometer mucosa não ceratinizada e não apresentar vesículas precedendo a ulceração."
+    },
+    { 
+        nome: "pênfigo vulgar",
+        url: "img/pemfigo_vulgar.jpg",
+        anamnese: "Adulto com úlceras extensas e irregulares em mucosa jugal e palato. Lesões iniciam como vesículas/bolhas que se rompem facilmente, deixando base eritematosa dolorosa. Sinal de Nikolsky positivo.",
+        dicas: [
+            "Doença autoimune por anticorpos IgG contra desmogleína 1 e 3 (desmossomos).",
+            "Sinal de Nikolsky positivo: epitélio se destaca ao leve toque lateral."
+        ],
+        dicaExtra: "A boca é frequentemente o primeiro sítio acometido, precedendo as lesões cutâneas em meses. Histologia revela acantólise suprabasilar."
+    },
+    { 
+        nome: "candidíase eritematosa",
+        url: "img/candidiase_eritematosa.jpg",
+        anamnese: "Paciente em uso prolongado de corticosteroide inalatório. Área avermelhada, atrófica e dolorosa no palato duro, com ardência e sensação de queimação.",
+        dicas: [
+            "Forma atrófica da candidíase, sem placas brancas visíveis.",
+            "Comum em usuários de corticosteroide inalatório e portadores de prótese total ('estomatite por prótese')."
+        ],
+        dicaExtra: "Difere da candidíase pseudomembranosa por não apresentar placas removíveis; o diagnóstico pode exigir cultura ou citologia esfoliativa."
+    },
+
+    // --- LESÕES PIGMENTADAS ---
+
+    { 
+        nome: "tatuagem de amálgama",
+        url: "img/tatuagem_amalgama.jpg",
+        anamnese: "Mancha acinzentada ou azul-enegrada, plana e assintomática em gengiva ou mucosa alveolar. Paciente possui restaurações de amálgama adjacentes ou histórico de extração.",
+        dicas: [
+            "Implantação iatrogênica de partículas de amálgama na mucosa oral.",
+            "Lesão estável, assintomática e sem potencial de transformação maligna."
+        ],
+        dicaExtra: "Radiograficamente pode evidenciar partículas radiopacas no tecido mole. Diferencia-se do melanoma pela estabilidade e ausência de assimetria ou variação de cor."
+    },
+    { 
+        nome: "grânulos de Fordyce",
+        url: "img/fordyce.jpg",
+        anamnese: "Achado incidental em mucosa jugal e vermelhão do lábio. Múltiplas pápulas amareladas, puntiformes, agrupadas e assintomáticas. Paciente sem queixas.",
+        dicas: [
+            "Glândulas sebáceas ectópicas — variação da normalidade, sem tratamento necessário.",
+            "Mais visíveis após a puberdade; não têm relação com ductos salivares."
+        ],
+        dicaExtra: "Não confundir com candidíase ou leucoplasia; a característica amarelada puntiforme e a ausência de sintomas são diagnósticas."
+    },
+
+    // --- LESÕES REACIONAIS / VIRAIS ---
+
+    { 
+        nome: "fibroma traumático",
+        url: "img/fibroma_traumatico.jpg",
+        anamnese: "Nódulo séssil, firme, da cor da mucosa normal, em mucosa jugal na linha de oclusão. Crescimento lento após trauma crônico por mordida.",
+        dicas: [
+            "Lesão reacional mais comum da mucosa oral.",
+            "Superfície lisa, cor semelhante à mucosa adjacente, consistência firme."
+        ],
+        dicaExtra: "Histologicamente é um tecido conjuntivo fibroso denso, não uma neoplasia verdadeira. Tratamento: excisão simples e eliminação do fator irritante."
+    },
+    { 
+        nome: "épulis fissuratum",
+        url: "img/epulis_fissuratum.jpg",
+        anamnese: "Paciente idoso usuário de prótese total antiga e mal adaptada. Pregas de tecido hiperplásico fibroso no fundo de sulco vestibular, envoltas pela flange da prótese.",
+        dicas: [
+            "Hiperplasia fibrosa reacional à flange de prótese mal adaptada.",
+            "Lesão em 'sanduíche': tecido mole aprisionado entre prótese e rebordo."
+        ],
+        dicaExtra: "O tratamento inclui excisão cirúrgica e confecção de nova prótese; sem remoção do irritante, a lesão recidiva."
+    },
+    { 
+        nome: "herpes simples intraoral",
+        url: "img/herpes_intraoral.jpg",
+        anamnese: "Paciente com múltiplas úlceras pequenas, dolorosas e agrupadas em mucosa ceratinizada (gengiva e palato duro). Relata episódio precedido de ardência e formação de vesículas.",
+        dicas: [
+            "Causado pelo HSV-1; reativação acomete mucosa ceratinizada (ao contrário da afta).",
+            "Vesículas que se rompem formando úlceras agrupadas em 'cacho'."
+        ],
+        dicaExtra: "A localização em mucosa ceratinizada e o agrupamento de úlceras são a chave diferencial com a estomatite aftosa recorrente."
+    },
+
+// ─────────────────────────────────────────────────────────────
+//  BLOCO 2 — PATOLOGIAS ÓSSEAS ORAIS
+//  (trocar URLs quando definir as imagens)
+// ─────────────────────────────────────────────────────────────
+
+    // --- CISTOS ODONTOGÊNICOS ---
+
+    { 
+        nome: "cisto dentígero",
+        url: "img/cisto_dentigero.jpg",
+        anamnese: "Paciente jovem com terceiro molar inferior incluso. Radiografia panorâmica evidencia área radiolúcida unilocular bem delimitada envolvendo a coroa do dente incluso.",
+        dicas: [
+            "Cisto de desenvolvimento associado à coroa de dente incluso (mais comum: 3º molar e canino).",
+            "Radiograficamente: radiolúcida unilocular envolvendo a coroa do dente incluso."
+        ],
+        dicaExtra: "Origina-se da separação entre o epitélio do esmalte reduzido e a coroa dental. Pode deslocar dentes adjacentes e causar reabsorção radicular."
+    },
+    { 
+        nome: "cisto radicular",
+        url: "img/cisto_radicular.jpg",
+        anamnese: "Paciente com dente desvitalizado e história de tratamento endodôntico incompleto. Área radiolúcida periapical bem definida, assintomática, detectada em radiografia de rotina.",
+        dicas: [
+            "Cisto mais comum dos maxilares; origina-se dos restos epiteliais de Malassez.",
+            "Sempre associado ao ápice de dente não vital (polpa necrosada)."
+        ],
+        dicaExtra: "Diferencia-se do granuloma periapical apenas histologicamente (presença de cavidade cística revestida por epitélio). Tratamento: endodontia + cirurgia paraendodôntica ou exodontia."
+    },
+    { 
+        nome: "ceratocisto odontogênico",
+        url: "img/ceratocisto.jpg",
+        anamnese: "Jovem adulto com expansão discreta em ramo mandibular. Radiografia evidencia lesão radiolúcida uni ou multilocular com bordas festonadas, frequentemente sem dente associado.",
+        dicas: [
+            "Alta taxa de recidiva (até 60%) devido ao epitélio de revestimento com atividade mitótica intrínseca.",
+            "Bordas festonadas e crescimento anteroposterior sem expansão óssea proporcional são características."
+        ],
+        dicaExtra: "Atualmente classificado como tumor odontogênico pela OMS em algumas revisões. Múltiplos ceratocistos associam-se à Síndrome de Gorlin-Goltz (nevo basocelular)."
+    },
+    { 
+        nome: "cisto residual",
+        url: "img/cisto_residual.jpg",
+        anamnese: "Paciente adulto com área radiolúcida bem delimitada em região edêntula, após exodontia prévia há anos. Assintomático, descoberto em radiografia panorâmica de rotina.",
+        dicas: [
+            "Cisto radicular que permaneceu no osso após a extração do dente causador.",
+            "Localizado em área edêntula; achado radiográfico incidental."
+        ],
+        dicaExtra: "Tratamento é cirúrgico (enucleação). Pode crescer lentamente e causar reabsorção óssea se não tratado."
+    },
+
+    // --- TUMORES ODONTOGÊNICOS ---
+
+    { 
+        nome: "ameloblastoma",
+        url: "img/ameloblastoma.jpg",
+        anamnese: "Adulto com expansão indolor e progressiva de mandíbula posterior. Radiografia panorâmica mostra lesão radiolúcida multilocular em 'bolhas de sabão' ou 'favo de mel'.",
+        dicas: [
+            "Tumor odontogênico benigno mais comum e clinicamente significativo.",
+            "Aspecto radiográfico multilocular em 'bolhas de sabão' é clássico, mas pode ser unilocular."
+        ],
+        dicaExtra: "Apesar de benigno, tem comportamento localmente agressivo com alta taxa de recidiva após curetagem simples. Tratamento de escolha: ressecção com margens."
+    },
+    { 
+        nome: "mixoma odontogênico",
+        url: "img/mixoma_odontogenico.jpg",
+        anamnese: "Adulto jovem com expansão óssea em maxila ou mandíbula. Radiografia mostra lesão radiolúcida multilocular com trabéculas ósseas em padrão de 'raquete de tênis' ou 'escada'.",
+        dicas: [
+            "Tumor odontogênico benigno de origem mesenquimal, localmente agressivo.",
+            "Trabéculas em ângulo reto ('escada' ou 'raquete de tênis') são características radiográficas."
+        ],
+        dicaExtra: "Não possui cápsula definida, o que dificulta a remoção completa e justifica a alta taxa de recidiva. Tratamento: ressecção ampla."
+    },
+    { 
+        nome: "odontoma",
+        url: "img/odontoma.jpg",
+        anamnese: "Paciente jovem com dente permanente incluso sem causa aparente. Radiografia revela massa radiopaca bem delimitada associada ao dente incluso — aspecto de 'dentes em miniatura' (composto) ou massa amorfa (complexo).",
+        dicas: [
+            "Tumor odontogênico mais comum; considerado hamartoma (tecidos dentais normais, organização alterada).",
+            "Composto: múltiplas estruturas semelhantes a dentes. Complexo: massa radiopaca amorfa."
+        ],
+        dicaExtra: "Frequentemente causa inclusão de dente permanente adjacente. Tratamento: enucleação simples; recidiva é rara."
+    },
+
+    // --- LESÕES ÓSSEAS NÃO ODONTOGÊNICAS ---
+
+    { 
+        nome: "displasia fibrosa",
+        url: "img/displasia_fibrosa.jpg",
+        anamnese: "Adolescente com aumento de volume facial progressivo e assimétrico em maxila. Radiografia mostra lesão radiolúcida com aspecto de 'vidro fosco' com fusão ao osso normal sem limites definidos.",
+        dicas: [
+            "Substituição do osso normal por tecido fibroso contendo trabéculas ósseas imaturas.",
+            "Aspecto radiográfico em 'vidro fosco' (ground glass) com limites imprecisos é patognomônico."
+        ],
+        dicaExtra: "Causada por mutação somática do gene GNAS. A forma poliostótica associada a manchas café-com-leite e puberdade precoce caracteriza a Síndrome de McCune-Albright."
+    },
+    { 
+        nome: "granuloma central de células gigantes",
+        url: "img/granuloma_celulas_gigantes.jpg",
+        anamnese: "Criança ou adulto jovem com expansão óssea em mandíbula anterior, cruzando a linha média. Radiografia mostra área radiolúcida multilocular com possível reabsorção radicular e deslocamento dentário.",
+        dicas: [
+            "Lesão intraóssea benigna com células gigantes multinucleadas em estroma vascular.",
+            "Localização anterior de mandíbula cruzando a linha média é característica."
+        ],
+        dicaExtra: "Deve ser diferenciado do tumor marrom do hiperparatireoidismo (clinicamente idêntico); sempre solicitar cálcio, fósforo e PTH sérico."
+    },
+    { 
+        nome: "osteossarcoma",
+        url: "img/osteossarcoma.jpg",
+        anamnese: "Adulto jovem com dor, parestesia e aumento de volume rápido em mandíbula ou maxila. Radiografia mostra lesão mista (radiolúcida e radiopaca) com ruptura cortical e espículas ósseas perpendiculares ('raios de sol').",
+        dicas: [
+            "Neoplasia maligna óssea primária mais comum dos maxilares.",
+            "Espículas ósseas em 'raios de sol' e triângulo de Codman são achados radiográficos clássicos."
+        ],
+        dicaExtra: "O osteossarcoma dos maxilares ocorre em média uma década mais tarde que o esquelético e tem prognóstico ligeiramente melhor. Tratamento: cirurgia + quimioterapia."
+    },
 ];
 let filaDeJogo = [];
 let currentCaseIndex = 0;
