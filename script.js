@@ -579,9 +579,17 @@ function updateRank() {
     else r.innerText = "Acadêmico";
 }
 
-// BUG FIX 4: Listener dentro de DOMContentLoaded para garantir que o elemento existe
+// BUG FIX 4: Todos os listeners centralizados no DOMContentLoaded
+// Isso garante que os elementos existem E que as funções já foram definidas
 document.addEventListener('DOMContentLoaded', () => {
+    // Enter para submeter resposta
     document.getElementById('guess-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') checkGuess();
     });
+
+    // Botão de fechar regras — via listener em vez de onclick no HTML
+    const btnIniciar = document.querySelector('#rules-modal .btn-next-modal');
+    if (btnIniciar) {
+        btnIniciar.addEventListener('click', fecharRegras);
+    }
 });
