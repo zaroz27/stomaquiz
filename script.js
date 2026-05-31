@@ -32,7 +32,6 @@ const bancoDeLesoes = [
         url: "img/leucoplasia.jpg", 
         anamnese: "Masc, 58 anos, fumante. Placa branca solitária em borda lateral de língua, persistente e não removível à raspagem.", 
         dicas: ["Termo clínico para placa branca que não sai por meios mecânicos.", "Diagnóstico de exclusão clínica."],
-        // CORRIGIDO: o percentual de displasia em leucoplasias de assoalho é ~40-50%, não 90%
         dicaExtra: "Leucoplasias localizadas no assoalho de boca e ventre lingual apresentam maior risco de displasia epitelial, sendo indicada biópsia em todos os casos persistentes."
     },
     { 
@@ -45,7 +44,6 @@ const bancoDeLesoes = [
     { 
         nome: "carcinoma espinocelular oral", 
         url: "img/cec.jpg", 
-        // CORRIGIDO: "exofíticas" substituído por descrição clinicamente coerente com bordas infiltradas
         anamnese: "Etilista e tabagista crônico com úlcera em assoalho de boca há mais de 3 semanas. Bordas endurecidas, indolores e infiltradas à palpação.", 
         dicas: ["Neoplasia maligna epitelial mais comum na boca.", "Muitas vezes associada a áreas de eritroplasia prévias."],
         dicaExtra: "A invasão através da membrana basal é o marcador histológico fundamental da malignidade."
@@ -65,7 +63,6 @@ const bancoDeLesoes = [
         dicaExtra: "Diferencia-se do cisto de retenção salivar verdadeiro por não possuir revestimento epitelial."
     },
     { 
-        // CORRIGIDO: "eritoplasia" → "eritroplasia"
         nome: "eritroplasia", 
         url: "img/eritoplasia.jpg", 
         anamnese: "Mancha vermelha, aveludada e bem demarcada em palato mole. Paciente assintomático.", 
@@ -82,7 +79,6 @@ const bancoDeLesoes = [
     { 
         nome: "hemangioma", 
         url: "img/hemangioma.jpg", 
-        // CORRIGIDO: "isquêmica" → "pálida/esbranquiçada" (diascopia positiva é o achado correto)
         anamnese: "Criança com mancha purpúrea na língua desde o nascimento. A lesão torna-se pálida e esbranquiçada sob pressão (diascopia positiva).", 
         dicas: ["Proliferação benigna de vasos sanguíneos.", "Teste de vitropressão (diascopia) positivo: lesão desaparece ou empalidece sob pressão."],
         dicaExtra: "Muitos hemangiomas infantis regridem espontaneamente até os 7-10 anos de idade."
@@ -132,7 +128,6 @@ const bancoDeLesoes = [
     { 
         nome: "sialometaplasia necrosante", 
         url: "img/sialometaplasia.jpg", 
-        // CORRIGIDO: "anestesia" → "hipoestesia" (mais preciso clinicamente)
         anamnese: "Úlcera crateriforme profunda no palato. O paciente relata dor intensa na fase inicial, com diminuição progressiva da sensibilidade (hipoestesia) na fase ulcerada.", 
         dicas: ["Pode ser confundida com carcinoma maligno.", "Condição inflamatória autolimitada (cura em 6-10 semanas)."],
         dicaExtra: "Resultante de isquemia tecidual e infarto das glândulas salivares menores do palato."
@@ -155,7 +150,6 @@ const bancoDeLesoes = [
         nome: "papiloma escamoso", 
         url: "img/papiloma.jpg", 
         anamnese: "Nódulo pediculado com projeções digitiformes (semelhante a couve-flor) na ponta da língua.", 
-        // CORRIGIDO: explicitado que HPV 6 e 11 são subtipos de baixo risco oncogênico
         dicas: ["Lesão benigna induzida pelos subtipos 6 e 11 do HPV (baixo risco oncogênico).", "Crescimento verrucoso e benigno."],
         dicaExtra: "Apresenta 'dedos' de epitélio ceratinizado com núcleos de tecido conjuntivo fibrovascular."
     },
@@ -172,17 +166,9 @@ const bancoDeLesoes = [
         anamnese: "Nódulo submucoso amarelado, macio e móvel em mucosa jugal. Vasos sanguíneos superficiais são visíveis.", 
         dicas: ["Tumor benigno de tecido adiposo (gordura).", "Flutua se for colocado em formalina (devido à gordura)."],
         dicaExtra: "O lipoma oral é relativamente incomum comparado ao lipoma de tecidos moles cutâneos."
-    }
-    // ============================================================
-//  NOVAS LESÕES — adicionar ao bancoDeLesoes existente
-//  Basta copiar os objetos abaixo para dentro do array principal
-// ============================================================
+    },
 
-// ─────────────────────────────────────────────────────────────
-//  BLOCO 1 — LESÕES DE MUCOSA FALTANTES
-// ─────────────────────────────────────────────────────────────
-
-    // --- LESÕES BRANCAS / VERMELHAS ---
+    // BLOCO 1 — LESÕES DE MUCOSA FALTANTES
 
     { 
         nome: "queilite actínica",
@@ -224,9 +210,6 @@ const bancoDeLesoes = [
         ],
         dicaExtra: "Difere da candidíase pseudomembranosa por não apresentar placas removíveis; o diagnóstico pode exigir cultura ou citologia esfoliativa."
     },
-
-    // --- LESÕES PIGMENTADAS ---
-
     { 
         nome: "tatuagem de amálgama",
         url: "img/tatuagem_amalgama.jpg",
@@ -247,9 +230,6 @@ const bancoDeLesoes = [
         ],
         dicaExtra: "Não confundir com candidíase ou leucoplasia; a característica amarelada puntiforme e a ausência de sintomas são diagnósticas."
     },
-
-    // --- LESÕES REACIONAIS / VIRAIS ---
-
     { 
         nome: "fibroma traumático",
         url: "img/fibroma_traumatico.jpg",
@@ -281,12 +261,7 @@ const bancoDeLesoes = [
         dicaExtra: "A localização em mucosa ceratinizada e o agrupamento de úlceras são a chave diferencial com a estomatite aftosa recorrente."
     },
 
-// ─────────────────────────────────────────────────────────────
-//  BLOCO 2 — PATOLOGIAS ÓSSEAS ORAIS
-//  (trocar URLs quando definir as imagens)
-// ─────────────────────────────────────────────────────────────
-
-    // --- CISTOS ODONTOGÊNICOS ---
+    // BLOCO 2 — PATOLOGIAS ÓSSEAS ORAIS
 
     { 
         nome: "cisto dentígero",
@@ -328,9 +303,6 @@ const bancoDeLesoes = [
         ],
         dicaExtra: "Tratamento é cirúrgico (enucleação). Pode crescer lentamente e causar reabsorção óssea se não tratado."
     },
-
-    // --- TUMORES ODONTOGÊNICOS ---
-
     { 
         nome: "ameloblastoma",
         url: "img/ameloblastoma.jpg",
@@ -361,9 +333,6 @@ const bancoDeLesoes = [
         ],
         dicaExtra: "Frequentemente causa inclusão de dente permanente adjacente. Tratamento: enucleação simples; recidiva é rara."
     },
-
-    // --- LESÕES ÓSSEAS NÃO ODONTOGÊNICAS ---
-
     { 
         nome: "displasia fibrosa",
         url: "img/displasia_fibrosa.jpg",
@@ -393,8 +362,9 @@ const bancoDeLesoes = [
             "Espículas ósseas em 'raios de sol' e triângulo de Codman são achados radiográficos clássicos."
         ],
         dicaExtra: "O osteossarcoma dos maxilares ocorre em média uma década mais tarde que o esquelético e tem prognóstico ligeiramente melhor. Tratamento: cirurgia + quimioterapia."
-    },
+    }
 ];
+
 let filaDeJogo = [];
 let currentCaseIndex = 0;
 let attempts = 0;
@@ -403,11 +373,10 @@ let totalScore = 0;
 let lives = 3;
 let timer;
 let timeLeft = 45;
-let extraHintUsedThisCase = false; 
+let extraHintUsedThisCase = false;
 
-window.onload = () => {
-    document.getElementById('rules-modal').style.display = "flex";
-};
+// BUG FIX 1: Removido window.onload redundante — o modal já inicia visível via
+// style="display:flex" no HTML. O window.onload estava causando conflito.
 
 function fecharRegras() {
     document.getElementById('rules-modal').style.display = "none";
@@ -415,7 +384,6 @@ function fecharRegras() {
 }
 
 function prepararNovoJogo() {
-    // Embaralha o banco completo e seleciona 15 casos aleatórios
     filaDeJogo = [...bancoDeLesoes].sort(() => Math.random() - 0.5).slice(0, 15);
     totalScore = 0;
     currentCaseIndex = 0;
@@ -434,7 +402,7 @@ function loadCase() {
 
     const caso = filaDeJogo[currentCaseIndex];
     const imgElement = document.getElementById('lesion-image');
-    extraHintUsedThisCase = false; 
+    extraHintUsedThisCase = false;
 
     const hintsList = document.getElementById('current-hints-list');
     hintsList.innerHTML = `<div class='hint-item' style='border-left-color: #3498db; background: #f0f7ff;'>
@@ -452,7 +420,7 @@ function loadCase() {
     document.getElementById('case-number').innerText = currentCaseIndex + 1;
     document.getElementById('total-cases').innerText = filaDeJogo.length;
     document.getElementById('review-modal').style.display = "none";
-    
+
     const inputField = document.getElementById('guess-input');
     inputField.value = "";
     inputField.disabled = false;
@@ -481,35 +449,29 @@ function atualizarTimerVisual() {
     d.style.color = timeLeft < 10 ? "#e74c3c" : "white";
 }
 
-// Lógica de Verificação com Tolerância Ortográfica e Pontos Reduzidos
 function checkGuess() {
     const inputField = document.getElementById('guess-input');
-    
-    // Normaliza a entrada do usuário: minúsculo, sem acentos, sem espaços nas pontas
+
     const guess = inputField.value.toLowerCase()
                   .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                   .trim();
-    
-    // Normaliza o nome correto do banco de dados para comparação
+
     const correto = filaDeJogo[currentCaseIndex].nome.toLowerCase()
                     .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     if (guess === correto) {
         clearInterval(timer);
-        
-        // Nova pontuação reduzida:
-        // 0 erros = 25 pts | 1 erro = 15 pts | 2+ erros = 5 pts
+
         let pontosGanhos = 5;
         if (attempts === 0) pontosGanhos = 25;
         else if (attempts === 1) pontosGanhos = 15;
-        
+
         totalScore += pontosGanhos;
         document.getElementById('pts').innerText = totalScore;
         updateRank();
         mostrarNotificacao("CORRETO!", "Excelente olhar clínico.", "#27ae60");
     } else {
         registrarErro();
-        // Feedback visual de erro no input
         inputField.style.borderColor = "#e74c3c";
         setTimeout(() => inputField.style.borderColor = "var(--neville-gold)", 500);
     }
@@ -520,7 +482,7 @@ function registrarErro() {
     const caso = filaDeJogo[currentCaseIndex];
     blurValue = Math.max(0, blurValue - 3);
     document.getElementById('lesion-image').style.filter = `blur(${blurValue}px)`;
-    
+
     if (caso.dicas && caso.dicas[attempts - 1]) {
         const div = document.createElement('div');
         div.className = 'hint-item';
@@ -550,11 +512,13 @@ function mostrarNotificacao(titulo, sub, cor, reiniciar = false) {
     const t = document.getElementById('review-title');
     const txt = document.getElementById('review-text');
     const btn = modal.querySelector('button');
-    
+
     t.innerText = titulo;
     t.style.color = cor;
     let info = sub;
-    if (!reiniciar) {
+
+    // BUG FIX 2: Verificação de índice válido antes de acessar filaDeJogo
+    if (!reiniciar && currentCaseIndex < filaDeJogo.length) {
         info += `<br><br>Diagnóstico: <strong>${filaDeJogo[currentCaseIndex].nome.toUpperCase()}</strong>`;
         btn.onclick = closeReview;
         btn.innerText = "PRÓXIMO CASO";
@@ -562,6 +526,7 @@ function mostrarNotificacao(titulo, sub, cor, reiniciar = false) {
         btn.onclick = () => location.reload();
         btn.innerText = "REINICIAR";
     }
+
     txt.innerHTML = info;
     document.getElementById('lesion-image').style.filter = "blur(0px)";
     modal.style.display = "flex";
@@ -577,10 +542,10 @@ function revealExtraHint() {
         alert("Dica de especialista já utilizada para este caso!");
         return;
     }
-    
+
     timeLeft = Math.max(0, timeLeft - 15);
     atualizarTimerVisual();
-    
+
     const caso = filaDeJogo[currentCaseIndex];
     const div = document.createElement('div');
     div.className = 'hint-item';
@@ -588,7 +553,7 @@ function revealExtraHint() {
     div.style.backgroundColor = "#fff5eb";
     div.innerHTML = `<strong>💡 INSIGHT DO NEVILLE:</strong> ${caso.dicaExtra}`;
     document.getElementById('current-hints-list').appendChild(div);
-    
+
     extraHintUsedThisCase = true;
 }
 
@@ -596,13 +561,16 @@ function fazerBiopsia() {
     if (totalScore >= 10) {
         totalScore -= 10;
         document.getElementById('pts').innerText = totalScore;
-        mostrarNotificacao("BIÓPSIA", "Resultado laboratorial liberado.", "#c5a059");
+        // BUG FIX 3: Biópsia agora exibe a dicaExtra como laudo real
+        const caso = filaDeJogo[currentCaseIndex];
+        const laudoTexto = `Resultado laboratorial liberado.<br><br>
+            <em style="font-size:0.9rem; color:#555;">${caso.dicaExtra}</em>`;
+        mostrarNotificacao("BIÓPSIA", laudoTexto, "#c5a059");
     } else {
         alert("Pontos insuficientes (10 pts)!");
     }
 }
 
-// Ranks ajustados para a nova escala de pontos (Máximo teórico: 375 pts)
 function updateRank() {
     const r = document.getElementById('rank');
     if (totalScore >= 300) r.innerText = "Neville";
@@ -611,6 +579,9 @@ function updateRank() {
     else r.innerText = "Acadêmico";
 }
 
-document.getElementById('guess-input').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') checkGuess();
+// BUG FIX 4: Listener dentro de DOMContentLoaded para garantir que o elemento existe
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('guess-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkGuess();
+    });
 });
