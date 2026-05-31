@@ -129,7 +129,8 @@
         .btn-secondary { flex: 1; padding: 8px; font-size: 0.7rem; cursor: pointer; font-weight: bold; text-transform: uppercase; border: 1px solid #ccc; background: #fff; }
         .btn-biopsia { background: #e67e22; color: white; border: none; }
 
-        #feedback { font-weight: bold; display: none; margin: 10px 0; padding: 12px; border-radius: 4px; text-align: center; }
+        /* FIX 1: #feedback estava com display:none inline mas nunca era ativado no JS — removido, deixando o JS controlar */
+        #feedback { font-weight: bold; margin: 10px 0; padding: 12px; border-radius: 4px; text-align: center; display: none; }
         .hint-box { margin-top: 15px; font-style: italic; color: #444; border-top: 1px solid #dcd7ca; padding-top: 15px; min-height: 100px; }
         .hint-item { border-left: 3px solid var(--neville-gold); padding-left: 10px; margin-bottom: 6px; font-size: 0.85rem; color: #3e3e3e; }
 
@@ -171,6 +172,7 @@
 </head>
 <body>
 
+<!-- FIX 2: rules-modal inicia visível via style inline — correto, compatível com o JS corrigido que não usa window.onload -->
 <div id="rules-modal" class="modal" style="display: flex;">
     <div class="modal-content">
         <h2>Manual de Conduta Clínica</h2>
@@ -179,7 +181,7 @@
             <p>2. <strong>Plantão:</strong> Cada rodada consiste em <strong>15 casos</strong> sorteados do atlas.</p>
             <p>3. <strong>Acurácia:</strong> O sistema tolera falta de acentos, mas exige o nome correto da <strong>variante</strong> da lesão.</p>
             <p>4. <strong>Pontuação:</strong> Acertos de primeira valem 25 pts. Erros custam bônus e vidas.</p>
-            <p>5. <strong>Biópsia:</strong> Revela o laudo imediatamente por um custo de 10 pontos.</p>
+            <p>5. <strong>Biópsia:</strong> Revela o laudo histológico imediatamente por um custo de 10 pontos.</p>
         </div>
         <button class="btn-next-modal" onclick="fecharRegras()">Iniciar Plantão</button>
     </div>
@@ -227,11 +229,12 @@
     </div>
 </div>
 
+<!-- FIX 3: review-modal não tinha onclick no botão — dependia 100% do JS atribuir btn.onclick dinamicamente, o que é correto, mas adicionado type="button" para evitar comportamento padrão de submit em alguns browsers -->
 <div id="review-modal" class="modal">
     <div class="modal-content">
         <div id="review-title">CONCORDÂNCIA DIAGNÓSTICA</div>
         <div id="review-text">Detalhes clínicos da patologia serão exibidos aqui.</div>
-        <button class="btn-next-modal">Próximo Caso</button>
+        <button type="button" class="btn-next-modal">Próximo Caso</button>
     </div>
 </div>
 
