@@ -32,7 +32,8 @@ const bancoDeLesoes = [
         url: "img/leucoplasia.jpg", 
         anamnese: "Masc, 58 anos, fumante. Placa branca solitária em borda lateral de língua, persistente e não removível à raspagem.", 
         dicas: ["Termo clínico para placa branca que não sai por meios mecânicos.", "Diagnóstico de exclusão clínica."],
-        dicaExtra: "Cerca de 90% das leucoplasias de assoalho de boca exibem displasia epitelial ou carcinoma no diagnóstico inicial."
+        // CORRIGIDO: o percentual de displasia em leucoplasias de assoalho é ~40-50%, não 90%
+        dicaExtra: "Leucoplasias localizadas no assoalho de boca e ventre lingual apresentam maior risco de displasia epitelial, sendo indicada biópsia em todos os casos persistentes."
     },
     { 
         nome: "candidíase pseudomembranosa", 
@@ -44,7 +45,8 @@ const bancoDeLesoes = [
     { 
         nome: "carcinoma espinocelular oral", 
         url: "img/cec.jpg", 
-        anamnese: "Etilista e tabagista crônico com úlcera em assoalho de boca há mais de 3 semanas. Bordas endurecidas (exofíticas) e infiltradas.", 
+        // CORRIGIDO: "exofíticas" substituído por descrição clinicamente coerente com bordas infiltradas
+        anamnese: "Etilista e tabagista crônico com úlcera em assoalho de boca há mais de 3 semanas. Bordas endurecidas, indolores e infiltradas à palpação.", 
         dicas: ["Neoplasia maligna epitelial mais comum na boca.", "Muitas vezes associada a áreas de eritroplasia prévias."],
         dicaExtra: "A invasão através da membrana basal é o marcador histológico fundamental da malignidade."
     },
@@ -63,11 +65,12 @@ const bancoDeLesoes = [
         dicaExtra: "Diferencia-se do cisto de retenção salivar verdadeiro por não possuir revestimento epitelial."
     },
     { 
-        nome: "eritoplasia", 
+        // CORRIGIDO: "eritoplasia" → "eritroplasia"
+        nome: "eritroplasia", 
         url: "img/eritoplasia.jpg", 
         anamnese: "Mancha vermelha, aveludada e bem demarcada em palato mole. Paciente assintomático.", 
         dicas: ["Lesão cancerizável com altíssimo risco de transformação.", "Deve ser biopsiada imediatamente."],
-        dicaExtra: "Diferente da leucoplasia, a eritoplasia quase sempre revela displasia grave ou carcinoma in situ na biópsia."
+        dicaExtra: "Diferente da leucoplasia, a eritroplasia quase sempre revela displasia grave ou carcinoma in situ na biópsia."
     },
     { 
         nome: "queilite angular", 
@@ -79,8 +82,9 @@ const bancoDeLesoes = [
     { 
         nome: "hemangioma", 
         url: "img/hemangioma.jpg", 
-        anamnese: "Criança com mancha purpúrea na língua desde o nascimento. A lesão torna-se isquêmica sob pressão.", 
-        dicas: ["Proliferação benigna de vasos sanguíneos.", "Teste de vitropressão (diascopia) positivo."],
+        // CORRIGIDO: "isquêmica" → "pálida/esbranquiçada" (diascopia positiva é o achado correto)
+        anamnese: "Criança com mancha purpúrea na língua desde o nascimento. A lesão torna-se pálida e esbranquiçada sob pressão (diascopia positiva).", 
+        dicas: ["Proliferação benigna de vasos sanguíneos.", "Teste de vitropressão (diascopia) positivo: lesão desaparece ou empalidece sob pressão."],
         dicaExtra: "Muitos hemangiomas infantis regridem espontaneamente até os 7-10 anos de idade."
     },
     { 
@@ -101,7 +105,7 @@ const bancoDeLesoes = [
         nome: "estomatite nicotínica", 
         url: "img/estomatite_nicotinica.jpg", 
         anamnese: "Palato com aspecto esbranquiçado e múltiplos pontos vermelhos. Paciente relata fumar cachimbo há décadas.", 
-        dicas: ["Resposta ao calor gerado pelo fumo no palato.", "Pontos vermelhos são ductos inflamados das glândulas salivares."],
+        dicas: ["Resposta ao calor gerado pelo fumo no palato.", "Pontos vermelhos são ductos inflamados das glândulas salivares menores."],
         dicaExtra: "Raramente evolui para câncer, sendo considerada uma alteração reacional ao calor."
     },
     { 
@@ -128,7 +132,8 @@ const bancoDeLesoes = [
     { 
         nome: "sialometaplasia necrosante", 
         url: "img/sialometaplasia.jpg", 
-        anamnese: "Úlcera crateriforme profunda no palato. O paciente relata dor inicial intensa seguida de anestesia.", 
+        // CORRIGIDO: "anestesia" → "hipoestesia" (mais preciso clinicamente)
+        anamnese: "Úlcera crateriforme profunda no palato. O paciente relata dor intensa na fase inicial, com diminuição progressiva da sensibilidade (hipoestesia) na fase ulcerada.", 
         dicas: ["Pode ser confundida com carcinoma maligno.", "Condição inflamatória autolimitada (cura em 6-10 semanas)."],
         dicaExtra: "Resultante de isquemia tecidual e infarto das glândulas salivares menores do palato."
     },
@@ -150,14 +155,15 @@ const bancoDeLesoes = [
         nome: "papiloma escamoso", 
         url: "img/papiloma.jpg", 
         anamnese: "Nódulo pediculado com projeções digitiformes (semelhante a couve-flor) na ponta da língua.", 
-        dicas: ["Lesão induzida pelos subtipos 6 e 11 do HPV.", "Crescimento verrucoso e benigno."],
+        // CORRIGIDO: explicitado que HPV 6 e 11 são subtipos de baixo risco oncogênico
+        dicas: ["Lesão benigna induzida pelos subtipos 6 e 11 do HPV (baixo risco oncogênico).", "Crescimento verrucoso e benigno."],
         dicaExtra: "Apresenta 'dedos' de epitélio ceratinizado com núcleos de tecido conjuntivo fibrovascular."
     },
     { 
         nome: "condiloma acuminado", 
         url: "img/condiloma.jpg", 
         anamnese: "Múltiplas massas verrucosas sésseis que tendem a coalescer no palato e gengiva. Paciente sexualmente ativo.", 
-        dicas: ["DST causada por subtipos de HPV de baixo risco.", "Lesões maiores e mais numerosas que o papiloma comum."],
+        dicas: ["DST causada por subtipos de HPV de baixo risco (6 e 11).", "Lesões maiores e mais numerosas que o papiloma comum."],
         dicaExtra: "Presença histológica de coilócitos (células epiteliais com núcleos picnóticos e halo claro)."
     },
     { 
